@@ -1,0 +1,14 @@
+.toolbar {
+  display: flex;
+  flex-direction: row;
+}
+
+.student {
+
+  .studentContent{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+  }
+}

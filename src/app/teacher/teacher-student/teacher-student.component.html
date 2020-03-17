@@ -1,1 +1,25 @@
-<p>teacher-student works!</p>
+<mat-toolbar class="toolbar">
+  <p>Actions Globales</p>
+  <div>
+    <button class="button is-link">Modifier le temps à tout le monde</button>
+  </div>
+  <div>
+    <button class="button is-success">Tout le monde présent</button>
+  </div>
+</mat-toolbar>
+<h1>Liste des stagiaires</h1>
+<mat-list role="list">
+  <mat-list-item role="listitem" *ngFor="let s of students" class="student">
+    <mat-card class="studentContent">
+      <h1>{{s.firstname}} {{s.lastname}}</h1>
+      <p> + 0800 </p>
+      <div>
+        <button class="button is-success">modification temps</button>
+      </div>
+      <div>
+        <button class="button is-warning">modification présence</button>
+      </div>
+    </mat-card>
+  </mat-list-item>
+
+</mat-list>

@@ -6,7 +6,7 @@
   background-color: green;
 }
 
-.content{
+.app{
   height: 100%;
   background-color: transparent;
 
@@ -14,8 +14,10 @@
     background-color: black;
   }
 
-  .main {
-
+  .content {
+    background-color: transparent;
+    height: 100%;
+    width: 100%;
   }
 }
 

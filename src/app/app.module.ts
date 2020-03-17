@@ -9,6 +9,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatListModule } from '@angular/material/list';
+import { MatCardModule } from '@angular/material/card';
+import { MatTableModule } from '@angular/material/table';
+
 
 
 import { TeacherLoginComponent } from './teacher/teacher-login/teacher-login.component';
@@ -45,6 +49,9 @@ import { StudentMessageComponent } from './student/student-message/student-messa
     MatSidenavModule,
     ReactiveFormsModule,
     MatDialogModule,
+    MatListModule,
+    MatCardModule,
+    MatTableModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

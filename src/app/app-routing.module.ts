@@ -13,6 +13,7 @@ import { TeacherInfoComponent} from './teacher/teacher-info/teacher-info.compone
 
 const routes: Routes = [
   { path: '', redirectTo: '/student', pathMatch: 'full' },
+  { path: 'teacher', redirectTo: '/teacher/dashboard', pathMatch: 'full' },
   {
     path: 'student',
     component: StudentMainComponent
