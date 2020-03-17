@@ -1,0 +1,57 @@
+<mat-toolbar>
+  <mat-toolbar-row class="toolbar">
+    <h1>Pointeuse V2.0</h1>
+    <div>
+      <button class="button is-danger has-text-white">
+        <i class="fas fa-sign-out-alt"></i>
+      </button>
+    </div>
+
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-drawer-container class="content">
+  <mat-drawer mode="side" opened  class="sidenav" >
+    <ul>
+      <a class="menu-item" routerLink="dashboard">
+        <p>Vue Globale</p>
+      </a>
+      <a class="menu-item" routerLink="student">
+        <p>Stagiaires</p>
+      </a>
+      <a class="menu-item" routerLink="stat">
+        <p>Statistiques</p>
+      </a>
+      <a class="menu-item" routerLink="setting">
+        <p>Paramètres</p>
+      </a>
+      <a class="menu-item" routerLink="info">
+        <p>Infos</p>
+      </a>
+    </ul>
+
+  </mat-drawer>
+  <mat-drawer-content class="main">
+
+    <div  *ngIf="1">
+      <app-teacher-dashboard></app-teacher-dashboard>
+    </div>
+
+    <div *ngIf="0">
+      <app-teacher-student></app-teacher-student>
+    </div>
+
+    <div *ngIf="0">
+      <app-teacher-stat></app-teacher-stat>
+    </div>
+
+    <div *ngIf="0">
+      <app-teacher-setting></app-teacher-setting>
+    </div>
+
+    <div *ngIf="0">
+      <app-teacher-info></app-teacher-info>
+    </div>
+
+  </mat-drawer-content>
+</mat-drawer-container>

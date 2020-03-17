@@ -1,0 +1,32 @@
+.toolbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 14px;
+  background-color: green;
+}
+
+.content{
+  height: 100%;
+  background-color: transparent;
+
+  .sidenav {
+    background-color: black;
+  }
+
+  .main {
+
+  }
+}
+
+.menu-item {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  padding:  50px;
+  font-size: 3em;
+
+  width:100%;
+  color: white;
+  margin-bottom: 5px;
+}
