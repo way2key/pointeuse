@@ -5,15 +5,37 @@ import { StudentInfoComponent } from './student/student-info/student-info.compon
 import { StudentMessageComponent } from './student/student-message/student-message.component';
 import { TeacherLoginComponent } from './teacher/teacher-login/teacher-login.component';
 import { TeacherMainComponent } from './teacher/teacher-main/teacher-main.component';
-
+import { TeacherDashboardComponent} from './teacher/teacher-dashboard/teacher-dashboard.component';
+import { TeacherStudentComponent} from './teacher/teacher-student/teacher-student.component';
+import { TeacherStatComponent} from './teacher/teacher-stat/teacher-stat.component';
+import { TeacherSettingComponent} from './teacher/teacher-setting/teacher-setting.component';
+import { TeacherInfoComponent} from './teacher/teacher-info/teacher-info.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/student', pathMatch: 'full' },
-  { path: 'student', component: StudentMainComponent },
-  { path: 'student/info', component: StudentInfoComponent },
-  { path: 'student/message', component: StudentMessageComponent },
-  { path: 'teacher/dashboard', component: TeacherMainComponent },
-  { path: 'teacher/login', component: TeacherLoginComponent },
+  {
+    path: 'student',
+    component: StudentMainComponent
+  },
+  {
+    path: 'teacher',
+    component: TeacherMainComponent,
+    children:[
+      {path:"dashboard" , component: TeacherDashboardComponent},
+      {path:"student"   , component: TeacherStudentComponent},
+      {path:"stat"      , component: TeacherStatComponent},
+      {path:"setting"   , component: TeacherSettingComponent},
+      {path:"info"      , component: TeacherInfoComponent},
+    ]
+  },
+  {
+    path: 'teacher/login',
+    component: TeacherLoginComponent
+  },
+  {
+    path: '**',
+    component: StudentMainComponent
+  }
 ];
 
 @NgModule({

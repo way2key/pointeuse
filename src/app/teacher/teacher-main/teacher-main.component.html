@@ -12,46 +12,17 @@
 
 <mat-drawer-container class="content">
   <mat-drawer mode="side" opened  class="sidenav" >
-    <ul>
-      <a class="menu-item" routerLink="dashboard">
-        <p>Vue Globale</p>
-      </a>
-      <a class="menu-item" routerLink="student">
-        <p>Stagiaires</p>
-      </a>
-      <a class="menu-item" routerLink="stat">
-        <p>Statistiques</p>
-      </a>
-      <a class="menu-item" routerLink="setting">
-        <p>Paramètres</p>
-      </a>
-      <a class="menu-item" routerLink="info">
-        <p>Infos</p>
-      </a>
-    </ul>
+    <nav>
+      <a class="menu-item" routerLinkActive="active" routerLink="dashboard">Vue Globale</a>
+      <a class="menu-item" routerLinkActive="active" routerLink="student">Stagiaires</a>
+      <a class="menu-item" routerLinkActive="active" routerLink="stat">Statistiques</a>
+      <a class="menu-item" routerLinkActive="active" routerLink="setting">Paramètres</a>
+      <a class="menu-item" routerLinkActive="active" routerLink="info">Infos</a>
+    </nav>
 
   </mat-drawer>
   <mat-drawer-content class="main">
-
-    <div  *ngIf="1">
-      <app-teacher-dashboard></app-teacher-dashboard>
-    </div>
-
-    <div *ngIf="0">
-      <app-teacher-student></app-teacher-student>
-    </div>
-
-    <div *ngIf="0">
-      <app-teacher-stat></app-teacher-stat>
-    </div>
-
-    <div *ngIf="0">
-      <app-teacher-setting></app-teacher-setting>
-    </div>
-
-    <div *ngIf="0">
-      <app-teacher-info></app-teacher-info>
-    </div>
-
+    <router-outlet></router-outlet>
+  
   </mat-drawer-content>
 </mat-drawer-container>
