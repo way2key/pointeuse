@@ -8,6 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 import { TeacherLoginComponent } from './teacher/teacher-login/teacher-login.component';
@@ -35,6 +36,7 @@ import { StudentMessageComponent } from './student/student-message/student-messa
     StudentInfoComponent,
     StudentMessageComponent,
   ],
+  entryComponents:[StudentInfoComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -42,6 +44,7 @@ import { StudentMessageComponent } from './student/student-message/student-messa
     MatToolbarModule,
     MatSidenavModule,
     ReactiveFormsModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { StudentInfoComponent } from '../student-info/student-info.component';
 
 @Component({
   selector: 'app-student-main',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StudentMainComponent implements OnInit {
 
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit(): void {
+  }
+
+  showInfo(): void {
+    console.log("da");
+    this.dialog.open(StudentInfoComponent);
   }
 
 }
