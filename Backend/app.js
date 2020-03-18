@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const db = require('./database/db')
-const teacherStudentRoute = require('./route/teacher-student.js');
+const teacherStudentRoute = require('./route/teacher-student-route.js');
 const app = express();
 
 app.use((req, res, next) => {

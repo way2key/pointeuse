@@ -6,4 +6,4 @@ const studentSchema = mongoose.Schema({
   hash: {type: String, required:true}
 });
 
-module.exports = mongoose.model('student', studentSchema);
+module.exports = mongoose.model('Student', studentSchema);

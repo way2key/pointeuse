@@ -1,4 +1,4 @@
-const Student = require('../data-schematic/teacher-student');
+const Student = require('../data-schematic/teacher-student-model');
 
 exports.addStudent = (req, res)=>{
   delete req.body._id;
