@@ -10,6 +10,7 @@ import { TeacherStudentComponent} from './teacher/teacher-student/teacher-studen
 import { TeacherStatComponent} from './teacher/teacher-stat/teacher-stat.component';
 import { TeacherSettingComponent} from './teacher/teacher-setting/teacher-setting.component';
 import { TeacherInfoComponent} from './teacher/teacher-info/teacher-info.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/student', pathMatch: 'full' },
@@ -35,7 +36,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    component: StudentMainComponent
+    component: PageNotFoundComponent
   }
 ];
 
