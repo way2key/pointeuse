@@ -1,9 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const Student = require('./model/student');
 
 const db = require('./database/db')
-
+const teacherStudentRoute = require('./route/teacher-student.js');
 const app = express();
 
 app.use((req, res, next) => {
@@ -15,16 +14,7 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.json());
 
+app.use('/api/teacher-student-addStudent', teacherStudentRoute);
 
-//Post
-app.post('/api/student', (req, res)=>{
-  delete req.body._id;
-  const student = new Student({
-    ...req.body
-  });
-  student.save()
-  .then(() => res.status(201).json({ message: 'Student enregistré'}))
-  .catch(error => res.status(400).json({error}));
-})
 
 module.exports = app;
