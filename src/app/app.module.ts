@@ -25,7 +25,6 @@ import { TeacherDashboardComponent } from './teacher/teacher-dashboard/teacher-d
 import { StudentMainComponent } from './student/student-main/student-main.component';
 import { StudentInfoComponent } from './student/student-info/student-info.component';
 import { StudentMessageComponent } from './student/student-message/student-message.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +39,6 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     StudentMainComponent,
     StudentInfoComponent,
     StudentMessageComponent,
-    PageNotFoundComponent,
   ],
   entryComponents:[StudentInfoComponent],
   imports: [
