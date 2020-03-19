@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { TeacherStudentService } from '../teacher-student.service';
+
 
 @Component({
   selector: 'app-teacher-student',
@@ -7,20 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class TeacherStudentComponent implements OnInit {
+  students = [];
+  constructor(private teacherStudentService: TeacherStudentService) { }
 
-  public students = [
-    {firstname: 'mojojojo', lastname: 'Hydrogen'},
-    {firstname: 'mojojojo', lastname: 'Helium'},
-    {firstname: 'mojojojo', lastname: 'Lithium'},
-    {firstname: 'mojojojo', lastname: 'Beryllium'},
-    {firstname: 'mojojojo', lastname: 'Boron'},
-    {firstname: 'mojojojo', lastname: 'Carbon'},
-    {firstname: 'mojojojo', lastname: 'Nitrogen'},
-    {firstname: 'mojojojo', lastname: 'Oxygen'},
-    {firstname: 'mojojojo', lastname: 'Fluorine'}
-  ];
+  ngOnInit(): void {
+    this.getStudents();
+  }
 
-  constructor() { }
-
-  ngOnInit(): void {}
+  getStudents(): void {
+    this.teacherStudentService.getAllStudents()
+    .subscribe(dbStudents => this.students = dbStudents);
+  }
 }
