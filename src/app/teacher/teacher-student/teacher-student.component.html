@@ -1,29 +1,25 @@
 <mat-toolbar class="toolbar">
   <p>Actions Globales</p>
-  <div>
+  <div class="buttons has-addons">
     <button class="button is-link">Modifier le temps à tout le monde</button>
-  </div>
-  <div>
     <button class="button is-success">Tout le monde présent</button>
   </div>
 </mat-toolbar>
 <h1>Liste des stagiaires</h1>
 <mat-list role="list">
   <mat-list-item role="listitem" *ngFor="let s of students" class="student">
-    <mat-card class="studentContent">
-      <h1>{{s.firstname}} {{s.lastname}}</h1>
-      <i class="fas fa-coffee"></i>
-      <i class="fas fa-check"></i>
-      <i class="fas fa-calendar-times"></i>
-      <i class="fas fa-calendar-check"></i>
-      <p> + 0800 </p>
-      <div>
-        <button class="button is-success">modification temps</button>
-      </div>
-      <div>
-        <button class="button is-warning">modification présence</button>
-      </div>
-    </mat-card>
+    <h1>{{s.firstname}} {{s.lastname}}</h1>
+    <mat-divider [vertical]="true"></mat-divider>
+    <i class="fas fa-coffee"></i>
+    <i class="fas fa-check"></i>
+    <i class="fas fa-calendar-times"></i>
+    <i class="fas fa-calendar-check"></i>
+    <mat-divider [vertical]="true"></mat-divider>
+    <p> + 0800 </p>
+    <div class="buttons has-addons">
+      <button class="button is-success">modification temps</button>
+      <button class="button is-warning">modification présence</button>
+    </div>
   </mat-list-item>
 
 </mat-list>

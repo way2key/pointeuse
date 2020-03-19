@@ -1,14 +1,14 @@
 .toolbar {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
 }
 
 .student {
-  width: 100px;
-  .studentContent{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-  }
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  border-radius: 10px;
+  background-color: darkgrey;
+  margin: 4px;
 }
