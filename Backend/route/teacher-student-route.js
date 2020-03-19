@@ -1,8 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const teacherStudentControler = require('../controller/teacher-student-ctrl.js');
 
-//Post
-router.post('/', teacherStudentControler.addStudent);
+const teacherStudentController = require('../controller/teacher-student-controller');
+
+//Routes
+router.post('/', teacherStudentController.addUser);
+router.get('/:id', teacherStudentController.getAStudent);
+router.get('/', teacherStudentController.getAllStudents);
 
 module.exports = router;

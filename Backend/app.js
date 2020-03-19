@@ -14,7 +14,7 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.json());
 
-app.use('/api/teacher-student-addStudent', teacherStudentRoute);
+app.use('/api/teacher-student', teacherStudentRoute);
 
 
 module.exports = app;
