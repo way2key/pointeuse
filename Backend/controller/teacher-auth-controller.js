@@ -3,13 +3,11 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 exports.login = (req, res, next) => {
-  console.log(req.body);
   User.findOne({firstname: req.body.username})
   .then(usr =>{
     if(!usr){
       return res.status(401).json({error: "Utilisateur inexistant ou Mot de passe incorrect"});
     }
-    console.log(req.body.password, usr.password);
     bcrypt.compare(req.body.password, usr.password)
     .then(valid =>{
       if(!valid){
@@ -19,7 +17,7 @@ exports.login = (req, res, next) => {
         userId: usr._id,
         token: jwt.sign(
           {userId: usr._id},
-          'Random_TOKEN_Secret',
+          'h8foDJSALpb7A1pG0A9QEK4D33n65xYY',
           { expiresIn: '24h'}
         )
       });

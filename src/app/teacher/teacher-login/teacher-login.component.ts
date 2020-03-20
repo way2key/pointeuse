@@ -21,7 +21,10 @@ export class TeacherLoginComponent implements OnInit {
     console.log(this.loginForm.value);
     this.teacherLoginService.logUserIn(this.loginForm.value).
     subscribe(
-      res => console.log(res),
+      res => {
+        console.log(res);
+        localStorage.setItem('token',res.token);
+      },
       err => console.log(err)
     )
   }
