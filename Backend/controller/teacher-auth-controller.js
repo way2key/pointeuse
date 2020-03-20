@@ -1,12 +1,15 @@
 const User = require('../data-schematic/user-schematic');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 exports.login = (req, res, next) => {
+  console.log(req.body);
   User.findOne({firstname: req.body.username})
   .then(usr =>{
     if(!usr){
       return res.status(401).json({error: "Utilisateur inexistant ou Mot de passe incorrect"});
     }
+    console.log(req.body.password, usr.password);
     bcrypt.compare(req.body.password, usr.password)
     .then(valid =>{
       if(!valid){
@@ -14,7 +17,11 @@ exports.login = (req, res, next) => {
       }
       res.status(200).json({
         userId: usr._id,
-        token: 'TOKEN'
+        token: jwt.sign(
+          {userId: usr._id},
+          'Random_TOKEN_Secret',
+          { expiresIn: '24h'}
+        )
       });
     })
     .catch(error => res.status(500).json({ error }));
