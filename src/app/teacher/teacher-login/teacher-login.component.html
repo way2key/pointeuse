@@ -24,9 +24,9 @@
 
       <div class="field is-pulled-right">
         <p class="control">
-          <a class="button is-success has-text-white" type="submit" routerLink="../dashboard">
+          <button class="button is-success has-text-white" type="submit" [disabled]="!loginForm.valid" routerLink="../dashboard">
             <i class="fas fa-sign-in-alt"></i>
-          </a>
+          </button>
         </p>
       </div>
     </form>
