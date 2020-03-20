@@ -3,7 +3,8 @@
   <mat-divider></mat-divider>
   <br>
   <p>Olivier D'Ancona</p>
-  <span class="tag is-danger is-large" >OUT</span>
+  <span *ngIf = "!studentStatus" class="tag is-danger is-large" >OUT</span>
+  <span *ngIf = "studentStatus" class="tag is-success is-large" >IN</span>
   <mat-divider></mat-divider>
   <canvas id="canvas" width="800" height="350"></canvas>
   <mat-divider></mat-divider>
