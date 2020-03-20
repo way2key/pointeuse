@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule }    from '@angular/common/http';
 
+//Modules
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -15,7 +16,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 
 
-
+//Components
 import { TeacherLoginComponent } from './teacher/teacher-login/teacher-login.component';
 import { TeacherMainComponent } from './teacher/teacher-main/teacher-main.component';
 import { TeacherStudentComponent } from './teacher/teacher-student/teacher-student.component';
@@ -27,6 +28,9 @@ import { StudentMainComponent } from './student/student-main/student-main.compon
 import { StudentInfoComponent } from './student/student-info/student-info.component';
 import { StudentMessageComponent } from './student/student-message/student-message.component';
 import { StudentTestCardComponent } from './student/student-test-card/student-test-card.component';
+
+//Guards
+import { TeacherAuthGuard } from './teacher/teacher-auth.guard';
 
 @NgModule({
   declarations: [
@@ -58,7 +62,7 @@ import { StudentTestCardComponent } from './student/student-test-card/student-te
     MatTableModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [TeacherAuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
