@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { TeacherLoginService } from '../teacher-login.service';
+import { TeacherAuthService } from '../teacher-auth.service';
 
 @Component({
   selector: 'app-teacher-login',
@@ -12,14 +12,14 @@ export class TeacherLoginComponent implements OnInit {
     username: new FormControl(''),
     password: new FormControl(''),
   });
-  constructor(private teacherLoginService: TeacherLoginService) { }
+  constructor(private teacherAuthService: TeacherAuthService) { }
 
   ngOnInit(): void {
   }
 
   logUserIn(): void {
     console.log(this.loginForm.value);
-    this.teacherLoginService.logUserIn(this.loginForm.value).
+    this.teacherAuthService.logUserIn(this.loginForm.value).
     subscribe(
       res => {
         console.log(res);

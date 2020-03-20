@@ -5,11 +5,12 @@ import { StudentInfoComponent } from './student/student-info/student-info.compon
 import { StudentMessageComponent } from './student/student-message/student-message.component';
 import { TeacherLoginComponent } from './teacher/teacher-login/teacher-login.component';
 import { TeacherMainComponent } from './teacher/teacher-main/teacher-main.component';
-import { TeacherDashboardComponent} from './teacher/teacher-dashboard/teacher-dashboard.component';
-import { TeacherStudentComponent} from './teacher/teacher-student/teacher-student.component';
-import { TeacherStatComponent} from './teacher/teacher-stat/teacher-stat.component';
-import { TeacherSettingComponent} from './teacher/teacher-setting/teacher-setting.component';
-import { TeacherInfoComponent} from './teacher/teacher-info/teacher-info.component';
+import { TeacherDashboardComponent } from './teacher/teacher-dashboard/teacher-dashboard.component';
+import { TeacherStudentComponent } from './teacher/teacher-student/teacher-student.component';
+import { TeacherStatComponent } from './teacher/teacher-stat/teacher-stat.component';
+import { TeacherSettingComponent } from './teacher/teacher-setting/teacher-setting.component';
+import { TeacherInfoComponent } from './teacher/teacher-info/teacher-info.component';
+import { TeacherAuthGuard } from './teacher/teacher-auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/student', pathMatch: 'full' },
@@ -21,6 +22,7 @@ const routes: Routes = [
   {
     path: 'teacher',
     component: TeacherMainComponent,
+    canActivate: [TeacherAuthGuard],
     children:[
       {path:"dashboard" , component: TeacherDashboardComponent},
       {path:"student"   , component: TeacherStudentComponent},
@@ -28,6 +30,7 @@ const routes: Routes = [
       {path:"setting"   , component: TeacherSettingComponent},
       {path:"info"      , component: TeacherInfoComponent},
     ]
+
   },
   {
     path: 'teacher/login',
