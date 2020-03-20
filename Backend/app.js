@@ -2,7 +2,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const db = require('./database/db')
+
 const teacherStudentRoute = require('./route/teacher-student-route.js');
+const teacherAuthRoute = require('./route/teacher-auth-route.js');
+
 const app = express();
 
 app.use((req, res, next) => {
@@ -15,6 +18,7 @@ app.use((req, res, next) => {
 app.use(bodyParser.json());
 
 app.use('/api/teacher-student', teacherStudentRoute);
+app.use('/api/teacher-auth', teacherAuthRoute);
 
 
 module.exports = app;
