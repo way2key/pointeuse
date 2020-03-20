@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule }    from '@angular/common/http';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -26,6 +26,7 @@ import { TeacherDashboardComponent } from './teacher/teacher-dashboard/teacher-d
 import { StudentMainComponent } from './student/student-main/student-main.component';
 import { StudentInfoComponent } from './student/student-info/student-info.component';
 import { StudentMessageComponent } from './student/student-message/student-message.component';
+import { StudentTestCardComponent } from './student/student-test-card/student-test-card.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { StudentMessageComponent } from './student/student-message/student-messa
     StudentMainComponent,
     StudentInfoComponent,
     StudentMessageComponent,
+    StudentTestCardComponent,
   ],
   entryComponents:[StudentInfoComponent],
   imports: [
@@ -48,6 +50,7 @@ import { StudentMessageComponent } from './student/student-message/student-messa
     BrowserAnimationsModule,
     MatToolbarModule,
     MatSidenavModule,
+    FormsModule,
     ReactiveFormsModule,
     MatDialogModule,
     MatListModule,

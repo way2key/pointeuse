@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { StudentInfoComponent } from '../student-info/student-info.component';
 import { StudentMessageComponent } from '../student-message/student-message.component';
+import { StudentTestCardComponent } from '../student-test-card/student-test-card.component';
 
 @Component({
   selector: 'app-student-main',
