@@ -1,4 +1,37 @@
-<h1> Mot de passe </h1>
-<h1> Horaire </h1>
-<h1> Interface </h1>
-<h1> Administrateurs </h1>
+
+<div class="login-box">
+  <h1 class="title">Mot de passe</h1>
+  <form [formGroup]="changePasswordForm" (ngSubmit)="changePassword()">
+    <h2> Nouveau mot de passe </h2>
+    <div class="field">
+      <p class="control has-icons-left">
+        <input class="input has-background-light" type="password" placeholder="Password" formControlName="newPassword">
+        <span class="icon is-small is-left">
+          <i class="fas fa-lock"></i>
+        </span>
+      </p>
+    </div>
+
+    <div class="field">
+      <h2> Confirmez le nouveau mot de passe </h2>
+      <p class="control has-icons-left">
+        <input class="input has-background-light" type="password" placeholder="Password" formControlName="confirmPassword">
+        <span class="icon is-small is-left">
+          <i class="fas fa-lock"></i>
+        </span>
+      </p>
+    </div>
+
+    <div class="field is-pulled-right">
+      <p class="control">
+        <button class="button is-success has-text-white" type="submit" [disabled]="!changePasswordForm.valid">
+          <i class="fas fa-sign-in-alt"></i>
+        </button>
+      </p>
+    </div>
+  </form>
+</div>
+
+<h1 class="title"> Horaire </h1>
+<h1 class="title"> Interface </h1>
+<h1 class="title"> Administrateurs </h1>

@@ -19,11 +19,9 @@ export class TeacherLoginComponent implements OnInit {
   }
 
   logUserIn(): void {
-    console.log(this.loginForm.value);
     this.teacherAuthService.logUserIn(this.loginForm.value).
     subscribe(
       res => {
-        console.log(res);
         localStorage.setItem('token',res.token);
         this.router.navigate(['teacher/dashboard']);
       },

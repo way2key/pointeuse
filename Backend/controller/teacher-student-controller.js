@@ -11,3 +11,7 @@ exports.getAStudent = (req, res)=>{
   .then(student => res.status(200).json(student))
   .catch(error => res.status(400).json({error}));
 }
+
+exports.updateTime = (req, res) => {
+
+}
