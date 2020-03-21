@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TeacherAuthService } from '../teacher-auth.service';
 
 @Component({
   selector: 'app-teacher-main',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TeacherMainComponent implements OnInit {
 
-  constructor() { }
+  constructor(private teacherAuthService: TeacherAuthService) { }
 
   ngOnInit(): void {
+  }
+
+  logUserOut(): void {
+    this.teacherAuthService.logUserOut();
   }
 
 }

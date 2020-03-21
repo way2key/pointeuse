@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { TeacherAuthService } from '../teacher-auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-teacher-login',
@@ -12,7 +13,7 @@ export class TeacherLoginComponent implements OnInit {
     username: new FormControl(''),
     password: new FormControl(''),
   });
-  constructor(private teacherAuthService: TeacherAuthService) { }
+  constructor(private teacherAuthService: TeacherAuthService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -24,8 +25,10 @@ export class TeacherLoginComponent implements OnInit {
       res => {
         console.log(res);
         localStorage.setItem('token',res.token);
+        this.router.navigate(['teacher/dashboard']);
       },
       err => console.log(err)
     )
   }
+
 }
