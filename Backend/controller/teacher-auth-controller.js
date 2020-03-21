@@ -27,7 +27,7 @@ exports.login = (req, res, next) => {
   .catch(error => res.status(500).json({ error }));
 };
 
-exports.signup = (req, res, next) => {
+exports.signupAdmin = (req, res, next) => {
   bcrypt.hash(req.body.password, 10)
   .then(
     cryptedPassword => {const usr = new User({
@@ -39,18 +39,18 @@ exports.signup = (req, res, next) => {
         dayPlanId: req.body.dayPlanId
     });
     usr.save()
-    .then(() => res.status(201).json({message: 'Utilisateur enregistré'}))
+    .then(() => res.status(201).json({message: 'Administrateur enregistré'}))
     .catch(error => res.status(400).json({error}));
     })
   .catch(error => res.status(500).json({error}));
 };
 
-/*
-delete req.body._id;
-const usr = new user({
-  ...req.body
-});
-usr.save()
-.then(() => res.status(201).json({ message: 'Utilisateur enregistré'}))
-.catch(error => res.status(400).json({error}));
-*/
+exports.signupUser = (req, res, next) => {
+  delete req.body._id;
+  const usr = new User({
+    ...req.body
+  });
+  usr.save()
+  .then(() => res.status(201).json({ message: 'Utilisateur enregistré'}))
+  .catch(error => res.status(400).json({error}));
+};

@@ -6,6 +6,7 @@ const teacherAuthController = require('../controller/teacher-auth-controller');
 
 //Routes
 router.post('/login', teacherAuthController.login);
-router.post('/signup', auth, teacherAuthController.signup);
+router.post('/signup/admin', auth, teacherAuthController.signupAdmin);
+router.post('/signup/user', auth, teacherAuthController.signupUser);
 
 module.exports = router;

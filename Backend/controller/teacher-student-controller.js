@@ -1,7 +1,7 @@
 const user = require('../data-schematic/user-schematic');
 
 exports.getAllStudents = (req, res)=>{
-  user.find()
+  user.find({type:0})
   .then(students => res.status(200).json(students))
   .catch(error => res.status(400).json({error}));
 }
