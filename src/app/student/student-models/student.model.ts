@@ -6,6 +6,6 @@ export class Student {
     public type: Number,
     public dayPlanId: string,
     public password?: string,
-    public data?: string[]
+    public data?: []
   ) {}
 }

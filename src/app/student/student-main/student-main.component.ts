@@ -38,8 +38,10 @@ export class StudentMainComponent implements OnInit {
     this.studentLectureCarteService.checkAStudent(this.cardForm.value['cardNumber']).toPromise()
       .then(
         (student) => {
-          this.studentLectureCarteService.sendToMessage(student);
+          this.student = student;
+          this.studentLectureCarteService.sendToMessage(this.student);
           this.showMessage();
+
         }
       );
   }
