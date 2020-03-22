@@ -5,6 +5,7 @@ const db = require('./database/db')
 
 const teacherStudentRoute = require('./route/teacher-student-route.js');
 const teacherAuthRoute = require('./route/teacher-auth-route.js');
+const  studentLectureCarteRoute = require('./route/student-lecture-carte-route.js')
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.use(bodyParser.json());
 
 app.use('/api/teacher-student', teacherStudentRoute);
 app.use('/api/teacher-auth', teacherAuthRoute);
+app.use('/api/student', studentLectureCarteRoute);
 
 
 module.exports = app;

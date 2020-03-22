@@ -9,11 +9,14 @@
       <p>Info</p>
     </button>
     <br>
-    <button  class="button is-warning has-text-black" (click)="showMessage()">
-      <p>Message</p>
-    </button>
     <div>
-       <app-student-test-card></app-student-test-card>
+       <br>
+       <form [formGroup]="cardForm" (ngSubmit)="onSubmitForm()">
+         <div class="form-group">
+           <input type="text" id="cardNumber" class="form-control" placeholder="Numéro de la carte" formControlName="cardNumber">
+         </div><br>
+         <button class="btn btn-primary" type="submit" [disabled]="cardForm.invalid">Timbrez</button>
+       </form>
     </div>
 
   </div>

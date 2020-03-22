@@ -27,10 +27,12 @@ import { TeacherDashboardComponent } from './teacher/teacher-dashboard/teacher-d
 import { StudentMainComponent } from './student/student-main/student-main.component';
 import { StudentInfoComponent } from './student/student-info/student-info.component';
 import { StudentMessageComponent } from './student/student-message/student-message.component';
-import { StudentTestCardComponent } from './student/student-test-card/student-test-card.component';
 
 //Guards
 import { TeacherAuthGuard } from './teacher/teacher-auth.guard';
+
+//Services
+import { StudentLectureCarteService } from './student/student-lecture-carte.service';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,7 @@ import { TeacherAuthGuard } from './teacher/teacher-auth.guard';
     StudentMainComponent,
     StudentInfoComponent,
     StudentMessageComponent,
-    StudentTestCardComponent,
+    //StudentTestCardComponent,
   ],
   entryComponents:[StudentInfoComponent],
   imports: [
@@ -62,7 +64,10 @@ import { TeacherAuthGuard } from './teacher/teacher-auth.guard';
     MatTableModule,
     HttpClientModule,
   ],
-  providers: [TeacherAuthGuard],
+  providers: [
+    TeacherAuthGuard,
+    StudentLectureCarteService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

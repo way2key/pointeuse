@@ -2,7 +2,8 @@
 <div mat-dialog-content>
   <mat-divider></mat-divider>
   <br>
-  <p>Olivier D'Ancona</p>
+  <p *ngIf = "message === 0">{{ student.firstname }} {{ student.lastname }}</p>
+  <p *ngIf = "message === 2">Pas de carte valide timbrée</p>
   <span *ngIf = "!studentStatus" class="tag is-danger is-large" >OUT</span>
   <span *ngIf = "studentStatus" class="tag is-success is-large" >IN</span>
   <mat-divider></mat-divider>
