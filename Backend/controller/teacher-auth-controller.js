@@ -2,6 +2,7 @@ const User = require('../data-schematic/user-schematic');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
+let secret = 'h8foDJSALpb7A1pG0A9QEK4D33n65xYY';
 exports.login = (req, res, next) => {
   User.findOne({firstname: req.body.username})
   .then(usr =>{
@@ -17,7 +18,7 @@ exports.login = (req, res, next) => {
         userId: usr._id,
         token: jwt.sign(
           {userId: usr._id},
-          'h8foDJSALpb7A1pG0A9QEK4D33n65xYY',
+          secret,
           { expiresIn: '24h'}
         )
       });
@@ -53,4 +54,8 @@ exports.signupUser = (req, res, next) => {
   usr.save()
   .then(() => res.status(201).json({ message: 'Utilisateur enregistré'}))
   .catch(error => res.status(400).json({error}));
+}
+
+exports.getUser = (req, res, next) => {
+  console.log(req);
 }

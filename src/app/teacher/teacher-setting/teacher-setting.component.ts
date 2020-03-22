@@ -22,7 +22,7 @@ export class TeacherSettingComponent implements OnInit {
     let p1 = this.changePasswordForm.value.newPassword;
     let p2 = this.changePasswordForm.value.confirmPassword;
     if(p1===p2){
-      this.teacherSettingService.changePassword(p1);
+      this.teacherSettingService.changePassword({password:p1});
     }
   }
 

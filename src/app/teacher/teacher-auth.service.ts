@@ -21,5 +21,6 @@ export class TeacherAuthService {
 
   isAuthenticated() {
     return !!localStorage.getItem('token');
+    // MUST CHECK INTO THE DB
   }
 }
