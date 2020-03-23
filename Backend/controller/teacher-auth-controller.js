@@ -1,8 +1,8 @@
 const User = require('../data-schematic/user-schematic');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const secret = require('../secret.js');
 
-let secret = 'h8foDJSALpb7A1pG0A9QEK4D33n65xYY';
 exports.login = (req, res, next) => {
   User.findOne({firstname: req.body.username})
   .then(usr =>{
@@ -58,4 +58,17 @@ exports.signupUser = (req, res, next) => {
 
 exports.getUser = (req, res, next) => {
   console.log(req);
+}
+
+exports.verifyToken = (req, res, next) => {
+  try{
+    verifiedJwt = jwt.verify(req.params.token, secret);
+    let userId= verifiedJwt.userId;
+    User.findOne({_id: userId})
+    .then(() => res.status(200).send('true'))
+    .catch(error => res.status(200).send('false'));
+  }
+  catch(e){
+    res.status(200).send('false');
+  }
 }

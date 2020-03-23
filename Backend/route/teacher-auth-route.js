@@ -5,6 +5,8 @@ const auth = require('../middleware/auth');
 const teacherAuthController = require('../controller/teacher-auth-controller');
 
 //Routes
+router.get('/verifyToken/:token', teacherAuthController.verifyToken);
+
 router.post('/login', teacherAuthController.login);
 router.post('/signup/admin', auth, teacherAuthController.signupAdmin);
 router.post('/signup/user', auth, teacherAuthController.signupUser);

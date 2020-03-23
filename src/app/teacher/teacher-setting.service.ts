@@ -10,11 +10,11 @@ export class TeacherSettingService {
   private changePasswordUrl = 'http://localhost:3000/api/teacher-setting';
   private auth = 'Bearer '+ localStorage.getItem("token");
   private httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type':  'application/json',
-    'Authorization': this.auth
-  })
-  }
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json',
+      'Authorization': this.auth
+    })
+  };
   constructor(private http: HttpClient) { }
 
   changePassword(password) {

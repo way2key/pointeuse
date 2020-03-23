@@ -8,7 +8,18 @@ import { Router } from '@angular/router';
 })
 export class TeacherAuthService {
   private loginUrl = 'http://localhost:3000/api/teacher-auth/login';
+  private verifyTokenUrl = 'http://localhost:3000/api/teacher-auth/verifyToken';
+  private auth = 'Bearer '+ localStorage.getItem("token");
+  private httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json',
+      'Authorization': this.auth
+    })
+  };
+
   constructor(private http: HttpClient, private router: Router) { }
+  private isAuth = false;
+  private token = localStorage.getItem('token');
 
   logUserIn(user) {
     return this.http.post<any>(this.loginUrl, user);
@@ -19,8 +30,10 @@ export class TeacherAuthService {
     this.router.navigate(['teacher/login']);
   }
 
-  isAuthenticated() {
-    return !!localStorage.getItem('token');
-    // MUST CHECK INTO THE DB
+  isAuthenticated(): Observable<boolean>{
+    if(this.token){
+      const url = this.verifyTokenUrl + '/' + this.token;
+      return this.http.get<boolean>(url, this.httpOptions);
   }
+}
 }

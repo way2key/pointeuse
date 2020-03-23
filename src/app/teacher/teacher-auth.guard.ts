@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { TeacherAuthService } from './teacher-auth.service';
+import { Observable, of } from 'rxjs';
+import { tap, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -8,12 +10,10 @@ import { TeacherAuthService } from './teacher-auth.service';
 export class TeacherAuthGuard implements CanActivate {
   constructor(private teacherAuthService: TeacherAuthService, private router: Router) {}
 
-  canActivate(): boolean {
-    if (this.teacherAuthService.isAuthenticated()){
-      return true;
-    } else{
-      this.router.navigate(['teacher/login']);
-    }
-  }
+  canActivate(): Observable<boolean> {
+  return this.teacherAuthService.isAuthenticated().pipe(
+    tap( isAuthenticated => !isAuthenticated ?  this.router.navigate(['teacher/login']): 0)
+  );
 
+  }
 }
