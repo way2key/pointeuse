@@ -6,20 +6,20 @@
   </div>
 </mat-toolbar>
 <h1>Liste des stagiaires</h1>
-<mat-list role="list">
-  <mat-list-item role="listitem" *ngFor="let s of students" class="student">
-    <h1>{{s.firstname}} {{s.lastname}}</h1>
-    <mat-divider [vertical]="true"></mat-divider>
-    <i class="fas fa-coffee"></i>
-    <i class="fas fa-check"></i>
-    <i class="fas fa-calendar-times"></i>
-    <i class="fas fa-calendar-check"></i>
-    <mat-divider [vertical]="true"></mat-divider>
-    <p> + 0800 </p>
+<div>
+  <div *ngFor="let s of students" class="student">
+    <h1 matSubheader>{{s.firstname}} {{s.lastname}}</h1>
+    <div>
+      <i matListIcon class="fas fa-coffee"></i>
+      <i matListIcon class="fas fa-check"></i>
+      <i matListIcon class="fas fa-calendar-times"></i>
+      <i matListIcon class="fas fa-calendar-check"></i>
+    </div>
+    <p matSubheader> + 0800 </p>
     <div class="buttons has-addons">
       <button class="button is-success">modification temps</button>
       <button class="button is-warning">modification présence</button>
     </div>
-  </mat-list-item>
+  </div>
 
-</mat-list>
+</div>

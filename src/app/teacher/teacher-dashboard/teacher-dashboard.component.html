@@ -1,3 +1,20 @@
-<h1 class="main-title"> Bienvenue dans la matrice {{teacher.firstname}} {{teacher.lastname}}</h1>
-<h1> Heure actuelle</h1>
-<h1> Incident </h1>
+<h1 class="main-title"> Bienvenue {{teacher.firstname}} {{teacher.lastname}}</h1>
+
+<div class="dashboard">
+
+  <div class="clock">
+    <h1> Heure actuelle</h1>
+    <canvas id="canvas" width="300" height="300"></canvas>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div class="incident">
+    <h1> Incident </h1>
+    <mat-list>
+      <mat-list-item> Info1 </mat-list-item>
+      <mat-list-item> Info2 </mat-list-item>
+      <mat-list-item> Info3 </mat-list-item>
+    </mat-list>
+  </div>
+</div>
