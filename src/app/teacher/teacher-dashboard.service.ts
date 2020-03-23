@@ -5,8 +5,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class TeacherStudentService {
-  private apiUrl = 'http://localhost:3000/api/teacher-student';
+export class TeacherDashboardService {
+  private getTeacherUrl = 'http://localhost:3000/api/teacher-dashboard';
   private auth = 'Bearer '+ localStorage.getItem("token");
   private httpOptions = {
     headers: new HttpHeaders({
@@ -16,7 +16,7 @@ export class TeacherStudentService {
   };
   constructor(private http: HttpClient) { }
 
-  getAllStudents(): Observable<String[]> {
-    return this.http.get<String[]>(this.apiUrl, this.httpOptions);
+  getTeacher(): Observable<any>{
+      return this.http.get<any>(this.getTeacherUrl + '/' + localStorage.getItem('token'), this.httpOptions);
   }
 }

@@ -31,7 +31,27 @@
     </div>
   </form>
 </div>
+<div class="timeplan">
+  <h1 class="title"> Horaire </h1>
+  <p>Définissez un horaire</p>
+  <mat-form-field appearance='outline'>
+    <mat-select>
+      <mat-option *ngFor="let tp of timeplan" [value]="tp">
+        {{tp}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
 
-<h1 class="title"> Horaire </h1>
-<h1 class="title"> Interface </h1>
+<div class="interface">
+  <h1 class="title"> Interface </h1>
+  <p>Choissisez les options</p>
+  <mat-slide-toggle>Option 1</mat-slide-toggle><br>
+  <mat-slide-toggle>Option 2</mat-slide-toggle><br>
+  <mat-slide-toggle>Option 3</mat-slide-toggle><br>
+  <mat-slide-toggle>Option 4</mat-slide-toggle><br>
+  <mat-slide-toggle>Option 5</mat-slide-toggle><br>
+  <mat-slide-toggle>Option 6</mat-slide-toggle><br>
+</div>
+
 <h1 class="title"> Administrateurs </h1>

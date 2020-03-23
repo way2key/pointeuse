@@ -14,8 +14,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
-
-
+import { MatSelectModule } from '@angular/material/select';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatFormFieldModule } from '@angular/material/form-field';
 //Components
 import { TeacherLoginComponent } from './teacher/teacher-login/teacher-login.component';
 import { TeacherMainComponent } from './teacher/teacher-main/teacher-main.component';
@@ -47,7 +48,6 @@ import { StudentLectureCarteService } from './student/student-lecture-carte.serv
     StudentMainComponent,
     StudentInfoComponent,
     StudentMessageComponent,
-    //StudentTestCardComponent,
   ],
   entryComponents:[StudentInfoComponent],
   imports: [
@@ -62,6 +62,9 @@ import { StudentLectureCarteService } from './student/student-lecture-carte.serv
     MatListModule,
     MatCardModule,
     MatTableModule,
+    MatSelectModule,
+    MatSlideToggleModule,
+    MatFormFieldModule,
     HttpClientModule,
   ],
   providers: [

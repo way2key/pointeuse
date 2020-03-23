@@ -13,6 +13,11 @@ export class TeacherSettingComponent implements OnInit {
     newPassword: new FormControl(''),
     confirmPassword: new FormControl(''),
   });
+  timeplan = [
+    'Horaire Fixe',
+    'Horaire Mobile',
+    'Horaire Personnalisé 1'
+  ];
   constructor(private teacherSettingService: TeacherSettingService, private router: Router) { }
 
   ngOnInit(): void {
