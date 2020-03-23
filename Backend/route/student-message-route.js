@@ -5,5 +5,7 @@ const studentMessageController = require('../controller/student-message-controll
 
 //Routes
 router.get('/:hash', studentMessageController.checkAStudent);
+router.put('/:hash', studentMessageController.updateStudentTime);
+router.post('/:hash', studentMessageController.createClock);
 
 module.exports = router;

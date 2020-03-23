@@ -6,4 +6,4 @@ const daySchema = mongoose.Schema({
   presence: {type: Boolean, required:true}
 });
 
-module.exports = mongoose.model('user', daySchema);
+module.exports = mongoose.model('Day', daySchema);

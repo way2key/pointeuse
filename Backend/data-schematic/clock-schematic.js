@@ -7,4 +7,4 @@ const clockSchema = mongoose.Schema({
 });
 clockSchema.plugin(uniqueValidator);
 
-module.exports = mongoose.model('user', clockSchema);
+module.exports = mongoose.model('Clock', clockSchema);
