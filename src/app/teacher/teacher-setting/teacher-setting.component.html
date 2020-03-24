@@ -5,7 +5,7 @@
     <h2> Nouveau mot de passe </h2>
     <div class="field">
       <p class="control has-icons-left">
-        <input class="input has-background-light" type="password" placeholder="Password" formControlName="newPassword">
+        <input class="input has-background-light has-text-grey" type="password" placeholder="New Password" formControlName="newPassword">
         <span class="icon is-small is-left">
           <i class="fas fa-lock"></i>
         </span>
@@ -15,7 +15,7 @@
     <div class="field">
       <h2> Confirmez le nouveau mot de passe </h2>
       <p class="control has-icons-left">
-        <input class="input has-background-light" type="password" placeholder="Password" formControlName="confirmPassword">
+        <input class="input has-background-light has-text-grey" type="password" placeholder="Confirm Password" formControlName="confirmPassword">
         <span class="icon is-small is-left">
           <i class="fas fa-lock"></i>
         </span>
@@ -24,13 +24,14 @@
 
     <div class="field is-pulled-right">
       <p class="control">
-        <button class="button is-success has-text-white" type="submit" [disabled]="!changePasswordForm.valid">
+        <button class="button is-success " type="submit" [disabled]="!changePasswordForm.valid">
           <i class="fas fa-sign-in-alt"></i>
         </button>
       </p>
     </div>
   </form>
 </div>
+
 <div class="timeplan">
   <h1 class="title"> Horaire </h1>
   <p>Définissez un horaire</p>
