@@ -36,7 +36,7 @@ exports.signupAdmin = (req, res, next) => {
         lastname: req.body.lastname,
         hash: req.body.hash,
         password: cryptedPassword,
-        type: 0,
+        type: 1,
         dayPlanId: req.body.dayPlanId
     });
     usr.save()

@@ -8,8 +8,8 @@ import { TeacherDashboardService } from '../teacher-dashboard.service';
 })
 export class TeacherDashboardComponent implements OnInit {
   teacher = {
-    firstname:"Marc",
-    lastname:"Locatelli"
+    firstname: 'Nom',
+    lastname: 'Prenom'
   }
   constructor(private teacherDashboardService: TeacherDashboardService) { }
 

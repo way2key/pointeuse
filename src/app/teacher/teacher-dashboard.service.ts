@@ -17,6 +17,6 @@ export class TeacherDashboardService {
   constructor(private http: HttpClient) { }
 
   getTeacher(): Observable<any>{
-      return this.http.get<any>(this.getTeacherUrl + '/' + localStorage.getItem('token'), this.httpOptions);
+      return this.http.get<any>(this.getTeacherUrl, this.httpOptions);
   }
 }

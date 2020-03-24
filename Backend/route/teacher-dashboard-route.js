@@ -5,7 +5,7 @@ const auth = require('../middleware/auth');
 const teacherDashboardController = require('../controller/teacher-dashboard-controller');
 
 //Routes
-router.get('/:token', auth, teacherDashboardController.getATeacher);
+router.get('/', auth, teacherDashboardController.getATeacher);
 
 
 
