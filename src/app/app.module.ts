@@ -17,6 +17,11 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatInputModule } from '@angular/material/input';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatNativeDateModule } from '@angular/material/core';
+
 //Components
 import { TeacherLoginComponent } from './teacher/teacher-login/teacher-login.component';
 import { TeacherMainComponent } from './teacher/teacher-main/teacher-main.component';
@@ -65,11 +70,15 @@ import { StudentLectureCarteService } from './student/student-lecture-carte.serv
     MatSelectModule,
     MatSlideToggleModule,
     MatFormFieldModule,
+    MatTabsModule,
+    MatInputModule,
+    MatNativeDateModule,
+    MatAutocompleteModule,
     HttpClientModule,
   ],
   providers: [
     TeacherAuthGuard,
-    StudentLectureCarteService
+    StudentLectureCarteService,
   ],
   bootstrap: [AppComponent]
 })
