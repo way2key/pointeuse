@@ -34,7 +34,6 @@ exports.signupAdmin = (req, res, next) => {
     cryptedPassword => {const usr = new User({
         firstname: req.body.firstname,
         lastname: req.body.lastname,
-        hash: req.body.hash,
         password: cryptedPassword,
         type: 1,
         dayPlanId: req.body.dayPlanId
@@ -49,7 +48,11 @@ exports.signupAdmin = (req, res, next) => {
 exports.signupUser = (req, res, next) => {
   delete req.body._id;
   const usr = new User({
-    ...req.body
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
+    hash: req.body.hash,
+    type: 0,
+    dayPlanId: req.body.dayPlanId
   });
   usr.save()
   .then(() => res.status(201).json({ message: 'Utilisateur enregistré'}))
