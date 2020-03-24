@@ -5,4 +5,4 @@ const shiftSchema = mongoose.Schema({
   timeEnd:  {type: String, required:true},
 });
 
-module.exports = mongoose.model('user', shiftSchema);
+module.exports = mongoose.model('Shift', shiftSchema);

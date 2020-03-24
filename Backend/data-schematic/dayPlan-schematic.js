@@ -8,4 +8,4 @@ const dayPlanSchema = mongoose.Schema({
 
 });
 
-module.exports = mongoose.model('user', dayPlanSchema);
+module.exports = mongoose.model('DayPlan', dayPlanSchema);

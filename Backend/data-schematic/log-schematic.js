@@ -4,4 +4,4 @@ const logSchema = mongoose.Schema({
   users: {type: [String], required:true}
 });
 
-module.exports = mongoose.model('user', logSchema);
+module.exports = mongoose.model('Log', logSchema);

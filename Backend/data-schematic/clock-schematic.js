@@ -1,10 +1,9 @@
 const mongoose = require('mongoose');
-const uniqueValidator = require('mongoose-unique-validator');
 
 const clockSchema = mongoose.Schema({
-  dayId: {type: String, required:true, unique: true},
+  dayId: {type: String, required:true},
   time: {type: String, required:true}
 });
-clockSchema.plugin(uniqueValidator);
 
-module.exports = mongoose.model('user', clockSchema);
+
+module.exports = mongoose.model('Clock', clockSchema);
