@@ -1,3 +1,72 @@
-<h1> Heures cumulées </h1>
-<h1> Nombre Absence </h1>
-<h1> Interface </h1>
+<mat-tab-group mat-align-tabs="center" animationDuration="0ms" class="stat">
+  <mat-tab label="Historique">
+    <mat-toolbar class="toolbar">
+      <h1>Historique</h1>
+      <form class="form" (ngSubmit)="getStudent()">
+        <mat-form-field>
+          <mat-select>
+            <mat-option value="food">Présent</mat-option>
+            <mat-option value="food">Absent</mat-option>
+            <mat-option value="food">Manque heures</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="example-full-width">
+          <input type="text" placeholder="Trouvez un stagiaire"
+                 matInput
+                 [formControl]="myControl"
+                 [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        <button class="button is-info has-text-white">
+          <i class="fas fa-search"></i>
+        </button>
+      </form>
+    </mat-toolbar>
+  </mat-tab>
+  <mat-tab label="Modifications">
+    <mat-toolbar class="toolbar">
+      <h1>Modifications</h1>
+      <form class="form">
+        <mat-form-field>
+          <mat-select>
+            <mat-option value="food">Présent</mat-option>
+            <mat-option value="food">Absent</mat-option>
+            <mat-option value="food">Manque heures</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <button class="button is-info has-text-white">
+          <i class="fas fa-search"></i>
+        </button>
+      </form>
+    </mat-toolbar>
+  </mat-tab>
+  <mat-tab label="Logs">
+    <mat-toolbar class="toolbar">
+      <h1>Logs</h1>
+      <form class="form">
+        <mat-form-field>
+          <mat-select>
+            <mat-option value="food">Présent</mat-option>
+            <mat-option value="food">Absent</mat-option>
+            <mat-option value="food">Manque heures</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <button class="button is-info has-text-white">
+          <i class="fas fa-search"></i>
+        </button>
+      </form>
+    </mat-toolbar>
+  </mat-tab>
+  <mat-tab label="more">
+    <mat-toolbar class="toolbar">
+      <h1>CORONA !
+    </h1></mat-toolbar>
+  </mat-tab>
+</mat-tab-group>

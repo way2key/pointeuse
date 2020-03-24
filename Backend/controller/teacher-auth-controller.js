@@ -12,7 +12,7 @@ exports.login = (req, res, next) => {
     bcrypt.compare(req.body.password, usr.password)
     .then(valid =>{
       if(!valid){
-        return res.status(401).json({error: "Utilisateur inexistant ou Mot de passe incorrect"});
+        return res.status(401).json({error: "Utilisateur inexistant ou Mot de passe incorrect."});
       }
       res.status(200).json({
         userId: usr._id,

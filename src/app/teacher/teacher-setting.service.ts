@@ -17,9 +17,7 @@ export class TeacherSettingService {
   };
   constructor(private http: HttpClient) { }
 
-  changePassword(password) {
-    console.log(password);
-
-    return this.http.post<any>(this.changePasswordUrl, password, this.httpOptions);
+  changePassword(password){
+    return this.http.post(this.changePasswordUrl, password, this.httpOptions);
   }
 }
