@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const secret = require('../secret.js');
 
 exports.login = (req, res, next) => {
+
   User.findOne({firstname: req.body.username})
   .then(usr =>{
     if(!usr){
@@ -15,6 +16,7 @@ exports.login = (req, res, next) => {
         return res.status(401).json({error: "Utilisateur inexistant ou Mot de passe incorrect."});
       }
       res.status(200).json({
+
         userId: usr._id,
         token: jwt.sign(
           {userId: usr._id},
@@ -60,16 +62,24 @@ exports.signupUser = (req, res, next) => {
 }
 
 exports.getUser = (req, res, next) => {
-  console.log(req);
+  console.log('REQ',req);
 }
 
 exports.verifyToken = (req, res, next) => {
   try{
     verifiedJwt = jwt.verify(req.params.token, secret);
-    let userId= verifiedJwt.userId;
+
+    let userId = verifiedJwt.userId;
     User.findOne({_id: userId})
-    .then(() => res.status(200).send('true'))
-    .catch(error => res.status(200).send('false'));
+    .then((user) => {
+      console.log('user', user);
+      if(user) {
+        res.status(200).send('true');
+      } else {
+        res.status(400).send('false');
+      }
+    })
+    .catch(error => {res.status(200).send('false');console.log('false');});
   }
   catch(e){
     res.status(200).send('false');

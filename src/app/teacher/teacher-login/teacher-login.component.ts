@@ -3,6 +3,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { TeacherAuthService } from '../teacher-auth.service';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-teacher-login',
   templateUrl: './teacher-login.component.html',
@@ -16,17 +17,24 @@ export class TeacherLoginComponent implements OnInit {
   constructor(private teacherAuthService: TeacherAuthService, private router: Router) { }
 
   ngOnInit(): void {
+    if(localStorage.getItem('token')) {
+      if(this.teacherAuthService.isAuthenticated()) {
+        this.router.navigate(['/teacher/dashboard'])
+      }
+    }
   }
 
   logUserIn(): void {
     this.teacherAuthService.logUserIn(this.loginForm.value).
     subscribe(
       res => {
-        localStorage.setItem('token',res.token);
-        this.router.navigate(['teacher/dashboard']);
+        localStorage.setItem('token', res.token);
       },
-      err => console.log(err)
-    )
+      err => {console.log(err)},
+      () => {this.router.navigate(['/teacher/dashboard'])}
+    );
+
   }
+
 
 }

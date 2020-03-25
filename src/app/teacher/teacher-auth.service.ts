@@ -17,7 +17,7 @@ export class TeacherAuthService {
     })
   };
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router){ }
   private isAuth = false;
   private token = localStorage.getItem('token');
 
@@ -31,9 +31,8 @@ export class TeacherAuthService {
   }
 
   isAuthenticated(): Observable<boolean>{
-    if(this.token){
-      const url = this.verifyTokenUrl + '/' + this.token;
-      return this.http.get<boolean>(url, this.httpOptions);
+    let token = localStorage.getItem('token');
+    const url = this.verifyTokenUrl + '/' + token;
+    return this.http.get<boolean>(url, this.httpOptions);
   }
-}
 }

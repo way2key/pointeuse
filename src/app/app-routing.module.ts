@@ -14,32 +14,29 @@ import { TeacherAuthGuard } from './teacher/teacher-auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/student', pathMatch: 'full' },
-  { path: 'teacher', redirectTo: '/teacher/dashboard', pathMatch: 'full' },
-  {
-    path: 'student',
-    component: StudentMainComponent
-  },
+  { path: 'student', component: StudentMainComponent },
   {
     path: 'teacher',
-    component: TeacherMainComponent,
-    canActivate: [TeacherAuthGuard],
     children:[
-      {path:"dashboard" , component: TeacherDashboardComponent},
-      {path:"student"   , component: TeacherStudentComponent},
-      {path:"stat"      , component: TeacherStatComponent},
-      {path:"setting"   , component: TeacherSettingComponent},
-      {path:"info"      , component: TeacherInfoComponent},
+      {
+        path: '',
+        component: TeacherMainComponent,
+        canActivate: [TeacherAuthGuard],
+        children:[
+          {path:"dashboard" , component: TeacherDashboardComponent},
+          {path:"student"   , component: TeacherStudentComponent},
+          {path:"stat"      , component: TeacherStatComponent},
+          {path:"setting"   , component: TeacherSettingComponent},
+          {path:"info"      , component: TeacherInfoComponent},
+          {path: '', redirectTo: '/teacher/dashboard', pathMatch: 'full'},
+          //{path: 'login', redirectTo: '/teacher/dashboard', pathMatch: 'full'},
+        ]
+      },
+      {path: 'login', component: TeacherLoginComponent,},
     ]
+  },
+  { path: '**', redirectTo: '/student' }
 
-  },
-  {
-    path: 'teacher/login',
-    component: TeacherLoginComponent
-  },
-  {
-    path: '**',
-    component: StudentMainComponent
-  }
 ];
 
 @NgModule({
