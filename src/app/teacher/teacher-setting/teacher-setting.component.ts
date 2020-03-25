@@ -21,6 +21,7 @@ export class TeacherSettingComponent implements OnInit {
   constructor(private teacherSettingService: TeacherSettingService, private router: Router) { }
 
   ngOnInit(): void {
+
   }
 
   changePassword(): void {
@@ -29,8 +30,12 @@ export class TeacherSettingComponent implements OnInit {
     let payload = {password: p1}
     if(p1===p2){
       this.teacherSettingService.changePassword(payload).subscribe(
-        data => console.log('success: ', data),
-        error => console.log('error: ', error)
+        ((data) => {
+          console.log('success: ', data);
+        }),
+        ((error) => {
+        console.log('error: ', error);
+        })
       );
     }
   }

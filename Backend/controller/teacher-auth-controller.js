@@ -5,29 +5,29 @@ const secret = require('../secret.js');
 
 exports.login = (req, res, next) => {
 
-  User.findOne({firstname: req.body.username})
-  .then(usr =>{
-    if(!usr){
-      return res.status(401).json({error: "Utilisateur inexistant ou Mot de passe incorrect"});
-    }
-    bcrypt.compare(req.body.password, usr.password)
-    .then(valid =>{
-      if(!valid){
-        return res.status(401).json({error: "Utilisateur inexistant ou Mot de passe incorrect."});
+    User.findOne({firstname: req.body.username})
+    .then(usr =>{
+      if(!usr || usr.type !== 1){
+        return res.status(401).json({error: "Utilisateur inexistant ou Mot de passe incorrect"});
       }
-      res.status(200).json({
+      bcrypt.compare(req.body.password, usr.password)
+      .then(valid =>{
+        if(!valid){
+          return res.status(401).json({error: "Utilisateur inexistant ou Mot de passe incorrect."});
+        }
+        res.status(200).json({
 
-        userId: usr._id,
-        token: jwt.sign(
-          {userId: usr._id},
-          secret,
-          { expiresIn: '24h'}
-        )
-      });
+          userId: usr._id,
+          token: jwt.sign(
+            {userId: usr._id},
+            secret,
+            { expiresIn: '24h'}
+          )
+        });
+      })
+      .catch(error => res.status(500).json({ error }));
     })
     .catch(error => res.status(500).json({ error }));
-  })
-  .catch(error => res.status(500).json({ error }));
 }
 
 exports.signupAdmin = (req, res, next) => {
@@ -72,7 +72,6 @@ exports.verifyToken = (req, res, next) => {
     let userId = verifiedJwt.userId;
     User.findOne({_id: userId})
     .then((user) => {
-      console.log('user', user);
       if(user) {
         res.status(200).send('true');
       } else {
