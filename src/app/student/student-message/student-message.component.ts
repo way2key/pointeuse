@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { StudentLectureCarteService } from '../student-lecture-carte.service';
-import { Student } from '../student-models/student.model';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { StudentService } from '../student.service';
 
 @Component({
   selector: 'app-student-message',
@@ -8,24 +8,42 @@ import { Student } from '../student-models/student.model';
   styleUrls: ['./student-message.component.scss']
 })
 export class StudentMessageComponent implements OnInit {
-
-  student: Student;
-  message: Number = 2;
-
-  constructor(private studentLectureCarteService: StudentLectureCarteService) { }
-
-  ngOnInit(): void {
-    this.student = this.studentLectureCarteService.getFromStudentCard();
-    this.controleValide(this.studentLectureCarteService.getFromStudentCard());
+  message = 0;
+  status = true;
+  student = {
+    firstname: 'Nom',
+    lastname: 'Prenom'
   }
 
-  controleValide(student: Student) {
-    if(!student){
-      this.message = 2;
-    } else {
-      this.message = 0;
-      this.student = student;
-    }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private studentService: StudentService) { }
+
+  ngOnInit(): void {
+    this.clock(this.data.hash);
+    this.getStudent(this.data.hash);
+  }
+
+  getStudent(studentHash): void {
+    this.studentService.getStudentInfo(studentHash).subscribe(
+      student => {
+        this.student = student;
+        this.message = 1;
+        this.status = true;
+      },
+      error => {
+        console.log(error.message);
+      }
+    )
+  }
+
+  clock(studentHash): void{
+    this.studentService.clockAStudent(studentHash).subscribe(
+      data => {
+        console.log('success: ', data);
+      },
+      error => {
+        console.log('error: ',error);
+      }
+    );
   }
 
 }

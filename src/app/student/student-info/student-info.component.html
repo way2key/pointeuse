@@ -1,20 +1,26 @@
-<h1 mat-dialog-title>Informations</h1>
-<div mat-dialog-content>
-  <mat-divider></mat-divider>
-  <br>
-  <p *ngIf = "message === 0">{{ student.firstname }} {{ student.lastname }}</p>
-  <p *ngIf = "message === 2">Pas de carte valide timbrée</p>
-  <span *ngIf = "!studentStatus" class="tag is-danger is-large" >OUT</span>
-  <span *ngIf = "studentStatus" class="tag is-success is-large" >IN</span>
-  <mat-divider></mat-divider>
-  <canvas id="canvas" width="800" height="350"></canvas>
-  <mat-divider></mat-divider>
-  <p> Temps effectué: 04:37 </p>
-  <p> Vous n'avez pas pris votre pause. </p>
-  <p> Vous avez mangé. </p>
-
+<div *ngIf="message==0">
+  <h1>Utilisateur inexistant</h1>
+  <i class="fas fa-bug"></i>
 </div>
 
-<div mat-dialog-actions>
-  <button mat-button mat-dialog-close class="button is-info has-text-white">Ok</button>
+<div *ngIf="message==1">
+  <h1 mat-dialog-title>Informations</h1>
+  <div mat-dialog-content>
+    <mat-divider></mat-divider>
+    <br>
+    <p>{{ student.firstname }} {{ student.lastname }}</p>
+    <span *ngIf = "!student.status" class="tag is-danger is-large" >OUT</span>
+    <span *ngIf = "student.status" class="tag is-success is-large" >IN</span>
+    <mat-divider></mat-divider>
+    <canvas id="canvas" width="800" height="350"></canvas>
+    <mat-divider></mat-divider>
+    <p> Temps effectué: {{ student.elapsedTime }} </p>
+    <p>{{ meal? "Vous avez déjà mangé" : "Vous n'avez pas encore mangé"}}</p>
+    <p>{{ breather? "Vous avez pris une pause" : "Vous n'avez pas pris de pause"}}</p>
+
+  </div>
+
+  <div mat-dialog-actions>
+    <button mat-button mat-dialog-close class="button is-info has-text-white">Ok</button>
+  </div>
 </div>

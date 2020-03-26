@@ -3,13 +3,20 @@ const Clock = require('../data-schematic/clock-schematic');
 const Day = require('../data-schematic/day-schematic');
 const moment = require('moment');
 
-exports.checkAStudent = (req, res)=>{
+exports.getStudentInfo = (req, res)=>{
   User.findOne({hash: req.params.hash})
-  .then(student => res.status(200).json(student))
-  .catch(error => res.status(400).json({error: error}));
+  .then(
+    student => {
+      if(!student){
+        res.status(400).json({error});
+      }
+      res.status(200).json(student);
+    }
+  )
+  .catch(error => res.status(400).json({error}));
 }
 
-exports.createClock = (req, res) => {
+exports.clockAStudent = (req, res) => {
   let dateId = [];
   const now = new Date();
   let year = now.getFullYear();
@@ -17,8 +24,8 @@ exports.createClock = (req, res) => {
   let day = now.getDate();
   let today = ((new Date(year, month, day)).getTime()/1000);
   let todayId = today.toString(16) +'0000000000000000';
-
-  User.findOne({hash: req.params.hash})
+  console.log(req.body);
+  User.findOne({hash: req.body.hash})
     .then((student) => {
       for(day of student.data) {
         if(day >= todayId) {
