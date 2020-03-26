@@ -25,8 +25,9 @@ app.use('/api/teacher-student', teacherStudentRoute);
 app.use('/api/teacher-auth', teacherAuthRoute);
 app.use('/api/teacher-setting', teacherSettingRoute);
 app.use('/api/teacher-dashboard', teacherDashboardRoute);
-app.use('/api/student', studentMessageRoute);
+
 app.use('/api/student-message', studentMessageRoute);
+
 app.use('/api/server', serverRoute);
 
 

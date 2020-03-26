@@ -7,7 +7,7 @@ import { Student } from './student-models/student.model';
   providedIn: 'root'
 })
 export class StudentLectureCarteService {
-  private apiUrl = 'http://localhost:3000/api/student';
+  private apiUrl = 'http://localhost:3000/api/student-message';
 
   private student: Student;
 
