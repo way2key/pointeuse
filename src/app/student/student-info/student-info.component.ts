@@ -9,11 +9,11 @@ import { StudentService } from '../student.service';
 })
 export class StudentInfoComponent implements OnInit {
     message = 0;
-    meal = 0;
-    breather = 0;
+    meal = false;
+    breather = false;
+    status = null;
     student = {
     break: true,
-    status: true,
     firstname: "Olivier",
     lastname: "Dancona",
     elapsedTime: '2'
@@ -22,7 +22,19 @@ export class StudentInfoComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private studentService: StudentService) { }
 
   ngOnInit(): void {
+    this.getStatus(this.data.hash);
     this.getStudent(this.data.hash);
+  }
+
+  getStatus(studentHash): void {
+    this.studentService.getStudentStatus(studentHash).subscribe(
+      status => {
+        this.status = status;
+      },
+      error => {
+        console.log(error.message);
+      }
+    )
   }
 
   getStudent(hash): void {
@@ -31,8 +43,8 @@ export class StudentInfoComponent implements OnInit {
 
         this.student = student;
         this.message = 1;
-        this.meal = 0;
-        this.breather = 0;
+        this.meal = false;
+        this.breather = false;
       },
       error => {
         console.log(error.message);
@@ -40,4 +52,5 @@ export class StudentInfoComponent implements OnInit {
 
     )
   }
+
 }

@@ -9,8 +9,8 @@
     <mat-divider></mat-divider>
     <br>
     <p>{{ student.firstname }} {{ student.lastname }}</p>
-    <span *ngIf = "!student.status" class="tag is-danger is-large" >OUT</span>
-    <span *ngIf = "student.status" class="tag is-success is-large" >IN</span>
+    <span *ngIf = "status" class="tag is-success is-large" >IN</span>
+    <span *ngIf = "!status" class="tag is-danger is-large" >OUT</span>
     <mat-divider></mat-divider>
     <canvas id="canvas" width="800" height="350"></canvas>
     <mat-divider></mat-divider>

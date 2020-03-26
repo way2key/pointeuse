@@ -11,6 +11,11 @@ export class StudentService {
 
   constructor(private http: HttpClient) { }
 
+  getStudentStatus(hash: string){
+    const url = this.apiURL + '/status';
+    return this.http.get<any>(url,{hash: hash});
+  }
+
   getStudentInfo(hash: string){
     const url = this.apiURL + '/' + hash;
     return this.http.get<any>(url);
