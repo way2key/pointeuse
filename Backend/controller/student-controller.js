@@ -24,8 +24,8 @@ exports.clockAStudent = (req, res) => {
   let day = now.getDate();
   let today = ((new Date(year, month, day)).getTime()/1000);
   let todayId = today.toString(16) +'0000000000000000';
-
-  User.findOne({hash: req.params.hash})
+  console.log(req.body);
+  User.findOne({hash: req.body.hash})
     .then((student) => {
       for(day of student.data) {
         if(day >= todayId) {

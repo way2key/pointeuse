@@ -10,7 +10,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./student-main.component.scss']
 })
 export class StudentMainComponent implements OnInit {
-  private infoRequested = false;
+  public infoRequested = false;
   cardForm = new FormGroup({
     cardNumber: new FormControl(''),
     password: new FormControl(''),
@@ -21,7 +21,7 @@ export class StudentMainComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  info(){
+  public info(): void{
     this.infoRequested = !this.infoRequested;
   }
 

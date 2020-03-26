@@ -5,6 +5,6 @@ const studentController = require('../controller/student-controller');
 
 //Routes
 router.get('/:hash', studentController.getStudentInfo);
-router.post('/:hash', studentController.clockAStudent);
+router.post('/', studentController.clockAStudent);
 
 module.exports = router;

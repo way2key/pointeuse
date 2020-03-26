@@ -9,6 +9,7 @@ import { StudentService } from '../student.service';
 })
 export class StudentMessageComponent implements OnInit {
   message = 0;
+  status = true;
   student = {
     firstname: 'Nom',
     lastname: 'Prenom'
@@ -17,21 +18,32 @@ export class StudentMessageComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private studentService: StudentService) { }
 
   ngOnInit(): void {
+    this.clock(this.data.hash);
     this.getStudent(this.data.hash);
   }
 
-  getStudent(hash): void {
-    this.studentService.getStudentInfo(hash).subscribe(
+  getStudent(studentHash): void {
+    this.studentService.getStudentInfo(studentHash).subscribe(
       student => {
         this.student = student;
         this.message = 1;
-        this.student.status = true;
+        this.status = true;
       },
       error => {
         console.log(error.message);
       }
-
-
     )
   }
+
+  clock(studentHash): void{
+    this.studentService.clockAStudent(studentHash).subscribe(
+      data => {
+        console.log('success: ', data);
+      },
+      error => {
+        console.log('error: ',error);
+      }
+    );
+  }
+
 }

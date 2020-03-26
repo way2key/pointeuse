@@ -11,13 +11,12 @@ export class StudentService {
 
   constructor(private http: HttpClient) { }
 
-  clockAStudent(hash: string): Observable<any> {
+  getStudentInfo(hash: string){
     const url = this.apiURL + '/' + hash;
     return this.http.get<any>(url);
   }
 
-  getStudentInfo(hash: string): Observable<any> {
-    const url = this.apiURL + '/' + hash;
-    return this.http.get<any>(url);
+  clockAStudent(hash: string): Observable<any> {
+    return this.http.post<any>(this.apiURL, {hash: hash});
   }
 }

@@ -9,6 +9,8 @@ import { StudentService } from '../student.service';
 })
 export class StudentInfoComponent implements OnInit {
     message = 0;
+    meal = 0;
+    breather = 0;
     student = {
     break: true,
     status: true,
@@ -26,10 +28,11 @@ export class StudentInfoComponent implements OnInit {
   getStudent(hash): void {
     this.studentService.getStudentInfo(hash).subscribe(
       student => {
+
         this.student = student;
         this.message = 1;
-        this.student.meal = 0;
-        this.student.breather = 0;
+        this.meal = 0;
+        this.breather = 0;
       },
       error => {
         console.log(error.message);
