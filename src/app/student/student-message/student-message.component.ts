@@ -8,17 +8,16 @@ import { StudentService } from '../student.service';
   styleUrls: ['./student-message.component.scss']
 })
 export class StudentMessageComponent implements OnInit {
+  message = 0;
   student = {
     firstname: 'Nom',
     lastname: 'Prenom'
   }
-  message = 0;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any,private studentService: StudentService) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private studentService: StudentService) { }
 
   ngOnInit(): void {
     this.getStudent(this.data.hash);
-
   }
 
   getStudent(hash): void {
@@ -26,6 +25,7 @@ export class StudentMessageComponent implements OnInit {
       student => {
         this.student = student;
         this.message = 1;
+        this.student.status = true;
       },
       error => {
         console.log(error.message);

@@ -5,4 +5,6 @@
 
 <div *ngIf="message==1">
   <h1>{{student.firstname}} {{student.lastname}}</h1>
+  <span *ngIf = "!student.status" class="tag is-danger is-large" >OUT</span>
+  <span *ngIf = "student.status" class="tag is-success is-large" >IN</span>
 </div>

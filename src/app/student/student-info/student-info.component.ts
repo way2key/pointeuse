@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { StudentService } from '../student.service';
 
 @Component({
@@ -7,9 +8,8 @@ import { StudentService } from '../student.service';
   styleUrls: ['./student-info.component.scss']
 })
 export class StudentInfoComponent implements OnInit {
-
-  public student = {
-    meal: false,
+    message = 0;
+    student = {
     break: true,
     status: true,
     firstname: "Olivier",
@@ -17,9 +17,24 @@ export class StudentInfoComponent implements OnInit {
     elapsedTime: '2'
   }
 
-  constructor(private studentService: StudentService) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private studentService: StudentService) { }
 
   ngOnInit(): void {
-    //this.student = this.studentLectureCarteService.getStudentFromCard();
+    this.getStudent(this.data.hash);
+  }
+
+  getStudent(hash): void {
+    this.studentService.getStudentInfo(hash).subscribe(
+      student => {
+        this.student = student;
+        this.message = 1;
+        this.student.meal = 0;
+        this.student.breather = 0;
+      },
+      error => {
+        console.log(error.message);
+      }
+
+    )
   }
 }
