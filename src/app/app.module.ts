@@ -37,8 +37,6 @@ import { StudentMessageComponent } from './student/student-message/student-messa
 //Guards
 import { TeacherAuthGuard } from './teacher/teacher-auth.guard';
 
-//Services
-import { StudentLectureCarteService } from './student/student-lecture-carte.service';
 
 @NgModule({
   declarations: [
@@ -77,8 +75,7 @@ import { StudentLectureCarteService } from './student/student-lecture-carte.serv
     HttpClientModule,
   ],
   providers: [
-    TeacherAuthGuard,
-    StudentLectureCarteService,
+    TeacherAuthGuard
   ],
   bootstrap: [AppComponent]
 })

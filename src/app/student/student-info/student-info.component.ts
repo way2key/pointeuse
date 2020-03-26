@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { StudentLectureCarteService } from '../student-lecture-carte.service';
-import { Student } from '../student-models/student.model';
+import { StudentService } from '../student.service';
 
 @Component({
   selector: 'app-student-info',
@@ -9,25 +8,18 @@ import { Student } from '../student-models/student.model';
 })
 export class StudentInfoComponent implements OnInit {
 
-  student: Student;
-  message: Number = 2;
+  public student = {
+    meal: false,
+    break: true,
+    status: true,
+    firstname: "Olivier",
+    lastname: "Dancona",
+    elapsedTime: '2'
+  }
 
-  studentStatus = false;
-
-  constructor(private studentLectureCarteService: StudentLectureCarteService) { }
+  constructor(private studentService: StudentService) { }
 
   ngOnInit(): void {
-    this.student = this.studentLectureCarteService.getFromStudentCard();
-    this.controleValide(this.studentLectureCarteService.getFromStudentCard());
+    //this.student = this.studentLectureCarteService.getStudentFromCard();
   }
-
-  controleValide(student: Student) {
-    if(!student){
-      this.message = 2;
-    } else {
-      this.message = 0;
-      this.student = student;
-    }
-  }
-
 }

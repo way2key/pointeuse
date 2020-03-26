@@ -1,27 +1,21 @@
-
-
-  <div class="welcome">
-    <h1 class="title"> timbreuse mobile </h1>
-
-    <div class="clock">
-    </div>
-    <button  class="button is-info has-text-white" (click)="showInfo()">
-      <p>Info</p>
-    </button>
-    <br>
-    <div>
-       <br>
-       <form [formGroup]="cardForm" (ngSubmit)="onSubmitForm()">
-         <div class="form-group">
-           <input type="text" id="cardNumber" class="form-control" placeholder="Numéro de la carte" formControlName="cardNumber">
-         </div><br>
-         <button class="btn btn-primary" type="submit" [disabled]="cardForm.invalid">Timbrez</button>
-       </form>
-    </div>
-
+<div class="welcome">
+  <h1 class="title"> timbreuse mobile </h1>
+  <div class="clock">
   </div>
-
-
-  <div class="time">
-
+  <button  class="button is-info has-text-white" (click)="info()">
+    <p>Info</p>
+  </button>
+  <br>
+  <div>
+     <br>
+     <form [formGroup]="cardForm" (ngSubmit)="readCard()">
+       <div class="form-group">
+         <input type="text" id="cardNumber" class="form-control" placeholder="Numéro de la carte" formControlName="cardNumber">
+       </div><br>
+       <button class="btn btn-primary" type="submit" [disabled]="cardForm.invalid">Timbrez</button>
+     </form>
   </div>
+</div>
+
+<div class="time">
+</div>

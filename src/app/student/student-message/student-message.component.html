@@ -1,3 +1,8 @@
-<p *ngIf = "message === 0">Bonjour {{ student.firstname }} {{ student.lastname }} !</p>
-<p *ngIf = "message === 1">Au revoir {{ student.firstname }} {{ student.lastname }} !</p>
-<p *ngIf = "message === 2">Carte non reconnue !</p>
+<div *ngIf="message==0">
+  <h1>Utilisateur inexistant</h1>
+  <i class="fas fa-bug"></i>
+</div>
+
+<div *ngIf="message==1">
+  <h1>{{student.firstname}} {{student.lastname}}</h1>
+</div>

@@ -2,10 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { StudentInfoComponent } from '../student-info/student-info.component';
 import { StudentMessageComponent } from '../student-message/student-message.component';
-//import { StudentTestCardComponent } from '../student-test-card/student-test-card.component';
-import { StudentLectureCarteService } from '../student-lecture-carte.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Student } from '../../student/student-models/student.model';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-student-main',
@@ -13,49 +10,42 @@ import { Student } from '../../student/student-models/student.model';
   styleUrls: ['./student-main.component.scss']
 })
 export class StudentMainComponent implements OnInit {
+  private infoRequested = false;
+  cardForm = new FormGroup({
+    cardNumber: new FormControl(''),
+    password: new FormControl(''),
+  });
 
-  cardForm: FormGroup;
-  cardNumber: string;
-  private student: Student;
-
-
-  constructor(private studentLectureCarteService: StudentLectureCarteService,
-              private formBuilder: FormBuilder,
-              public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.initForm();
   }
 
-  initForm() {
-    this.cardForm = this.formBuilder.group({
-      cardNumber: ['',Validators.required]
-    });
+  info(){
+    this.infoRequested = !this.infoRequested;
   }
 
-  onSubmitForm() {
-    this.cardNumber = this.cardForm.value['cardNumber'];
-    this.studentLectureCarteService.checkAStudent(this.cardForm.value['cardNumber']).toPromise()
-      .then(
-        (student) => {
-          this.student = student;
-          this.studentLectureCarteService.sendToMessage(this.student);
-          this.showMessage();
+  readCard() {
+    let studentHash = this.cardForm.value.cardNumber;
 
-        }
-      );
+    if(this.infoRequested){
+      this.infoRequested = !this.infoRequested;
+      this.showInfo(studentHash);
+    }else {
+      this.showMessage(studentHash);
+    }
   }
 
-  showInfo(): void {
-    let dialogRef = this.dialog.open(StudentInfoComponent);
+  showInfo(studentHash) {
+    let dialogRef = this.dialog.open(StudentInfoComponent,{data: {hash: studentHash}});
 
     dialogRef.afterClosed().subscribe(result =>{
       console.log('The dialog was closed');
     })
   }
 
-  showMessage(): void {
-    let dialogRef = this.dialog.open(StudentMessageComponent);
+  showMessage(studentHash) {
+    let dialogRef = this.dialog.open(StudentMessageComponent,{data: {hash: studentHash}});
 
     dialogRef.afterClosed().subscribe(result =>{
       console.log('The dialog was closed');
