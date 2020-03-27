@@ -36,6 +36,7 @@ import { StudentMessageComponent } from './student/student-message/student-messa
 
 //Guards
 import { TeacherAuthGuard } from './teacher/teacher-auth.guard';
+import { TeacherClockComponent } from './teacher/teacher-clock/teacher-clock.component';
 
 
 @NgModule({
@@ -51,6 +52,7 @@ import { TeacherAuthGuard } from './teacher/teacher-auth.guard';
     StudentMainComponent,
     StudentInfoComponent,
     StudentMessageComponent,
+    TeacherClockComponent,
   ],
   entryComponents:[StudentInfoComponent],
   imports: [
