@@ -1,5 +1,5 @@
-const moment = require('moment');
-var cron = require('node-cron');
+const cron = require('node-cron');
+const action = require('./action/action');
 
 
 
@@ -19,6 +19,6 @@ var cron = require('node-cron');
  https://www.npmjs.com/package/node-cron
 */
 
-cron.schedule('*/5 * * * * *', () => {
-  console.log(moment().format());
+cron.schedule('*/2 * * * * *', () => {
+  action.test();
 });
