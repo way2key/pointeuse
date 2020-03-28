@@ -10,25 +10,25 @@ const teacherDashboardRoute = require('./route/teacher-dashboard-route.js');
 const studentRoute = require('./route/student-route.js');
 const serverRoute = require('./route/server-route.js');
 
-const app = express();
+const api = express();
 
-app.use((req, res, next) => {
+api.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
   next();
 });
 
-app.use(bodyParser.json());
+api.use(bodyParser.json());
 
-app.use('/api/teacher-student', teacherStudentRoute);
-app.use('/api/teacher-auth', teacherAuthRoute);
-app.use('/api/teacher-setting', teacherSettingRoute);
-app.use('/api/teacher-dashboard', teacherDashboardRoute);
+api.use('/api/teacher-student', teacherStudentRoute);
+api.use('/api/teacher-auth', teacherAuthRoute);
+api.use('/api/teacher-setting', teacherSettingRoute);
+api.use('/api/teacher-dashboard', teacherDashboardRoute);
 
-app.use('/api/student', studentRoute);
+api.use('/api/student', studentRoute);
 
-app.use('/api/server', serverRoute);
+api.use('/api/server', serverRoute);
 
 
-module.exports = app;
+module.exports = api;
