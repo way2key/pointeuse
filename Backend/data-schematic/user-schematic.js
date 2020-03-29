@@ -8,7 +8,8 @@ const userSchema = mongoose.Schema({
   password: {type: String, required:false, unique:true, sparse: true},
   type: {type: Number, required:true},
   data: {type: [String], required:false},
-  dayPlanId: {type: String, required:true, unique:true}
+  performedTime:  {type: String, required:false},
+  dayPlanId: {type: String, required:false, unique:true}
 });
 
 userSchema.plugin(uniqueValidator);

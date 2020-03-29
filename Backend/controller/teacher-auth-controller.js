@@ -54,6 +54,7 @@ exports.signupUser = (req, res, next) => {
     lastname: req.body.lastname,
     hash: req.body.hash,
     type: 0,
+    performedTime: 0,
     dayPlanId: req.body.dayPlanId
   });
   usr.save()

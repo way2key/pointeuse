@@ -5,10 +5,9 @@ exports.createDay = (req, res) => {
 
   delete req.body._id;
   delete req.body.date;
-  
+
   const newDay = new Day({
     date: moment().format("YYYY MM DD"),
-    performedTime: req.body.performedTime,
     present: req.body.present
   });
 

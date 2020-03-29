@@ -14,7 +14,6 @@ exports.createDay = () => {
       for(let student of students){
         const newDay = new Day({
           date: moment().format("YYYY MM DD"),
-          performedTime: 0,
           present: false
         });
         newDay.save();
