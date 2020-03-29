@@ -1,6 +1,9 @@
-const test = require('./test.js');
+const testAction = require('./test.js');
+const createDayAction = require('./create-day.js');
+
 const action = {
-  test: test.test
+  test: testAction.test,
+  createDay: createDayAction.createDay
 }
 
 module.exports = action;

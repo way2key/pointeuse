@@ -19,6 +19,12 @@ const action = require('./action/action');
  https://www.npmjs.com/package/node-cron
 */
 
-cron.schedule('*/2 * * * * *', () => {
+// Crée les days tous les jours à 00:00:01s
+cron.schedule('00 00 00 * * *', () => {
+  action.createDay();
+});
+
+// test s'écrit toutes les heures
+cron.schedule('00 00 */1 * * *', () => {
   action.test();
 });
