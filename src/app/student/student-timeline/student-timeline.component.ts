@@ -3,6 +3,8 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { StudentService } from '../student.service';
 import * as p5 from 'p5';
 import * as moment from 'moment';
+import 'moment-duration-format';
+
 
 @Component({
   selector: 'app-student-timeline',
@@ -11,9 +13,9 @@ import * as moment from 'moment';
 })
 export class StudentTimelineComponent implements OnInit {
   canvas: any;
-  time = moment.duration(moment().format('HH:mm:ss')).asHours();
-
+  time;
   clock = [];
+
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private studentService: StudentService) { }
 
   ngOnInit(): void {
@@ -33,6 +35,7 @@ export class StudentTimelineComponent implements OnInit {
       }
 
       s.draw = () => {
+        this.time = moment.duration(moment().format('HH:mm:ss'));
         let range = this.clock[this.clock.length-1]-this.clock[0];
         let margin = 0.2*range;
         lowerBound = this.clock[0]-margin;
@@ -42,6 +45,22 @@ export class StudentTimelineComponent implements OnInit {
         // Baseline
         s.strokeWeight(4);
         let baseline = s.line(x_start, y, x_end, y);
+
+        // Graduation
+        s.strokeWeight(2);
+        let max = s.ceil(this.clock[this.clock.length-1]);
+        let r = max+1;
+        console.log(r);
+        while(r > lowerBound){
+          let x = s.map(r,lowerBound,upperBound,x_start,x_end);
+          s.line(x,y,x,0.82*s.height);
+          // Time
+          s.fill(230);
+          s.textSize(0.03*s.height);
+          s.textAlign(s.CENTER);
+          s.text(r+':00', x, 0.85*s.height);
+          r--;
+        }
 
         // Clocks
         for(let p of this.clock){
@@ -59,15 +78,16 @@ export class StudentTimelineComponent implements OnInit {
 
         // Timeline
         s.fill(0,255,0);
-        let x_time = s.map(this.time,lowerBound,upperBound,x_start,x_end);
+        let x_time = s.map(this.time.asHours(),lowerBound,upperBound,x_start,x_end);
         s.strokeWeight(4);
-        let timeline = s.line(x_time,0.85*s.height,x_time,0.3*s.height);
+        let timeline = s.line(x_time,0.85*s.height,x_time,0.34*s.height);
 
         // Timeline Hour
         s.fill(230);
         s.textSize(0.05*s.height);
         s.textAlign(s.CENTER);
-        s.text(this.time, x_time, 0.9*s.height);
+        s.text(this.time.format('hh:mm:ss'), x_time, 0.3*s.height);
+
       }
     };
     this.canvas = new p5(sketch);
