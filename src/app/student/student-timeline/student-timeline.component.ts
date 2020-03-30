@@ -2,6 +2,8 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { StudentService } from '../student.service';
 import * as p5 from 'p5';
+import * as moment from 'moment';
+
 @Component({
   selector: 'app-student-timeline',
   templateUrl: './student-timeline.component.html',
@@ -9,7 +11,8 @@ import * as p5 from 'p5';
 })
 export class StudentTimelineComponent implements OnInit {
   canvas: any;
-  time = 6;
+  time = moment.duration(moment().format('HH:mm:ss')).asHours();
+
   clock = [];
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private studentService: StudentService) { }
 
@@ -35,7 +38,7 @@ export class StudentTimelineComponent implements OnInit {
         lowerBound = this.clock[0]-margin;
         upperBound = this.clock[this.clock.length-1]+margin;
         s.clear();
-      
+
         // Baseline
         s.strokeWeight(4);
         let baseline = s.line(x_start, y, x_end, y);
@@ -65,8 +68,6 @@ export class StudentTimelineComponent implements OnInit {
         s.textSize(0.05*s.height);
         s.textAlign(s.CENTER);
         s.text(this.time, x_time, 0.9*s.height);
-
-        this.time += 0.01;
       }
     };
     this.canvas = new p5(sketch);
@@ -76,10 +77,6 @@ export class StudentTimelineComponent implements OnInit {
     this.studentService.getStudentClock(hash).subscribe(
       clocks => {
         this.clock = clocks;
-        console.log(this.clock);
-
-        console.log("done");
-
       },
       error => {
         console.log(error.message);

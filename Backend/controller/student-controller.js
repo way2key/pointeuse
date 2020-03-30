@@ -41,7 +41,7 @@ exports.clockAStudent = (req, res) => {
       } else {
         const newClock = new Clock({
           dayId: dateId[0],
-          time: moment().format("HH mm ss")
+          time: moment().format("HH:mm:ss")
         });
         return newClock.save();
       }
@@ -51,5 +51,37 @@ exports.clockAStudent = (req, res) => {
 }
 
 exports.getStudentClock = (req, res)=>{
-  res.status(200).send('[6,9,9.5,10.25,11.45]');
+  let dateId = [];
+  const now = new Date();
+  let year = now.getFullYear();
+  let month = now.getMonth();
+  let day = now.getDate();
+  let today = ((new Date(year, month, day)).getTime()/1000);
+  let todayId = today.toString(16) +'0000000000000000';
+  User.findOne({hash: req.params.hash})
+    .then((student) => {
+      for(day of student.data) {
+        if(day >= todayId) {
+          dateId.push(day);
+        }
+      }
+      if(dateId.length != 1) {
+        reject();
+      } else {
+        Clock.find({dayId:dateId[0]})
+        .then(
+          clocks => {
+            let out=[];
+            for(let clock of clocks){
+              out.push(moment.duration(clock.time).asHours());
+            }
+            console.log(out);
+            res.status(200).send(out)
+          }
+        )
+      }
+    })
+    .then()
+    .catch((error) => res.status(400).json({error: 'Erreur création clock'}));
+
 }
