@@ -24,4 +24,9 @@ export class StudentService {
   clockAStudent(hash: string): Observable<any> {
     return this.http.post<any>(this.apiURL, {hash: hash});
   }
+
+  getStudentClock(hash: string): Observable<any> {
+    const url = this.apiURL + '/clock/' + hash;
+    return this.http.get<any>(url);
+  }
 }

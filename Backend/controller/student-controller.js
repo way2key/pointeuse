@@ -49,3 +49,7 @@ exports.clockAStudent = (req, res) => {
     .then(() => res.status(201).json({message: 'Clock créé'}))
     .catch((error) => res.status(400).json({error: 'Erreur création clock'}));
 }
+
+exports.getStudentClock = (req, res)=>{
+  res.status(200).send('[6,9,9.5,10.25,11.45]');
+}

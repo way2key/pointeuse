@@ -12,7 +12,7 @@
     <span *ngIf = "status" class="tag is-success is-large" >IN</span>
     <span *ngIf = "!status" class="tag is-danger is-large" >OUT</span>
     <mat-divider></mat-divider>
-    <canvas id="canvas" width="800" height="350"></canvas>
+    <app-student-timeline></app-student-timeline>
     <mat-divider></mat-divider>
     <p> Temps effectué: {{ student.elapsedTime }} </p>
     <p>{{ meal? "Vous avez déjà mangé" : "Vous n'avez pas encore mangé"}}</p>
