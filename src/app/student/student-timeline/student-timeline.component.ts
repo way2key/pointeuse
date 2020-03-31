@@ -45,17 +45,34 @@ export class StudentTimelineComponent implements OnInit {
 
         // Baseline
         s.strokeWeight(4);
+        s.stroke(0);
         let baseline = s.line(x_start, y, x_end, y);
+
+        // Timeline
+        s.fill(0,255,0);
+        s.stroke(0);
+        let x_time = s.map(this.time.asHours(),lowerBound,upperBound,x_start,x_end);
+        s.strokeWeight(4);
+        let timeline = s.line(x_time,0.85*s.height,x_time,0.34*s.height);
+
+        // Timeline Hour
+        s.fill(230);
+        s.noStroke(0);
+        s.textSize(0.05*s.height);
+        s.textAlign(s.CENTER);
+        s.text(this.time.format('hh:mm:ss'), x_time, 0.3*s.height);
 
         // Graduation
         s.strokeWeight(2);
         let max = s.ceil(this.clock[this.clock.length-1]);
         let r = max+1;
-        
+
         while(r > lowerBound){
           let x = s.map(r,lowerBound,upperBound,x_start,x_end);
+          s.stroke(0);
           s.line(x,y,x,0.82*s.height);
           // Time
+          s.noStroke(0);
           s.fill(230);
           s.textSize(0.03*s.height);
           s.textAlign(s.CENTER);
@@ -64,30 +81,35 @@ export class StudentTimelineComponent implements OnInit {
         }
 
         // Clocks
+        /*
         for(let p of this.clock){
           let x_time = s.map(p,lowerBound,upperBound,x_start,x_end);
           s.strokeWeight(3);
           s.line(x_time,y,x_time,0.63*s.height);
         }
+        */
 
         // Completed period
         for(let i=0; i < this.clock.length; i+=2){
           s.fill(0,255,0,140);
           s.strokeWeight(3);
+          s.stroke(0);
           s.rect(s.map(this.clock[i],lowerBound,upperBound,x_start,x_end), y, s.map(this.clock[i+1],lowerBound,upperBound,x_start,x_end)-s.map(this.clock[i],lowerBound,upperBound,x_start,x_end), -0.17*s.height);
         }
 
-        // Timeline
-        s.fill(0,255,0);
-        let x_time = s.map(this.time.asHours(),lowerBound,upperBound,x_start,x_end);
-        s.strokeWeight(4);
-        let timeline = s.line(x_time,0.85*s.height,x_time,0.34*s.height);
+        // last period
+        if(this.clock.length %2!=0){
+          s.fill(250,255,0,175);
+          let index = this.clock.length - 1;
+          let x_time = s.map(this.time.asHours(),lowerBound,upperBound,x_start,x_end);
 
-        // Timeline Hour
-        s.fill(230);
-        s.textSize(0.05*s.height);
-        s.textAlign(s.CENTER);
-        s.text(this.time.format('hh:mm:ss'), x_time, 0.3*s.height);
+          s.rect(
+            s.map(this.clock[index],lowerBound,upperBound,x_start,x_end),
+            y,
+            s.map(this.time.asHours(),lowerBound,upperBound,x_start,x_end)-s.map(this.clock[index],lowerBound,upperBound,x_start,x_end),
+            -0.17*s.height
+          );
+        }
 
       }
     };
