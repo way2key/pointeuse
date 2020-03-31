@@ -4,6 +4,20 @@ const Day = require('../data-schematic/day-schematic');
 const action = require('../action/action');
 const moment = require('moment');
 
+exports.getStudentInfo = (req, res) => {
+  action.getStudentInfo(req.params.hash)
+  .then(
+    student => {
+      res.status(200).json(student);
+    }
+  )
+  .catch(
+    error => {
+      res.status(400).json({error});
+    }
+  )
+}
+
 exports.getStudentStatus = (req, res) => {
   action.checkStudentStatus(req.params.hash)
   .then(
@@ -16,19 +30,18 @@ exports.getStudentStatus = (req, res) => {
   )
 }
 
-exports.getStudentInfo = (req, res) => {
-  User.findOne({hash: req.params.hash})
+exports.getStudentClock = (req, res) => {
+  action.getStudentClock(req.params.hash)
   .then(
-    student => {
-      if(!student){
-        res.status(400).json({error});
+    clocks => {
+      let out = [];
+      for(let clock of clocks){
+        out.push(moment.duration(clock.time).asHours());
       }
-      res.status(200).json(student);
+      res.status(200).send(out);
     }
   )
-  .catch(
-    error => res.status(400).json({error})
-  );
+  .catch((error) => res.status(400).json({error: 'Erreur Récupération Clock'}));
 }
 
 exports.clockAStudent = (req, res) => {
@@ -44,18 +57,4 @@ exports.clockAStudent = (req, res) => {
   )
   .then(() => res.status(201).json({message: 'Clock créé'}))
   .catch((error) => res.status(400).json({error: 'Erreur création clock'}));
-}
-
-exports.getStudentClock = (req, res) => {
-  action.getStudentClock(req.params.hash)
-  .then(
-    clocks => {
-      let out = [];
-      for(let clock of clocks){
-        out.push(moment.duration(clock.time).asHours());
-      }
-      res.status(200).send(out);
-    }
-  )
-  .catch((error) => res.status(400).json({error: 'Erreur Récupération Clock'}));
 }

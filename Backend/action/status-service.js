@@ -1,6 +1,6 @@
 const moment = require('moment');
 const db = require('../database/db');
-const clockService = require('./getStudentClock.js');
+const clockService = require('./clock-service.js');
 
 const Day = require('../data-schematic/day-schematic');
 const Clock = require('../data-schematic/clock-schematic');

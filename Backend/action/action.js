@@ -1,16 +1,19 @@
 const testAction = require('./test.js');
-const createDayAction = require('./create-day.js');
-const statusChecker = require('./statusChecker.js');
-const dayService = require('./getStudentCurrentDay.js');
-const clockService = require('./getStudentClock.js');
+const statusService = require('./status-service.js');
+const dayService = require('./day-service.js');
+const clockService = require('./clock-service.js');
+const performedTimeService = require('./performedTime-service.js');
+const studentService = require('./student-service.js');
 
 const action = {
   test: testAction.test,
-  createDay: createDayAction.createDay,
-  checkClockStatus: statusChecker.checkClockStatus,
-  checkStudentStatus: statusChecker.checkStudentStatus,
+  createDay: dayService.createDay,
+  checkClockStatus: statusService.checkClockStatus,
+  checkStudentStatus: statusService.checkStudentStatus,
   getStudentCurrentDay: dayService.getStudentCurrentDay,
-  getStudentClock: clockService.getStudentClock
+  getStudentClock: clockService.getStudentClock,
+  getStudentInfo: studentService.getStudentInfo,
+  recordStudentHours: performedTimeService.recordStudentHours
 }
 
 module.exports = action;

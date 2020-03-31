@@ -24,6 +24,11 @@ cron.schedule('00 00 00 * * *', () => {
   action.createDay();
 });
 
+// Crée les days tous les jours à 00:00:01s
+cron.schedule('00 00 00 * * *', () => {
+  action.recordStudentHours();
+});
+
 // test s'écrit toutes les heures
 cron.schedule('00 00 */1 * * *', () => {
   action.test();
