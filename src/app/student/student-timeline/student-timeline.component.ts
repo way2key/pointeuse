@@ -39,7 +39,9 @@ export class StudentTimelineComponent implements OnInit {
         let range = this.clock[this.clock.length-1]-this.clock[0];
         let margin = 0.2*range;
         lowerBound = this.clock[0]-margin;
-        upperBound = this.clock[this.clock.length-1]+margin;
+        upperBound = this.time.asHours()+margin;
+        console.log(this.time.asHours()+ margin);
+
         s.clear();
 
         // Baseline
