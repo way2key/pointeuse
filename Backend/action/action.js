@@ -13,7 +13,9 @@ const action = {
   getStudentCurrentDay: dayService.getStudentCurrentDay,
   getStudentClock: clockService.getStudentClock,
   getStudentInfo: studentService.getStudentInfo,
-  recordStudentHours: performedTimeService.recordStudentHours
+  updatePerformedTime: performedTimeService.updatePerformedTime
 }
 
+
+performedTimeService.updatePerformedTime();
 module.exports = action;
