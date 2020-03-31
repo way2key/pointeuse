@@ -75,7 +75,6 @@ exports.getStudentClock = (req, res)=>{
             for(let clock of clocks){
               out.push(moment.duration(clock.time).asHours());
             }
-            console.log(out);
             res.status(200).send(out)
           }
         )
