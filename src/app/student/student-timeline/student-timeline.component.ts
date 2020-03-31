@@ -40,7 +40,6 @@ export class StudentTimelineComponent implements OnInit {
         let margin = 0.2*range;
         lowerBound = this.clock[0]-margin;
         upperBound = this.time.asHours()+margin;
-        console.log(this.time.asHours()+ margin);
 
         s.clear();
 
@@ -52,7 +51,7 @@ export class StudentTimelineComponent implements OnInit {
         s.strokeWeight(2);
         let max = s.ceil(this.clock[this.clock.length-1]);
         let r = max+1;
-        console.log(r);
+        
         while(r > lowerBound){
           let x = s.map(r,lowerBound,upperBound,x_start,x_end);
           s.line(x,y,x,0.82*s.height);

@@ -5,10 +5,18 @@ const action = require('../action/action');
 const moment = require('moment');
 
 exports.getStudentStatus = (req, res) => {
-  res.status(200).json(true);
+  action.checkStudentStatus(req.params.hash)
+  .then(
+    status => {
+      res.status(200).json(status);
+    }
+  )
+  .catch(
+    error => res.status(400).json({error})
+  )
 }
 
-exports.getStudentInfo = (req, res)=>{
+exports.getStudentInfo = (req, res) => {
   User.findOne({hash: req.params.hash})
   .then(
     student => {
@@ -18,7 +26,9 @@ exports.getStudentInfo = (req, res)=>{
       res.status(200).json(student);
     }
   )
-  .catch(error => res.status(400).json({error}));
+  .catch(
+    error => res.status(400).json({error})
+  );
 }
 
 exports.clockAStudent = (req, res) => {
@@ -37,21 +47,15 @@ exports.clockAStudent = (req, res) => {
 }
 
 exports.getStudentClock = (req, res) => {
-  action.getStudentCurrentDay(req.params.hash)
+  action.getStudentClock(req.params.hash)
   .then(
-    dayId => {
-      Clock.find({dayId:dayId})
-      .then(
-        clocks => {
-          let out=[];
-          for(let clock of clocks){
-            out.push(moment.duration(clock.time).asHours());
-          }
-          res.status(200).send(out)
-        }
-      )
+    clocks => {
+      let out = [];
+      for(let clock of clocks){
+        out.push(moment.duration(clock.time).asHours());
+      }
+      res.status(200).send(out);
     }
   )
-  .then()
   .catch((error) => res.status(400).json({error: 'Erreur Récupération Clock'}));
 }

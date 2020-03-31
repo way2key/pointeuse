@@ -1,8 +1,10 @@
 const moment = require('moment');
 const db = require('../database/db');
+const clockService = require('./getStudentClock.js');
 
 const Day = require('../data-schematic/day-schematic');
 const Clock = require('../data-schematic/clock-schematic');
+const User = require('../data-schematic/user-schematic');
 
 exports.checkClockStatus = (clockId) => {
   return new Promise( (resolve, reject) => {
@@ -30,4 +32,23 @@ exports.checkClockStatus = (clockId) => {
 }
 
 exports.checkStudentStatus = (studentHash) => {
+  return new Promise( (resolve, reject) => {
+    clockService.getStudentClock(studentHash)
+    .then(
+      clocks => {
+        let mostRecent = '000000000000000000000000';
+        for(clock of clocks) {
+          if(clock.id >= mostRecent) {
+            mostRecent = clock.id;
+          }
+        }
+        return this.checkClockStatus(mostRecent);
+      }
+    )
+    .then(
+      status => {
+        resolve(status);
+      }
+    )
+  });
 }
