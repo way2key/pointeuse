@@ -2,6 +2,8 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  height: auto;
+  margin: auto;
 }
 
 .student {
@@ -11,4 +13,42 @@
   border-radius: 10px;
   background-color: darkgrey;
   margin: 4px;
+}
+
+.selectButton {
+  width: 20px;
+  height: 20px;
+}
+
+.checkbox {
+   margin: inherit;
+}
+#allButton {
+  width: 160px;
+}
+
+.buttons {
+  margin: auto;
+  display: run-in;
+}
+
+.search{
+  align-self: right;
+  width: auto;
+  margin: 25px;
+
+}
+
+.form {
+  display:flex;
+  justify-content: space-around;
+  align-items: center;
+  align-content: center;
+  width: 100%;
+}
+
+.clear {
+  background-color: inherit;
+  border: none;
+  font-size: 25px;
 }

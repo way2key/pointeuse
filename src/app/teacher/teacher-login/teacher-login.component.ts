@@ -14,6 +14,9 @@ export class TeacherLoginComponent implements OnInit {
     username: new FormControl(''),
     password: new FormControl(''),
   });
+
+  incorrectPassword = false;
+
   constructor(private teacherAuthService: TeacherAuthService, private router: Router) { }
 
   ngOnInit(): void {
@@ -28,9 +31,17 @@ export class TeacherLoginComponent implements OnInit {
     this.teacherAuthService.logUserIn(this.loginForm.value).
     subscribe(
       res => {
-        localStorage.setItem('token', res.token);
+        if(res.token) {
+          localStorage.setItem('token', res.token);
+        } else {
+          console.log(res.error);
+          this.incorrectPassword = true;
+        }
       },
-      err => {console.log(err)},
+      err => {
+        this.incorrectPassword = true;
+        console.log('error!!!!!',err);
+      },
       () => {this.router.navigate(['/teacher/dashboard'])}
     );
 

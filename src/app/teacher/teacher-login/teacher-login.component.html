@@ -5,7 +5,7 @@
       <h1 class="title has-text-primary">Interface Enseignant</h1>
 
       <div class="field">
-        <p class="control has-icons-left has-icons-right">
+        <p class="control has-icons-left">
           <input class="input has-background-light" type="text" placeholder="Username" formControlName="username">
           <span class="icon is-small is-left">
             <i class="fas fa-envelope"></i>
@@ -22,14 +22,21 @@
         </p>
       </div>
 
-      <div class="field is-pulled-right">
-        <p class="control">
-          <button class="button is-success has-text-white" type="submit" [disabled]="!loginForm.valid">
+      <div>
+          <button class="button is-success has-text-white is-pulled-right" type="submit" [disabled]="!loginForm.valid">
             <i class="fas fa-sign-in-alt"></i>
           </button>
-        </p>
+        <mat-card-content *ngIf ="incorrectPassword" class="error is-pulled-left">
+          Username or password incorrect
+        </mat-card-content>
+      </div>
+
+      <div *ngIf ="incorrectPassword" style="text-align:bottom">
+
+
       </div>
     </form>
+
 
   </div>
 </div>

@@ -21,6 +21,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 //Components
 import { TeacherLoginComponent } from './teacher/teacher-login/teacher-login.component';
@@ -37,6 +39,7 @@ import { StudentMessageComponent } from './student/student-message/student-messa
 //Guards
 import { TeacherAuthGuard } from './teacher/teacher-auth.guard';
 import { TeacherClockComponent } from './teacher/teacher-clock/teacher-clock.component';
+import { TeacherStudentTimeComponent } from './teacher/teacher-student-time/teacher-student-time.component';
 
 
 @NgModule({
@@ -53,6 +56,7 @@ import { TeacherClockComponent } from './teacher/teacher-clock/teacher-clock.com
     StudentInfoComponent,
     StudentMessageComponent,
     TeacherClockComponent,
+    TeacherStudentTimeComponent,
   ],
   entryComponents:[StudentInfoComponent],
   imports: [
@@ -75,9 +79,12 @@ import { TeacherClockComponent } from './teacher/teacher-clock/teacher-clock.com
     MatNativeDateModule,
     MatAutocompleteModule,
     HttpClientModule,
+    MatCheckboxModule,
+
   ],
   providers: [
-    TeacherAuthGuard
+    TeacherAuthGuard,
+    MatSnackBar
   ],
   bootstrap: [AppComponent]
 })
