@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { interval, Subscription } from 'rxjs';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-teacher-clock',
@@ -84,13 +85,13 @@ export class TeacherClockComponent implements OnInit {
 
   drawTime(ctx: CanvasRenderingContext2D, radius: number) {
 
-    let now = new Date();
-    let hour = now.getHours();
-    let minute = now.getMinutes();
-    let second = now.getSeconds();
-    let millis = now.getMilliseconds();
+    let now = moment();
+    let hour = now.hour();
+    let minute = now.minute();
+    let second = now.second();
+    let millis = now.millisecond();
 
-    millis = (((millis+(1000*second))*60/59)/1000);
+
 
     hour = hour%12;
     hour = (hour*Math.PI/6)+(minute*Math.PI/(6*60));
@@ -99,9 +100,10 @@ export class TeacherClockComponent implements OnInit {
     minute = (minute*Math.PI/(30));
     this.drawMinute(ctx, minute, radius);
 
+    millis = (((millis+(1000*second))*60/59)/1000);
     if(millis>60) {
       millis = 60;
-    }
+    };
     second = millis*Math.PI/30;
     this.drawSecond(ctx, second, radius);
 
@@ -143,11 +145,11 @@ export class TeacherClockComponent implements OnInit {
     ctx.beginPath();
     ctx.moveTo(0,0);
     ctx.rotate(pos);
-    ctx.fillRect(radius*0.028,radius*0.33,-radius*0.028,-radius*0.974);
-    ctx.translate(radius*0.014,-radius*0.624);
+    ctx.fillRect(radius*0.014,radius*0.33,-radius*0.028,-radius*0.974);
+    ctx.translate(0,-radius*0.624);
     ctx.arc(0, 0, radius*0.105, 0, 2*Math.PI);
     ctx.fill();
-    ctx.translate(-radius*0.014,radius*0.624);
+    ctx.translate(0,radius*0.624);
     ctx.rotate(-pos);
   }
 

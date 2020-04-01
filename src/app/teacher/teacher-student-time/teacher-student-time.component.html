@@ -1,0 +1,17 @@
+<h3>Heure à modifier : </h3>
+
+
+<div class="timeChoiceBody">
+  <input class="timeChoice" type="time" name="" step="300" min="00:30" [(ngModel)]="tempsChoisi">
+</div>
+
+<br>
+<div class="buttons has-addons">
+  <button mat-button mat-dialog-close class="button is-success" name="button" (click)="modifyTime(0)">Ajouter le temps</button>
+  <button mat-button mat-dialog-close class="button is-danger" name="button"(click)="modifyTime(1)">Enlever le temps</button>
+</div>
+<h4>Elèves concernés : </h4>
+
+  <ul>
+    <li *ngFor="let student of students"> {{student.lastname | uppercase}} {{student.firstname}}</li>
+  </ul>

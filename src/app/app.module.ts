@@ -21,6 +21,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 //Components
 import { TeacherLoginComponent } from './teacher/teacher-login/teacher-login.component';
@@ -33,11 +35,12 @@ import { TeacherDashboardComponent } from './teacher/teacher-dashboard/teacher-d
 import { StudentMainComponent } from './student/student-main/student-main.component';
 import { StudentInfoComponent } from './student/student-info/student-info.component';
 import { StudentMessageComponent } from './student/student-message/student-message.component';
+import { StudentTimelineComponent } from './student/student-timeline/student-timeline.component';
 
 //Guards
 import { TeacherAuthGuard } from './teacher/teacher-auth.guard';
 import { TeacherClockComponent } from './teacher/teacher-clock/teacher-clock.component';
-import { StudentTimelineComponent } from './student/student-timeline/student-timeline.component';
+import { TeacherStudentTimeComponent } from './teacher/teacher-student-time/teacher-student-time.component';
 
 
 @NgModule({
@@ -54,6 +57,7 @@ import { StudentTimelineComponent } from './student/student-timeline/student-tim
     StudentInfoComponent,
     StudentMessageComponent,
     TeacherClockComponent,
+    TeacherStudentTimeComponent,
     StudentTimelineComponent,
   ],
   entryComponents:[StudentInfoComponent],
@@ -77,9 +81,12 @@ import { StudentTimelineComponent } from './student/student-timeline/student-tim
     MatNativeDateModule,
     MatAutocompleteModule,
     HttpClientModule,
+    MatCheckboxModule,
+
   ],
   providers: [
-    TeacherAuthGuard
+    TeacherAuthGuard,
+    MatSnackBar
   ],
   bootstrap: [AppComponent]
 })

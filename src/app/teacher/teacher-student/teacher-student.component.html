@@ -1,29 +1,49 @@
-<mat-toolbar class="toolbar">
-  <p>Actions Globales</p>
-  <div class="buttons has-addons">
-    <button class="button is-link">Modifier le temps à tout le monde</button>
-    <button class="button is-success">Tout le monde présent</button>
-  </div>
-</mat-toolbar>
-<h1>Liste des stagiaires</h1>
 <div>
-  <div *ngFor="let s of students" class="student">
-    <div class="student-info">
-      <div>
-        <i matListIcon class="fas fa-coffee"></i>
-        <i matListIcon class="fas fa-check"></i>
-        <i matListIcon class="fas fa-calendar-times"></i>
-        <i matListIcon class="fas fa-calendar-check"></i>
-      </div>
-      <h1 matSubheader>{{s.firstname}} {{s.lastname}}</h1>
-      <p *ngIf="s.performedTime.includes('+')" style="color:green"> {{s.performedTime}} </p>
-      <p *ngIf="s.performedTime.includes('-')" style="color:red"> {{s.performedTime}} </p>
+  <mat-toolbar class="toolbar">
+    <p>Actions Globales</p>
 
-    </div>
+    <form class="form" (ngSubmit)="getStudent()">
+      <mat-form-field class="search">
+        <input type="text" placeholder="Trouvez un stagiaire"
+               matInput
+               [formControl]="myControl"
+               [matAutocomplete]="auto"
+               [(ngModel)]="searchField">
+        <button class="clear has-text-white" mat-button mat-icon-button matSuffix (click)="clearSearchField()" *ngIf="searchField">×</button>
+       <mat-autocomplete #auto="matAutocomplete">
+         <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+           {{option}}
+         </mat-option>
+       </mat-autocomplete>
+     </mat-form-field>
+     <button class="button is-info has-text-white">
+       <i class="fas fa-search"></i>
+     </button>
+   </form>
     <div class="buttons has-addons">
-      <button class="button is-success">modification temps</button>
-      <button class="button is-warning">modification présence</button>
+
+      <button class="button is-link" (click)="modifyTime()" [disabled]="disabled">Modifiez le temps</button>
+      <button class="button is-success"(click)="modifyPresence()" [disabled]="disabled">Modifiez la présence</button>
+      <button class="button" id="allButton" (click)="onAll()">Tout sélectionner</button>
     </div>
-  </div>
+  </mat-toolbar>
+  <h1>Liste des stagiaires</h1>
+  <div>
+    <div *ngFor="let s of shownStudents" class="student">
+      <div class="student-info">
+        <div>
+          <i matListIcon class="fas fa-coffee"></i>
+          <i matListIcon class="fas fa-check"></i>
+          <i matListIcon class="fas fa-calendar-times"></i>
+          <i matListIcon class="fas fa-calendar-check"></i>
+        </div>
+        <h1 matSubheader>{{s.firstname}} {{s.lastname}}</h1>
+        <p *ngIf="s.performedTime.includes('+')" style="color:green"> {{s.performedTime}} </p>
+        <p *ngIf="s.performedTime.includes('-')" style="color:red"> {{s.performedTime}} </p>
+      </div>
+      <mat-checkbox class="checkbox"
+                    [(ngModel)]="s.isSelected"
+                    (change)="onCheckBox()"></mat-checkbox>
+    </div>
 
 </div>
