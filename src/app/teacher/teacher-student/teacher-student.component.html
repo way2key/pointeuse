@@ -38,8 +38,8 @@
         </div>
         <h1 matSubheader>{{s.firstname}} {{s.lastname}}</h1>
         <p [ngClass]="{'performedTime': true,
-                      'heureNegatif': s.performedTime < 0,
-                      'heurePositif': s.performedTime >= 0 }"> {{s.performedTime}} </p>
+                      'heureNegatif': s.performedTime < -(0.1/12),
+                      'heurePositif': s.performedTime >= -(0.1/12) }"> {{convertTime(s.performedTime)}} </p>
       </div>
       <mat-checkbox class="checkbox"
                     [(ngModel)]="s.isSelected"

@@ -15,7 +15,9 @@ export class TeacherStudentTimeComponent implements OnInit {
     time: new FormControl('')
   });
 
-  chosenTime = "01:00"
+  chosenTime = "01:00";
+  addButton ="false";
+  choice = 0;
 
   constructor(private teacherStudentService: TeacherStudentService, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
@@ -41,19 +43,36 @@ export class TeacherStudentTimeComponent implements OnInit {
     }
   }
 
-  modifyTime(choice: number) {
-    let time;
-    if (choice === 0) {
-      time = this.chosenTime;
-    } else if (choice === 1) {
-      time = -this.timeChoice;
-    }
+  addTime() {
+    this.choice = 0;
+  }
 
-    console.log("noooo", time);
+  removeTime() {
+    this.choice = 1;
+  }
+
+  modifyTime() {
+
+    let choice = this.choice;
+
+    let time = this.chosenTime.toString().split(':',2);
+    let hours = parseInt(time[0]);
+    let minutes = parseInt(time[1]);
+    hours = hours + (minutes/60);
+
+
+    if (choice === 0) {
+
+    } else if (choice === 1) {
+      hours = -hours;
+    }
+    console.log("noooo", hours);
+
+
 
     this.students.forEach(student => {
 
-      let payload = {time:4, hash:student.hash}
+      let payload = {time: hours, hash:student.hash}
       console.log(payload);
       this.teacherStudentService.modifyPerformedTime(payload)
       .subscribe(

@@ -6,6 +6,7 @@ import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { TeacherStudentTimeComponent } from '../teacher-student-time/teacher-student-time.component';
+import * as moment from 'moment';
 
 
 @Component({
@@ -167,6 +168,40 @@ export class TeacherStudentComponent implements OnInit {
   clearSearchField() {
     this.searchField = '';
     this.shownStudents = this.students;
+  }
+
+  convertTime(thisValue: number) {
+    let timeValue = Math.abs(thisValue);
+    let time;
+    let hours = timeValue-(timeValue%1);
+    let minutes = ((timeValue%1)*60);
+    minutes = parseInt(minutes.toFixed(0));
+
+    let minutesText;
+    let hoursText;
+    if (hours === 0 ) {
+      hoursText = '00';
+    } else if (hours < 10 ) {
+      hoursText = '0' + hours.toString();
+    } else {
+      hoursText =  hours.toString();
+    }
+
+    if (minutes === 0 ) {
+      minutesText = '00';
+    } else if (minutes < 10 ) {
+      minutesText = '0' + minutes.toString();
+    } else {
+      minutesText = minutes.toString();
+    }
+
+    if (thisValue < -(0.1/12)) {
+      time = '- ' + hoursText + ' : ' + minutesText;
+    } else {
+      time = '  ' + hoursText + ' : ' + minutesText;
+    }
+
+    return time;
   }
 
 }
