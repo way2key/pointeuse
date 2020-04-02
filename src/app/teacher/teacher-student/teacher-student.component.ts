@@ -46,6 +46,7 @@ export class TeacherStudentComponent implements OnInit {
         let select = false;
         student[newSelect] = select;
         this.students.push(student);
+
       };
       this.students.sort(this.alphabeticalSort('lastname'));
       this.shownStudents = this.students;
