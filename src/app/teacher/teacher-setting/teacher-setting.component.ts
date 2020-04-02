@@ -27,9 +27,10 @@ export class TeacherSettingComponent implements OnInit {
   changePassword(): void {
     let p1 = this.changePasswordForm.value.newPassword;
     let p2 = this.changePasswordForm.value.confirmPassword;
-    let payload = {password: p1}
+    let payload = {password: p1};
     if(p1===p2){
-      this.teacherSettingService.changePassword(payload).subscribe(
+      this.teacherSettingService.changePassword(payload)
+      .subscribe(
         ((data) => {
           console.log('success: ', data);
         }),

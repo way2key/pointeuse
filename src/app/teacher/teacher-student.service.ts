@@ -19,4 +19,9 @@ export class TeacherStudentService {
   getAllStudents(): Observable<String[]> {
     return this.http.get<String[]>(this.apiUrl, this.httpOptions);
   }
+
+  modifyPerformedTime(payload){
+    let url = this.apiUrl + '/time';
+    return this.http.post<any>(url, payload, this.httpOptions);
+  }
 }

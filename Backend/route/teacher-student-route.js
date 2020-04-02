@@ -7,5 +7,6 @@ const teacherStudentController = require('../controller/teacher-student-controll
 //Routes
 router.get('/:id', auth, teacherStudentController.getAStudent);
 router.get('/', auth, teacherStudentController.getAllStudents);
+router.post('/time', teacherStudentController.modifyPerformedTime);
 
 module.exports = router;

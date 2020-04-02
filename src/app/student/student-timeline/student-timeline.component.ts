@@ -37,7 +37,12 @@ export class StudentTimelineComponent implements OnInit {
       s.draw = () => {
         this.time = moment.duration(moment().format('HH:mm:ss'));
         let range = this.clock[this.clock.length-1]-this.clock[0];
-        let margin = 0.2*range;
+        let margin;
+        if(range){
+          margin = 0.2*range;
+        }else{
+          margin = 0.1*this.clock[0];
+        }
         lowerBound = this.clock[0]-margin;
         upperBound = this.time.asHours()+margin;
 
@@ -66,6 +71,7 @@ export class StudentTimelineComponent implements OnInit {
         s.strokeWeight(2);
         let max = s.ceil(this.clock[this.clock.length-1]);
         let r = max+1;
+        console.log(r, lowerBound);
 
         while(r > lowerBound){
           let x = s.map(r,lowerBound,upperBound,x_start,x_end);

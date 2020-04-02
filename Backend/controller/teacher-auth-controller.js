@@ -6,7 +6,7 @@ const secret = require('../secret.js');
 exports.login = (req, res, next) => {
 
     User.findOne({firstname: req.body.username})
-    .then(usr =>{
+    .then(usr => {
       if(!usr || usr.type !== 1){
         return res.status(401).json({error: "Utilisateur inexistant ou Mot de passe incorrect"});
       }
@@ -54,16 +54,12 @@ exports.signupUser = (req, res, next) => {
     lastname: req.body.lastname,
     hash: req.body.hash,
     type: 0,
-    performedTime: 0,
+    performedTime: req.body.performedTime,
     dayPlanId: req.body.dayPlanId
   });
   usr.save()
   .then(() => res.status(201).json({ message: 'Utilisateur enregistré'}))
   .catch(error => res.status(400).json({error}));
-}
-
-exports.getUser = (req, res, next) => {
-  console.log('REQ',req);
 }
 
 exports.verifyToken = (req, res, next) => {

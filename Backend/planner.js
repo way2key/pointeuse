@@ -21,7 +21,7 @@ const action = require('./action/action');
 
 // Crée les days tous les jours à 00:00:01s
 cron.schedule('00 00 00 * * *', () => {
-  action.createDay();
+  action.createDayForEachUser();
 });
 
 // Crée les days tous les jours à 00:00:01s

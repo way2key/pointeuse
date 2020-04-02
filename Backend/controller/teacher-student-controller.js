@@ -1,4 +1,5 @@
 const User = require('../data-schematic/user-schematic');
+const performedTimeService = require('../action/performedTime-service.js');
 
 exports.getAllStudents = (req, res)=>{
   User.find({type:0})
@@ -12,6 +13,8 @@ exports.getAStudent = (req, res)=>{
   .catch(error => res.status(400).json({error}));
 }
 
-exports.updateTime = (req, res) => {
-
+exports.modifyPerformedTime = (req, res) => {
+  performedTimeService.modifyPerformedTime(req.body.time,req.body.hash)
+  .then( response => res.status(200).json({response}))
+  .catch( error => res.status(500).json({error}));
 }

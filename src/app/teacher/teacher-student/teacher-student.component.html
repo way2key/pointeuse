@@ -21,7 +21,6 @@
      </button>
    </form>
     <div class="buttons has-addons">
-
       <button class="button is-link" (click)="modifyTime()" [disabled]="disabled">Modifiez le temps</button>
       <button class="button is-success"(click)="modifyPresence()" [disabled]="disabled">Modifiez la présence</button>
       <button class="button" id="allButton" (click)="onAll()">Tout sélectionner</button>
@@ -38,8 +37,8 @@
           <i matListIcon class="fas fa-calendar-check"></i>
         </div>
         <h1 matSubheader>{{s.firstname}} {{s.lastname}}</h1>
-        <p *ngIf="s.performedTime.includes('+')" style="color:green"> {{s.performedTime}} </p>
-        <p *ngIf="s.performedTime.includes('-')" style="color:red"> {{s.performedTime}} </p>
+        <p *ngIf="s.performedTime>=0" style="color:green"> {{s.performedTime + " heure(s) supplémentaires"}} </p>
+        <p *ngIf="s.performedTime<0" style="color:red"> {{s.performedTime + " heure(s) de retard"}} </p>
       </div>
       <mat-checkbox class="checkbox"
                     [(ngModel)]="s.isSelected"

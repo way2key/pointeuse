@@ -1,5 +1,6 @@
 const moment = require('moment');
 const db = require('../database/db');
+const studentService = require('./student-service.js');
 
 const Day = require('../data-schematic/day-schematic');
 const User = require('../data-schematic/user-schematic');
@@ -31,7 +32,7 @@ exports.getStudentCurrentDay = (studentHash) => {
   });
 }
 
-exports.createDay = () => {
+exports.createDayForEachUser = () => {
   console.log('');
   console.log(moment().format("YYYY/MM/DD HH:mm:ss"));
   console.log("Création des jours pour chaque utilisateur:");
@@ -55,3 +56,22 @@ exports.createDay = () => {
   )
 
 }
+
+exports.createDay = (studentHash) => {
+  studentService.getStudentInfo(studentHash)
+  .then(
+    student => {
+      const newDay = new Day({
+        date: moment().format("YYYY MM DD"),
+        present: false
+      });
+      newDay.save();
+      User.findOneAndUpdate({_id: student.id},{'$push':{data: newDay.id}})
+      .then(
+        () => {
+          console.log(" Jour ajouté à l'utilisateur");
+        }
+      );
+    }
+  )
+};

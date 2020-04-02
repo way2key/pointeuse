@@ -1,5 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { TeacherStudentService } from '../teacher-student.service';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-teacher-student-time',
@@ -9,9 +11,11 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class TeacherStudentTimeComponent implements OnInit {
 
   students = [];
-  tempsChoisi = '01:00';
+  timeForm = new FormGroup({
+    time: new FormControl('')
+  });
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any,) { }
+  constructor(private teacherStudentService: TeacherStudentService, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit(): void {
     this.data.forEach(student => {
@@ -35,16 +39,17 @@ export class TeacherStudentTimeComponent implements OnInit {
     }
   }
 
-  modifyTime(plusMinus) {
-    if (plusMinus === 1) {
-      console.log('Enlever du temps');
-
-    } else {
-      console.log('Ajouter du temps');
-    }
+  modifyTime() {
+    console.log("noooo");
 
     this.students.forEach(student => {
-      console.log('Modified time on student ', student.firstname);
+
+      let payload = {time:4, hash:student.hash}
+      console.log(payload);
+      this.teacherStudentService.modifyPerformedTime(payload)
+      .subscribe(
+        result => console.log(result)
+      );
     });
   }
 }

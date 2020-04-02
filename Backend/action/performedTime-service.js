@@ -30,10 +30,26 @@ exports.updatePerformedTime = () => {
               let completedShift = moment.duration(Math.abs(t1-t2)).asHours();
               time += completedShift;
             }
-            console.log("Le temps total est: "+time);
+            console.log("Le temps de " + user.firstname + " est de : " + time);
           }
         )
       }
     }
   )
+}
+
+exports.modifyPerformedTime =  (time, studentHash) => {
+  return new Promise( (resolve, reject) => {
+    console.log(time,studentHash);
+    User.findOneAndUpdate({type:0, hash:studentHash},{$inc:{performedTime: time}})
+    .then(
+      student => {
+        if(!student){
+          reject("Aucun stagiaire existant pour cet appel :/");
+        }
+        resolve("Temps modifié avec succès");
+      }
+    )
+
+  });
 }

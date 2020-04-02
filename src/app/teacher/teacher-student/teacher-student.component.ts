@@ -119,7 +119,7 @@ export class TeacherStudentComponent implements OnInit {
         console.log('Modified presence on student ', student.firstname);
       }
     });
-    this.openSnackBar('Presence modifié avec succès');
+    this.openSnackBar('Presence modifiée avec succès');
     this.deselectAll();
   }
 

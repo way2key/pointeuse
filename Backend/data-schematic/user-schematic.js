@@ -8,7 +8,7 @@ const userSchema = mongoose.Schema({
   password: {type: String, required:false, unique:true, sparse: true},
   type: {type: Number, required:true},
   data: {type: [String], required:false},
-  performedTime:  {type: String, required:false},
+  performedTime:  {type: Number, required:false},
   dayPlanId: {type: String, required:false, unique:true}
 });
 
