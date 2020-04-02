@@ -15,6 +15,8 @@ export class TeacherStudentTimeComponent implements OnInit {
     time: new FormControl('')
   });
 
+  chosenTime = "01:00"
+
   constructor(private teacherStudentService: TeacherStudentService, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit(): void {
@@ -39,8 +41,15 @@ export class TeacherStudentTimeComponent implements OnInit {
     }
   }
 
-  modifyTime() {
-    console.log("noooo");
+  modifyTime(choice: number) {
+    let time;
+    if (choice === 0) {
+      time = this.chosenTime;
+    } else if (choice === 1) {
+      time = -this.timeChoice;
+    }
+
+    console.log("noooo", time);
 
     this.students.forEach(student => {
 

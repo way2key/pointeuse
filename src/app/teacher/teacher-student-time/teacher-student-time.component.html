@@ -1,16 +1,16 @@
 <h3>Heure à modifier : </h3>
 
 
-<form [formGroup]="timeForm" (ngSubmit)="modifyTime()">
+<form [formGroup]="timeForm">
   <div class="timeChoiceBody">
       <label>
-        <input class="timeChoice" type="time" step="300" min="00:30" formControlName="time">
+        <input class="timeChoice" type="time" step="300" min="00:30" formControlName="time" [(ngModel)]="chosenTime">
       </label>
   </div>
   <br>
   <div class="buttons has-addons">
-    <button mat-button mat-dialog-close class="button is-success"  (ngSubmit)="modifyTime()">Ajouter du temps</button>
-    <button mat-button mat-dialog-close class="button is-danger" (ngSubmit)="modifyTime()">Retirer du temps</button>
+    <button mat-button mat-dialog-close class="button is-success"  (ngSubmit)="modifyTime(0)">Ajouter du temps</button>
+    <button mat-button mat-dialog-close class="button is-danger" (ngSubmit)="modifyTime(1)">Retirer du temps</button>
   </div>
 </form>
 
