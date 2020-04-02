@@ -28,9 +28,6 @@ export class TeacherStudentComponent implements OnInit {
 
   searchField = '';
 
-
-
-
   constructor(private teacherStudentService: TeacherStudentService,
               private snackBar: MatSnackBar,
               public dialog: MatDialog) { }
@@ -56,7 +53,18 @@ export class TeacherStudentComponent implements OnInit {
       this.filteredOptions = this.myControl.valueChanges
       .pipe(
         startWith(''),
-        map(value => this._filter(value))
+        map((value) => {
+          this.shownStudents = [];
+          let studentNames = this._filter(value);
+          studentNames.forEach(studentName => {
+            this.students.forEach(student => {
+              if(studentName === (student.firstname + ' ' + student.lastname)){
+                this.shownStudents.push(student);
+              };
+            })
+          });
+          return studentNames;
+        })
       );
     });
 
@@ -131,7 +139,6 @@ export class TeacherStudentComponent implements OnInit {
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
-
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
@@ -143,15 +150,6 @@ export class TeacherStudentComponent implements OnInit {
     }
   }
 
-  getStudent() {
-    let studentName = this.myControl.value.split([' '],[2]);
-    this.students.forEach(student => {
-      if(student.firstname === studentName[0] && student.lastname === studentName[1]) {
-        this.shownStudents = [];
-        this.shownStudents.push(student);
-      }
-    });
-  }
 
   alphabeticalSort(lastname: string) {
     return function(a, b) {
