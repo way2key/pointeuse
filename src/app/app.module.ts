@@ -28,7 +28,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TeacherLoginComponent } from './teacher/teacher-login/teacher-login.component';
 import { TeacherMainComponent } from './teacher/teacher-main/teacher-main.component';
 import { TeacherStudentComponent } from './teacher/teacher-student/teacher-student.component';
-import { TeacherStatComponent } from './teacher/teacher-stat/teacher-stat.component';
+import { TeacherHistComponent } from './teacher/teacher-hist/teacher-hist.component';
 import { TeacherSettingComponent } from './teacher/teacher-setting/teacher-setting.component';
 import { TeacherInfoComponent } from './teacher/teacher-info/teacher-info.component';
 import { TeacherDashboardComponent } from './teacher/teacher-dashboard/teacher-dashboard.component';
@@ -43,21 +43,22 @@ import { TeacherClockComponent } from './teacher/teacher-clock/teacher-clock.com
 import { TeacherStudentTimeComponent } from './teacher/teacher-student-time/teacher-student-time.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
     TeacherLoginComponent,
     TeacherMainComponent,
+    TeacherDashboardComponent,
+    TeacherClockComponent,
     TeacherStudentComponent,
-    TeacherStatComponent,
+    TeacherStudentTimeComponent,
+    TeacherHistComponent,
     TeacherSettingComponent,
     TeacherInfoComponent,
-    TeacherDashboardComponent,
     StudentMainComponent,
     StudentInfoComponent,
     StudentMessageComponent,
-    TeacherClockComponent,
-    TeacherStudentTimeComponent,
     StudentTimelineComponent,
   ],
   entryComponents:[StudentInfoComponent],

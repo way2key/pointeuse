@@ -4,16 +4,16 @@ import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 
 @Component({
-  selector: 'app-teacher-stat',
-  templateUrl: './teacher-stat.component.html',
-  styleUrls: ['./teacher-stat.component.scss']
+  selector: 'app-teacher-hist',
+  templateUrl: './teacher-hist.component.html',
+  styleUrls: ['./teacher-hist.component.scss']
 })
 
-export class TeacherStatComponent implements OnInit {
+export class TeacherHistComponent implements OnInit {
   myControl = new FormControl();
   options: string[] = ['One', 'Two', 'Three'];
   filteredOptions: Observable<string[]>;
-  
+
   constructor() { }
 
   ngOnInit(): void {

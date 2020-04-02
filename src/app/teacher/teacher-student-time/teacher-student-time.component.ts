@@ -40,8 +40,6 @@ export class TeacherStudentTimeComponent implements OnInit {
   }
 
   modifyTime() {
-    console.log("noooo");
-
     this.students.forEach(student => {
 
       let payload = {time:4, hash:student.hash}
