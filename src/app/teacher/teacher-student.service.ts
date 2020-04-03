@@ -7,6 +7,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class TeacherStudentService {
   private apiUrl = 'http://localhost:3000/api/teacher-student';
+  private studentStatusUrl = 'http://localhost:3000/api/student';
   private auth = 'Bearer '+ localStorage.getItem("token");
   private httpOptions = {
     headers: new HttpHeaders({
@@ -26,7 +27,7 @@ export class TeacherStudentService {
   }
 
   getStudentStatus(hash: string){
-    const url = this.apiUrl + '/status/' + hash;
+    const url = this.studentStatusUrl + '/status/' + hash;
     return this.http.get<any>(url);
   }
 }
