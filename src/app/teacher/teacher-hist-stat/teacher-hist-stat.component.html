@@ -1,0 +1,27 @@
+<mat-toolbar class="toolbar">
+  <h1>Statistiques</h1>
+  <form class="form" (ngSubmit)="getStudent()">
+    <mat-form-field>
+      <mat-select>
+        <mat-option value="food">Présent</mat-option>
+        <mat-option value="food">Absent</mat-option>
+        <mat-option value="food">Manque heures</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="example-full-width">
+      <input type="text" placeholder="Trouvez un stagiaire"
+             matInput
+             [formControl]="myControl"
+             [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+          {{option}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <button class="button is-info has-text-white">
+      <i class="fas fa-search"></i>
+    </button>
+  </form>
+</mat-toolbar>

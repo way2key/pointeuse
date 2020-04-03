@@ -11,7 +11,11 @@ import { TeacherHistComponent } from './teacher/teacher-hist/teacher-hist.compon
 import { TeacherSettingComponent } from './teacher/teacher-setting/teacher-setting.component';
 import { TeacherInfoComponent } from './teacher/teacher-info/teacher-info.component';
 import { TeacherAuthGuard } from './teacher/teacher-auth.guard';
+import { TeacherHistStatComponent } from './teacher/teacher-hist-stat/teacher-hist-stat.component';
 import { TeacherHistLogComponent } from './teacher/teacher-hist-log/teacher-hist-log.component';
+import { TeacherHistIncidentComponent } from './teacher/teacher-hist-incident/teacher-hist-incident.component';
+import { TeacherHistMoreComponent } from './teacher/teacher-hist-more/teacher-hist-more.component';
+
 
 const routes: Routes = [
   { path: '', redirectTo: '/student', pathMatch: 'full' },
@@ -29,9 +33,11 @@ const routes: Routes = [
           {path:"hist"      , component: TeacherHistComponent},
           {path:"setting"   , component: TeacherSettingComponent},
           {path:"info"      , component: TeacherInfoComponent},
+          {path:"hist/stat"      , component: TeacherHistStatComponent},
           {path:"hist/log"      , component: TeacherHistLogComponent},
+          {path:"hist/incident"      , component: TeacherHistIncidentComponent},
+          {path:"hist/more"      , component: TeacherHistMoreComponent},
           {path: '', redirectTo: '/teacher/dashboard', pathMatch: 'full'},
-          //{path: 'login', redirectTo: '/teacher/dashboard', pathMatch: 'full'},
         ]
       },
       {path: 'login', component: TeacherLoginComponent,},

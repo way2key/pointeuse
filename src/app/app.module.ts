@@ -23,15 +23,24 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
-//Components
+//Components teacher
 import { TeacherLoginComponent } from './teacher/teacher-login/teacher-login.component';
 import { TeacherMainComponent } from './teacher/teacher-main/teacher-main.component';
+import { TeacherDashboardComponent } from './teacher/teacher-dashboard/teacher-dashboard.component';
+import { TeacherClockComponent } from './teacher/teacher-clock/teacher-clock.component';
 import { TeacherStudentComponent } from './teacher/teacher-student/teacher-student.component';
+import { TeacherStudentTimeComponent } from './teacher/teacher-student-time/teacher-student-time.component';
 import { TeacherHistComponent } from './teacher/teacher-hist/teacher-hist.component';
+import { TeacherHistStatComponent } from './teacher/teacher-hist-stat/teacher-hist-stat.component';
+import { TeacherHistLogComponent } from './teacher/teacher-hist-log/teacher-hist-log.component';
+import { TeacherHistIncidentComponent } from './teacher/teacher-hist-incident/teacher-hist-incident.component';
+import { TeacherHistMoreComponent } from './teacher/teacher-hist-more/teacher-hist-more.component';
 import { TeacherSettingComponent } from './teacher/teacher-setting/teacher-setting.component';
 import { TeacherInfoComponent } from './teacher/teacher-info/teacher-info.component';
-import { TeacherDashboardComponent } from './teacher/teacher-dashboard/teacher-dashboard.component';
+
+//Components students
 import { StudentMainComponent } from './student/student-main/student-main.component';
 import { StudentInfoComponent } from './student/student-info/student-info.component';
 import { StudentMessageComponent } from './student/student-message/student-message.component';
@@ -39,9 +48,8 @@ import { StudentTimelineComponent } from './student/student-timeline/student-tim
 
 //Guards
 import { TeacherAuthGuard } from './teacher/teacher-auth.guard';
-import { TeacherClockComponent } from './teacher/teacher-clock/teacher-clock.component';
-import { TeacherStudentTimeComponent } from './teacher/teacher-student-time/teacher-student-time.component';
-import { TeacherHistLogComponent } from './teacher/teacher-hist-log/teacher-hist-log.component';
+
+
 
 
 
@@ -55,13 +63,16 @@ import { TeacherHistLogComponent } from './teacher/teacher-hist-log/teacher-hist
     TeacherStudentComponent,
     TeacherStudentTimeComponent,
     TeacherHistComponent,
+    TeacherHistStatComponent,
+    TeacherHistLogComponent,
+    TeacherHistIncidentComponent,
+    TeacherHistMoreComponent,
     TeacherSettingComponent,
     TeacherInfoComponent,
     StudentMainComponent,
     StudentInfoComponent,
     StudentMessageComponent,
     StudentTimelineComponent,
-    TeacherHistLogComponent,
   ],
   entryComponents:[StudentInfoComponent],
   imports: [
@@ -85,6 +96,7 @@ import { TeacherHistLogComponent } from './teacher/teacher-hist-log/teacher-hist
     MatAutocompleteModule,
     HttpClientModule,
     MatCheckboxModule,
+    MatTooltipModule,
 
   ],
   providers: [

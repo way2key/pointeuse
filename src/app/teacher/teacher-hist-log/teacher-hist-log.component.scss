@@ -28,3 +28,28 @@
   align-content: center;
   width: 100%;
 }
+
+.log {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 10px;
+  background-color: #778899;
+  margin: 4px;
+  padding: 2px;
+  padding-right: 8px;
+  padding-left: 6px;
+}
+
+.operation {
+  width: 100px;
+  text-align: justify;
+  vertical-align: middle;
+}
+
+.reason {
+  width: 300px;
+  text-align: justify;
+  vertical-align: middle;
+}

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-teacher-hist-log',
@@ -9,16 +10,19 @@ export class TeacherHistLogComponent implements OnInit {
 
   logs = [
     {
+      opDate: '03.04.2020',
       teacher: 'MLI',
       reason: 'Oublie de timbrage',
       studentId: 'A2562',
-      operation: 'Add time'
+      operation: 'Add time',
+      reasonDetail: 'M. Genestier oublie de timbrer en arrivant'
     },
     {
-      teacher: 'MLI',
-      reason: 'Oublie de timbrage',
-      studentId: 'A2562',
-      operation: 'Add time'
+      opDate: '02.04.2020',
+      teacher: 'JVY',
+      reason: 'Pas de pause de midi',
+      studentId: 'B2562',
+      operation: 'Remove time'
     },
   ];
 

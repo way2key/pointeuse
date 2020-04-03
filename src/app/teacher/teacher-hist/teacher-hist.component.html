@@ -77,12 +77,28 @@
   </mat-tab-group-->
 
 
-  <nav mat-tab-nav-bar>
-    <a mat-tab-link class="menu-item" routerLinkActive="active" routerLink="../hist" >Statistiques</a>
 
-    <a mat-tab-link class="menu-item" (click)="getLog()">Logs</a>
-    <a mat-tab-link class="menu-item" routerLinkActive="active" routerLink="../hist">Incidents</a>
-    <a mat-tab-link class="menu-item" routerLinkActive="active" routerLink="../hist">more</a>
-  </nav>
 
-<app-teacher-hist-log *ngIf="logs"><app-teacher-hist-log>
+
+<nav mat-tab-nav-bar>
+  <a mat-tab-link class="menu-item" (click)="getStat()">Statistiques</a>
+  <a mat-tab-link class="menu-item" (click)="getLog()">Logs</a>
+  <a mat-tab-link class="menu-item" (click)="getIncidents()">Incidents</a>
+  <a mat-tab-link class="menu-item" (click)="getMore()">more</a>
+</nav>
+
+<div  *ngIf="stats" class="stats">
+  <app-teacher-hist-stat ></app-teacher-hist-stat>
+</div>
+
+<div *ngIf="logs" class="logs">
+  <app-teacher-hist-log ></app-teacher-hist-log>
+</div>
+
+<div *ngIf="incidents" class="logs">
+  <app-teacher-hist-incident ></app-teacher-hist-incident>
+</div>
+
+<div *ngIf="more" class="logs">
+  <app-teacher-hist-more ></app-teacher-hist-more>
+</div>

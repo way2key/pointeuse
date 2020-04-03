@@ -14,9 +14,20 @@
     </button>
   </form>
 </mat-toolbar>
-<div>
-  <div *ngFor="let l of logs" class="log">
-    {{l.teacher}}
-  </div>
 
+<div>
+  <ul>
+    <li  *ngFor="let l of logs" class="">
+      <div  [(matTooltip)]="l.reasonDetail" class="log">
+        <time class="opDate">{{l.opDate}}</time>
+        <abbr title="Accronyme Enseignant">{{l.teacher}}</abbr>
+        <div class="operation">
+          <p>{{l.operation}}</p>
+        </div>
+        <div class="reason">
+          <p>{{l.reason}} effectué par : {{l.studentId}}</p>
+        </div>
+      </div>
+    </li>
+  </ul>
 </div>

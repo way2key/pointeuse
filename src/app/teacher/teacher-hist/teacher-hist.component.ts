@@ -39,6 +39,15 @@ export class TeacherHistComponent implements OnInit {
     alert("you got one!");
   }
 
+  getStat(){
+    this.stats = true;
+    this.logs = false;
+    this.incidents = false;
+    this.more = false;
+    console.log(this.stats);
+
+  }
+
   getLog(){
     this.stats = false;
     this.logs = true;
@@ -46,6 +55,23 @@ export class TeacherHistComponent implements OnInit {
     this.more = false;
     console.log(this.logs);
 
+  }
+
+  getIncidents(){
+    this.stats = false;
+    this.logs = false;
+    this.incidents = true;
+    this.more = false;
+    console.log(this.incidents);
+
+  }
+
+  getMore(){
+    this.stats = false;
+    this.logs = false;
+    this.incidents = false;
+    this.more = true;
+    console.log(this.more);
 
   }
 
