@@ -24,4 +24,9 @@ export class TeacherStudentService {
     let url = this.apiUrl + '/time';
     return this.http.post<any>(url, payload, this.httpOptions);
   }
+
+  getStudentStatus(hash: string){
+    const url = this.apiUrl + '/status/' + hash;
+    return this.http.get<any>(url);
+  }
 }

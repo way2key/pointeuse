@@ -83,7 +83,6 @@ export class TeacherStudentTimeComponent implements OnInit {
       this.teacherStudentService.modifyPerformedTime(payload)
       .subscribe(
         result => console.log(result)
-
       );
     });
 

@@ -35,7 +35,6 @@ export class TeacherStudentComponent implements OnInit {
 
   ngOnInit(): void {
     this.getStudents();
-
   }
 
 
@@ -44,11 +43,10 @@ export class TeacherStudentComponent implements OnInit {
     this.teacherStudentService.getAllStudents()
     .subscribe((dbStudents) => {
       for (let student of dbStudents) {
-        let newSelect = 'isSelected';
-        let select = false;
-        student[newSelect] = select;
+        student['isSelected'] = false;
+        student['status'] = true;
+        student['presence'] = false;
         this.students.push(student);
-
       };
       this.students.sort(this.alphabeticalSort('lastname'));
       this.shownStudents = this.students;
@@ -66,11 +64,12 @@ export class TeacherStudentComponent implements OnInit {
               };
             })
           });
+          console.log(this.students);
+
           return studentNames;
         })
       );
     });
-
   }
 
   onAll() {

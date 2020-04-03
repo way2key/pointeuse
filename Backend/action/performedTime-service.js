@@ -40,7 +40,6 @@ exports.updatePerformedTime = () => {
 
 exports.modifyPerformedTime =  (time, studentHash) => {
   return new Promise( (resolve, reject) => {
-    console.log(time,studentHash);
     User.findOneAndUpdate({type:0, hash:studentHash},{$inc:{performedTime: time}})
     .then(
       student => {
