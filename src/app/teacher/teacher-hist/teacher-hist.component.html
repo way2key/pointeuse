@@ -1,4 +1,4 @@
-<mat-tab-group mat-align-tabs="center" animationDuration="0ms" class="hist">
+  <!--mat-tab-group>
   <mat-tab label="Statistiques">
     <mat-toolbar class="toolbar">
       <h1>Statistiques</h1>
@@ -28,7 +28,11 @@
       </form>
     </mat-toolbar>
   </mat-tab>
-  <mat-tab label="Logs">
+    <!--a mat-tab-link label="Logs">
+  <!--a mat-tab-link
+     routerLink="dashboard"
+     routerLinkActive ="active"> Logs
+     </a>
     <mat-toolbar class="toolbar">
       <h1>Logs</h1>
       <form class="form">
@@ -45,7 +49,8 @@
         </button>
       </form>
     </mat-toolbar>
-  </mat-tab>
+  </a>
+
   <mat-tab label="Incidents">
     <mat-toolbar class="toolbar">
       <h1>Incidents</h1>
@@ -69,4 +74,15 @@
       <h1>CORONA !
     </h1></mat-toolbar>
   </mat-tab>
-</mat-tab-group>
+  </mat-tab-group-->
+
+
+  <nav mat-tab-nav-bar>
+    <a mat-tab-link class="menu-item" routerLinkActive="active" routerLink="../hist" >Statistiques</a>
+
+    <a mat-tab-link class="menu-item" (click)="getLog()">Logs</a>
+    <a mat-tab-link class="menu-item" routerLinkActive="active" routerLink="../hist">Incidents</a>
+    <a mat-tab-link class="menu-item" routerLinkActive="active" routerLink="../hist">more</a>
+  </nav>
+
+<app-teacher-hist-log *ngIf="logs"><app-teacher-hist-log>

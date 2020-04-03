@@ -11,6 +11,7 @@ import { TeacherHistComponent } from './teacher/teacher-hist/teacher-hist.compon
 import { TeacherSettingComponent } from './teacher/teacher-setting/teacher-setting.component';
 import { TeacherInfoComponent } from './teacher/teacher-info/teacher-info.component';
 import { TeacherAuthGuard } from './teacher/teacher-auth.guard';
+import { TeacherHistLogComponent } from './teacher/teacher-hist-log/teacher-hist-log.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/student', pathMatch: 'full' },
@@ -28,6 +29,7 @@ const routes: Routes = [
           {path:"hist"      , component: TeacherHistComponent},
           {path:"setting"   , component: TeacherSettingComponent},
           {path:"info"      , component: TeacherInfoComponent},
+          {path:"hist/log"      , component: TeacherHistLogComponent},
           {path: '', redirectTo: '/teacher/dashboard', pathMatch: 'full'},
           //{path: 'login', redirectTo: '/teacher/dashboard', pathMatch: 'full'},
         ]

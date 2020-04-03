@@ -1,0 +1,22 @@
+<mat-toolbar class="toolbar">
+  <h1>Logs</h1>
+  <form class="form">
+    <mat-form-field>
+      <mat-select>
+        <mat-option value="food">Présent</mat-option>
+        <mat-option value="food">Absent</mat-option>
+        <mat-option value="food">Manque heures</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button class="button is-info has-text-white">
+      <i class="fas fa-search"></i>
+    </button>
+  </form>
+</mat-toolbar>
+<div>
+  <div *ngFor="let l of logs" class="log">
+    {{l.teacher}}
+  </div>
+
+</div>

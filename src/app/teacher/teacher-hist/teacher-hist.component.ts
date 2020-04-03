@@ -14,6 +14,11 @@ export class TeacherHistComponent implements OnInit {
   options: string[] = ['One', 'Two', 'Three'];
   filteredOptions: Observable<string[]>;
 
+  stats = true;
+  logs = false;
+  incidents = false;
+  more = false;
+
   constructor() { }
 
   ngOnInit(): void {
@@ -33,5 +38,16 @@ export class TeacherHistComponent implements OnInit {
   getStudent() {
     alert("you got one!");
   }
+
+  getLog(){
+    this.stats = false;
+    this.logs = true;
+    this.incidents = false;
+    this.more = false;
+    console.log(this.logs);
+
+
+  }
+
 
 }

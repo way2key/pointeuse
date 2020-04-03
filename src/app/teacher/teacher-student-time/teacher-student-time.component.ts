@@ -19,6 +19,16 @@ export class TeacherStudentTimeComponent implements OnInit {
   addButton ="false";
   choice = 0;
 
+  modifyReasons = [
+    {justification: "Oublie de timbrage"},
+    {justification: "Mauvaise pause"},
+    {justification: "Autre"},
+  ];
+
+  justificationText = '';
+
+
+
   constructor(private teacherStudentService: TeacherStudentService, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit(): void {

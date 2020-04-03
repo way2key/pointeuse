@@ -22,6 +22,21 @@
 
 <h4>Elèves concernés : </h4>
 <ul>
-
   <li *ngFor="let student of students"> {{student.lastname | uppercase}} {{student.firstname}}</li>
 </ul>
+<br>
+<div class="example-container">
+
+  <mat-form-field appearance="fill">
+    <mat-label>Select</mat-label>
+    <mat-select>
+      <mat-option *ngFor ="let reason of modifyReasons"  [value]="reason.justification">
+        {{reason.justification}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <br>
+  <mat-form-field appearance="fill">
+    <mat-label>Textarea</mat-label>
+    <textarea matInput [(ngModel)]="justificationText"></textarea>
+  </mat-form-field>
+</div>

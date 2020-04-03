@@ -175,6 +175,11 @@ export class TeacherStudentComponent implements OnInit {
     let time;
     let hours = timeValue-(timeValue%1);
     let minutes = ((timeValue%1)*60);
+
+    if (minutes > 59.5) {
+      hours = hours + 1;
+      minutes = 0;
+    }
     minutes = parseInt(minutes.toFixed(0));
 
     let minutesText;
