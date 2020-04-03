@@ -3,6 +3,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TeacherStudentService } from '../teacher-student.service';
 import { FormGroup, FormControl } from '@angular/forms';
 
+
 @Component({
   selector: 'app-teacher-student-time',
   templateUrl: './teacher-student-time.component.html',
@@ -76,18 +77,15 @@ export class TeacherStudentTimeComponent implements OnInit {
     } else if (choice === 1) {
       hours = -hours;
     }
-    console.log("noooo", hours);
-
-
 
     this.students.forEach(student => {
-
       let payload = {time: hours, hash:student.hash}
-      console.log(payload);
       this.teacherStudentService.modifyPerformedTime(payload)
       .subscribe(
         result => console.log(result)
+
       );
     });
+
   }
 }

@@ -16,9 +16,6 @@
          </mat-option>
        </mat-autocomplete>
      </mat-form-field>
-     <button class="button is-info has-text-white">
-       <i class="fas fa-search"></i>
-     </button>
    </form>
     <div class="buttons has-addons">
       <button class="button is-link" (click)="modifyTime()" [disabled]="disabled">Modifiez le temps</button>
@@ -26,6 +23,9 @@
       <button class="button" id="allButton" (click)="onAll()">Tout sélectionner</button>
     </div>
   </mat-toolbar>
+</div>
+
+<div>
   <h1>Liste des stagiaires</h1>
   <div>
     <div *ngFor="let s of shownStudents" class="student">
@@ -45,5 +45,4 @@
                     [(ngModel)]="s.isSelected"
                     (change)="onCheckBox()"></mat-checkbox>
     </div>
-
 </div>

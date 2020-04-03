@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { TeacherStudentService } from '../teacher-student.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import {FormGroup, FormControl} from '@angular/forms';
-import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
+import { FormGroup, FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { TeacherStudentTimeComponent } from '../teacher-student-time/teacher-student-time.component';
 import * as moment from 'moment';
@@ -40,6 +40,7 @@ export class TeacherStudentComponent implements OnInit {
 
 
   getStudents(): void {
+    this.students = [];
     this.teacherStudentService.getAllStudents()
     .subscribe((dbStudents) => {
       for (let student of dbStudents) {
@@ -119,6 +120,7 @@ export class TeacherStudentComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result =>{
       this.openSnackBar('Temps modifié avec succès');
+      this.getStudents();
       this.deselectAll();
     })
   }
