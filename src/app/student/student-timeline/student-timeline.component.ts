@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { StudentService } from '../student.service';
 import * as p5 from 'p5';
@@ -11,7 +11,7 @@ import 'moment-duration-format';
   templateUrl: './student-timeline.component.html',
   styleUrls: ['./student-timeline.component.scss']
 })
-export class StudentTimelineComponent implements OnInit {
+export class StudentTimelineComponent implements OnInit, OnDestroy {
   canvas: any;
   time;
   clock = [];
@@ -20,6 +20,10 @@ export class StudentTimelineComponent implements OnInit {
 
   ngOnInit(): void {
     this.getStudentClock(this.data.hash);
+    this.drawTimeLine();
+  }
+
+  drawTimeLine() {
     const sketch = s => {
       var x_start;
       var x_end;
@@ -33,6 +37,7 @@ export class StudentTimelineComponent implements OnInit {
         x_end = 0.9*s.width;
         y = 0.8*s.height;
       }
+
 
       s.draw = () => {
         this.time = moment.duration(moment().format('HH:mm:ss'));
@@ -119,7 +124,10 @@ export class StudentTimelineComponent implements OnInit {
 
       }
     };
+
     this.canvas = new p5(sketch);
+
+
   }
 
   getStudentClock(hash){
@@ -131,6 +139,10 @@ export class StudentTimelineComponent implements OnInit {
         console.log(error.message);
       }
     )
+  }
+
+  ngOnDestroy() {
+    this.canvas.remove(p5);
   }
 
 
