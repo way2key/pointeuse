@@ -1,104 +1,12 @@
-  <!--mat-tab-group>
-  <mat-tab label="Statistiques">
-    <mat-toolbar class="toolbar">
-      <h1>Statistiques</h1>
-      <form class="form" (ngSubmit)="getStudent()">
-        <mat-form-field>
-          <mat-select>
-            <mat-option value="food">Présent</mat-option>
-            <mat-option value="food">Absent</mat-option>
-            <mat-option value="food">Manque heures</mat-option>
-          </mat-select>
-        </mat-form-field>
-        <br>
-        <mat-form-field class="example-full-width">
-          <input type="text" placeholder="Trouvez un stagiaire"
-                 matInput
-                 [formControl]="myControl"
-                 [matAutocomplete]="auto">
-          <mat-autocomplete #auto="matAutocomplete">
-            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-              {{option}}
-            </mat-option>
-          </mat-autocomplete>
-        </mat-form-field>
-        <button class="button is-info has-text-white">
-          <i class="fas fa-search"></i>
-        </button>
-      </form>
-    </mat-toolbar>
-  </mat-tab>
-    <!--a mat-tab-link label="Logs">
-  <!--a mat-tab-link
-     routerLink="dashboard"
-     routerLinkActive ="active"> Logs
-     </a>
-    <mat-toolbar class="toolbar">
-      <h1>Logs</h1>
-      <form class="form">
-        <mat-form-field>
-          <mat-select>
-            <mat-option value="food">Présent</mat-option>
-            <mat-option value="food">Absent</mat-option>
-            <mat-option value="food">Manque heures</mat-option>
-          </mat-select>
-        </mat-form-field>
-
-        <button class="button is-info has-text-white">
-          <i class="fas fa-search"></i>
-        </button>
-      </form>
-    </mat-toolbar>
-  </a>
-
-  <mat-tab label="Incidents">
-    <mat-toolbar class="toolbar">
-      <h1>Incidents</h1>
-      <form class="form">
-        <mat-form-field>
-          <mat-select>
-            <mat-option value="food">Présent</mat-option>
-            <mat-option value="food">Absent</mat-option>
-            <mat-option value="food">Manque heures</mat-option>
-          </mat-select>
-        </mat-form-field>
-
-        <button class="button is-info has-text-white">
-          <i class="fas fa-search"></i>
-        </button>
-      </form>
-    </mat-toolbar>
-  </mat-tab>
-  <mat-tab label="more">
-    <mat-toolbar class="toolbar">
-      <h1>CORONA !
-    </h1></mat-toolbar>
-  </mat-tab>
-  </mat-tab-group-->
-
-
-
-
-
 <nav mat-tab-nav-bar>
-  <a mat-tab-link class="menu-item" (click)="getStat()">Statistiques</a>
-  <a mat-tab-link class="menu-item" (click)="getLog()">Logs</a>
-  <a mat-tab-link class="menu-item" (click)="getIncidents()">Incidents</a>
-  <a mat-tab-link class="menu-item" (click)="getMore()">more</a>
+  <a mat-tab-link
+     *ngFor="let link of navLinks"
+     [routerLink]="link.path"
+     routerLinkActive #rla="routerLinkActive"
+     [routerLinkActiveOptions]="{exact:true}"
+     [active]="link.isActive">
+    {{link.label}}
+  </a>
 </nav>
 
-<div  *ngIf="stats" class="stats">
-  <app-teacher-hist-stat ></app-teacher-hist-stat>
-</div>
-
-<div *ngIf="logs" class="logs">
-  <app-teacher-hist-log ></app-teacher-hist-log>
-</div>
-
-<div *ngIf="incidents" class="logs">
-  <app-teacher-hist-incident ></app-teacher-hist-incident>
-</div>
-
-<div *ngIf="more" class="logs">
-  <app-teacher-hist-more ></app-teacher-hist-more>
-</div>
+<router-outlet></router-outlet>

@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class TeacherHistoryService {
-  private changePasswordUrl = 'http://localhost:3000/api/teacher-setting';
+  private apiUrl = 'http://localhost:3000/api/teacher-hist';
   private auth = 'Bearer '+ localStorage.getItem("token");
   private httpOptions = {
     headers: new HttpHeaders({
@@ -16,4 +16,8 @@ export class TeacherHistoryService {
     })
   };
   constructor(private http: HttpClient) { }
+
+  getAllLog(): Observable<String[]>{
+    return this.http.get<String[]>(this.apiUrl, this.httpOptions);
+  }
 }

@@ -10,15 +10,15 @@ import {map, startWith} from 'rxjs/operators';
 })
 
 export class TeacherHistComponent implements OnInit {
+  navLinks = [
+    { path: 'stat', label: 'Statistiques' },
+    { path: 'log', label: 'Logs' },
+    { path: 'incident', label: 'Incidents' },
+    { path: 'more', label: 'More' },
+  ];
   myControl = new FormControl();
   options: string[] = ['One', 'Two', 'Three'];
   filteredOptions: Observable<string[]>;
-
-  stats = true;
-  logs = false;
-  incidents = false;
-  more = false;
-
   constructor() { }
 
   ngOnInit(): void {
@@ -34,46 +34,5 @@ export class TeacherHistComponent implements OnInit {
 
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
-
-  getStudent() {
-    alert("you got one!");
-  }
-
-  getStat(){
-    this.stats = true;
-    this.logs = false;
-    this.incidents = false;
-    this.more = false;
-    console.log(this.stats);
-
-  }
-
-  getLog(){
-    this.stats = false;
-    this.logs = true;
-    this.incidents = false;
-    this.more = false;
-    console.log(this.logs);
-
-  }
-
-  getIncidents(){
-    this.stats = false;
-    this.logs = false;
-    this.incidents = true;
-    this.more = false;
-    console.log(this.incidents);
-
-  }
-
-  getMore(){
-    this.stats = false;
-    this.logs = false;
-    this.incidents = false;
-    this.more = true;
-    console.log(this.more);
-
-  }
-
 
 }

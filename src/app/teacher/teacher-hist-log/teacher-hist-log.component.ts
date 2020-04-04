@@ -12,7 +12,7 @@ export class TeacherHistLogComponent implements OnInit {
     {
       opDate: '03.04.2020',
       teacher: 'MLI',
-      reason: 'Oublie de timbrage',
+      reason: 'Oubli de timbrage',
       studentId: 'A2562',
       operation: 'Add time',
       reasonDetail: 'M. Genestier oublie de timbrer en arrivant'

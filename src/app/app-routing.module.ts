@@ -20,29 +20,24 @@ import { TeacherHistMoreComponent } from './teacher/teacher-hist-more/teacher-hi
 const routes: Routes = [
   { path: '', redirectTo: '/student', pathMatch: 'full' },
   { path: 'student', component: StudentMainComponent },
-  {
-    path: 'teacher',
-    children:[
-      {
-        path: '',
-        component: TeacherMainComponent,
-        canActivate: [TeacherAuthGuard],
+  { path: 'teacher', children:[
+      { path: '', component: TeacherMainComponent, canActivate: [TeacherAuthGuard],
         children:[
           {path:"dashboard" , component: TeacherDashboardComponent},
           {path:"student"   , component: TeacherStudentComponent},
-          {path:"hist"      , component: TeacherHistComponent},
+          {path:"hist"      , component: TeacherHistComponent, children:[
+            {path:"stat"      , component: TeacherHistStatComponent},
+            {path:"log"      , component: TeacherHistLogComponent},
+            {path:"incident"      , component: TeacherHistIncidentComponent},
+            {path:"more"      , component: TeacherHistMoreComponent}
+            ]},
           {path:"setting"   , component: TeacherSettingComponent},
           {path:"info"      , component: TeacherInfoComponent},
-          {path:"hist/stat"      , component: TeacherHistStatComponent},
-          {path:"hist/log"      , component: TeacherHistLogComponent},
-          {path:"hist/incident"      , component: TeacherHistIncidentComponent},
-          {path:"hist/more"      , component: TeacherHistMoreComponent},
           {path: '', redirectTo: '/teacher/dashboard', pathMatch: 'full'},
         ]
       },
       {path: 'login', component: TeacherLoginComponent,},
-    ]
-  },
+    ]},
   { path: '**', redirectTo: '/student' }
 
 ];

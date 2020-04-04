@@ -7,6 +7,7 @@ const teacherStudentRoute = require('./route/teacher-student-route.js');
 const teacherAuthRoute = require('./route/teacher-auth-route.js');
 const teacherSettingRoute = require('./route/teacher-setting-route.js');
 const teacherDashboardRoute = require('./route/teacher-dashboard-route.js');
+const teacherHistRoute = require('./route/teacher-hist-route.js');
 const studentRoute = require('./route/student-route.js');
 const serverRoute = require('./route/server-route.js');
 
@@ -25,6 +26,7 @@ api.use('/api/teacher-student', teacherStudentRoute);
 api.use('/api/teacher-auth', teacherAuthRoute);
 api.use('/api/teacher-setting', teacherSettingRoute);
 api.use('/api/teacher-dashboard', teacherDashboardRoute);
+api.use('/api/teacher-hist', teacherHistRoute);
 
 api.use('/api/student', studentRoute);
 
