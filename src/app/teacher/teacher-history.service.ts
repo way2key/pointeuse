@@ -17,7 +17,8 @@ export class TeacherHistoryService {
   };
   constructor(private http: HttpClient) { }
 
-  getAllLog(): Observable<String[]>{
-    return this.http.get<String[]>(this.apiUrl, this.httpOptions);
+  getAllLog(){
+    const url = this.apiUrl + '/log';
+    return this.http.get<any>(url, this.httpOptions);
   }
 }

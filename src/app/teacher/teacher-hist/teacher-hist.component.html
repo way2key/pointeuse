@@ -3,7 +3,6 @@
      *ngFor="let link of navLinks"
      [routerLink]="link.path"
      routerLinkActive #rla="routerLinkActive"
-     [routerLinkActiveOptions]="{exact:true}"
      [active]="link.isActive">
     {{link.label}}
   </a>

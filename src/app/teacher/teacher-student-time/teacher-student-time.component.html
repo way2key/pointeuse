@@ -1,7 +1,6 @@
 <h3>Heure à modifier : </h3>
 
-
-<form [formGroup]="timeForm" (ngSubmit)="modifyTime()">
+<form [formGroup]="timeForm" (ngSubmit)="onSubmit()">
   <div class="timeChoiceBody">
       <label>
         <input class="timeChoice"
@@ -18,25 +17,21 @@
     <button mat-button mat-dialog-close class="button is-success" type="submit" (click)="addTime()" >Ajouter du temps</button>
     <button mat-button mat-dialog-close class="button is-danger"  type="submit" (click)="removeTime()">Retirer du temps</button>
   </div>
-</form>
-
-<h4>Elèves concernés : </h4>
-<ul>
-  <li *ngFor="let student of students"> {{student.lastname | uppercase}} {{student.firstname}}</li>
-</ul>
-<br>
-<div class="example-container">
-
-  <mat-form-field appearance="fill">
-    <mat-label>Select</mat-label>
+  <h4>Elèves concernés : </h4>
+  <ul>
+    <li *ngFor="let student of students"> {{student.lastname | uppercase}} {{student.firstname}}</li>
+  </ul>
+  <br>
+  <mat-form-field>
+    <mat-label>Motif</mat-label>
     <mat-select>
-      <mat-option *ngFor ="let reason of modifyReasons"  [value]="reason.justification">
-        {{reason.justification}}</mat-option>
+    <mat-option *ngFor ="let motive of motives"  [value]="motive.justification">
+      {{motive.justification}}</mat-option>
     </mat-select>
   </mat-form-field>
   <br>
-  <mat-form-field appearance="fill">
-    <mat-label>Textarea</mat-label>
-    <textarea matInput [(ngModel)]="justificationText"></textarea>
+  <mat-form-field >
+    <mat-label>Justification</mat-label>
+    <textarea formControlName="message" matInput [(ngModel)]="justificationText"></textarea>
   </mat-form-field>
-</div>
+</form>

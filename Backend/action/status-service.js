@@ -50,5 +50,8 @@ exports.checkStudentStatus = (studentHash) => {
         resolve(status);
       }
     )
+    .catch(
+      error => reject(error)
+    )
   });
 }

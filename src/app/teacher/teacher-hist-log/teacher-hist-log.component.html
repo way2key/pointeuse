@@ -19,13 +19,13 @@
   <ul>
     <li  *ngFor="let l of logs" class="">
       <div  [(matTooltip)]="l.reasonDetail" class="log">
-        <time class="opDate">{{l.opDate}}</time>
+        <time class="opDate">{{l.date}}</time>
         <abbr title="Accronyme Enseignant">{{l.teacher}}</abbr>
-        <div class="operation">
-          <p>{{l.operation}}</p>
+        <div>
+          <p>{{l.message}}</p>
         </div>
         <div class="reason">
-          <p>{{l.reason}} effectué par : {{l.studentId}}</p>
+          <p>{{l.operation}} à {{l.studentId}}</p>
         </div>
       </div>
     </li>

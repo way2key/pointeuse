@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
+import { TeacherHistoryService } from '../teacher-history.service.js';
 
 @Component({
   selector: 'app-teacher-hist-log',
@@ -8,28 +9,20 @@ import * as moment from 'moment';
 })
 export class TeacherHistLogComponent implements OnInit {
 
-  logs = [
-    {
-      opDate: '03.04.2020',
-      teacher: 'MLI',
-      reason: 'Oubli de timbrage',
-      studentId: 'A2562',
-      operation: 'Add time',
-      reasonDetail: 'M. Genestier oublie de timbrer en arrivant'
-    },
-    {
-      opDate: '02.04.2020',
-      teacher: 'JVY',
-      reason: 'Pas de pause de midi',
-      studentId: 'B2562',
-      operation: 'Remove time'
-    },
-  ];
+  logs = [];
 
 
-  constructor() { }
+  constructor(private teacherHistoryService:TeacherHistoryService) { }
 
   ngOnInit(): void {
+    this.getAllLog();
+  }
+
+  getAllLog(): void{
+    this.teacherHistoryService.getAllLog()
+    .subscribe(
+      logs => this.logs = logs
+    )
   }
 
 }

@@ -13,15 +13,16 @@ export class TeacherStudentTimeComponent implements OnInit {
 
   students = [];
   timeForm = new FormGroup({
-    time: new FormControl('')
+    time: new FormControl(''),
+    message: new FormControl('')
   });
 
   chosenTime = "01:00";
   addButton ="false";
   choice = 0;
 
-  modifyReasons = [
-    {justification: "Oublie de timbrage"},
+  motives = [
+    {justification: "Oubli de timbrage"},
     {justification: "Mauvaise pause"},
     {justification: "Autre"},
   ];
@@ -40,6 +41,28 @@ export class TeacherStudentTimeComponent implements OnInit {
     });
     this.students.sort(this.alphabeticalSort('lastname'));
 
+  }
+
+  onSubmit(){
+    let time = this.chosenTime.toString().split(':',2);
+    let hours = parseInt(time[0]);
+    let minutes = parseInt(time[1]);
+    hours = hours + (minutes/60);
+
+    if (this.choice === 1) {
+      hours = -hours;
+    }
+    this.students.forEach(student => {
+      let payload = {time: hours, hash:student.hash}
+      this.modifyTime(payload);
+      let payload2 = {
+        "teacher":"A retrouver depuis le token de connexion",
+        "message":"A retrouver edpuis le formulaire",
+        "studentId": "abcd",
+        "operation": "coco"
+      };
+      this.createLog(payload2);
+    });
   }
 
   alphabeticalSort(lastname: string) {
@@ -62,29 +85,17 @@ export class TeacherStudentTimeComponent implements OnInit {
     this.choice = 1;
   }
 
-  modifyTime() {
+  modifyTime(payload) {
+    this.teacherStudentService.modifyPerformedTime(payload)
+    .subscribe(
+      result => console.log(result)
+    );
+  }
 
-    let choice = this.choice;
-
-    let time = this.chosenTime.toString().split(':',2);
-    let hours = parseInt(time[0]);
-    let minutes = parseInt(time[1]);
-    hours = hours + (minutes/60);
-
-
-    if (choice === 0) {
-
-    } else if (choice === 1) {
-      hours = -hours;
-    }
-
-    this.students.forEach(student => {
-      let payload = {time: hours, hash:student.hash}
-      this.teacherStudentService.modifyPerformedTime(payload)
-      .subscribe(
-        result => console.log(result)
-      );
-    });
-
+  createLog(payload) {
+    this.teacherStudentService.createLog(payload)
+    .subscribe(
+      result => console.log(result)
+    )
   }
 }

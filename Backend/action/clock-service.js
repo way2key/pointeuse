@@ -18,11 +18,18 @@ exports.getStudentClock = (studentHash) => {
             resolve(clocks);
           }
         )
+        .catch(
+          error => {
+            console.log("Unable to fetch student's clock :( ");
+            reject(error);
+          }
+        )
       }
     )
     .catch(
       error => {
         console.log("Unable to fetch student's clock :( ");
+        reject(error);
       }
     )
   });

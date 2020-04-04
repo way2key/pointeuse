@@ -30,4 +30,9 @@ export class TeacherStudentService {
     const url = this.studentStatusUrl + '/status/' + hash;
     return this.http.get<any>(url);
   }
+
+  createLog(payload){
+    let url = this.apiUrl + '/log';
+    return this.http.post<any>(url, payload, this.httpOptions);
+  }
 }

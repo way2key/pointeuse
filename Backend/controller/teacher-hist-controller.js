@@ -4,12 +4,6 @@ const action = require('../action/action.js');
 
 exports.getAllLog = (req, res) => {
   Log.find()
-  .then(
-    log => {
-      if(log){
-        res.sendStatus(200);
-      }
-      res.sendStatus(400).send("Aucun Log existant");
-    }
-  )
+  .then(students => res.status(200).json(students))
+  .catch(error => res.status(400).json({error}));
 }

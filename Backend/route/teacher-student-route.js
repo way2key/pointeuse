@@ -8,5 +8,6 @@ const teacherStudentController = require('../controller/teacher-student-controll
 router.get('/:id', auth, teacherStudentController.getAStudent);
 router.get('/', auth, teacherStudentController.getAllStudents);
 router.post('/time', teacherStudentController.modifyPerformedTime);
+router.post('/log', teacherStudentController.createLog);
 
 module.exports = router;
