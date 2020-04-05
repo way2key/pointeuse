@@ -27,7 +27,7 @@ exports.createLog = (req, res) => {
     teacher: req.body.teacher,
     message: req.body.message,
     studentId: req.body.studentId,
-    operation: req.body.teacher,
+    operation: req.body.operation,
   });
   newLog.save()
   .then(

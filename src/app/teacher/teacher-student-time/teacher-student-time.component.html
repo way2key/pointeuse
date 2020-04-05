@@ -3,13 +3,7 @@
 <form [formGroup]="timeForm" (ngSubmit)="onSubmit()">
   <div class="timeChoiceBody">
       <label>
-        <input class="timeChoice"
-                type="time"
-                step="300"
-                min="00:30"
-                pattern="[0-9]{2}:[0-9]{2}"
-                formControlName="time"
-                [(ngModel)]="chosenTime">
+        <input type="time" class="timeChoice" formControlName="time" [(ngModel)]="defaultTime">
       </label>
   </div>
   <br>
@@ -32,6 +26,6 @@
   <br>
   <mat-form-field >
     <mat-label>Justification</mat-label>
-    <textarea formControlName="message" matInput [(ngModel)]="justificationText"></textarea>
+    <textarea formControlName="message" matInput></textarea>
   </mat-form-field>
 </form>

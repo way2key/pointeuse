@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TeacherStudentService } from '../teacher-student.service';
 import { FormGroup, FormControl } from '@angular/forms';
-
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-teacher-student-time',
@@ -16,9 +16,7 @@ export class TeacherStudentTimeComponent implements OnInit {
     time: new FormControl(''),
     message: new FormControl('')
   });
-
-  chosenTime = "01:00";
-  addButton ="false";
+  defaultTime = "01:00";
   choice = 0;
 
   motives = [
@@ -40,15 +38,11 @@ export class TeacherStudentTimeComponent implements OnInit {
       }
     });
     this.students.sort(this.alphabeticalSort('lastname'));
-
   }
 
   onSubmit(){
-    let time = this.chosenTime.toString().split(':',2);
-    let hours = parseInt(time[0]);
-    let minutes = parseInt(time[1]);
-    hours = hours + (minutes/60);
-
+    let time = this.timeForm.value.time;
+    let hours = moment.duration(time).asHours();
     if (this.choice === 1) {
       hours = -hours;
     }
@@ -57,9 +51,9 @@ export class TeacherStudentTimeComponent implements OnInit {
       this.modifyTime(payload);
       let payload2 = {
         "teacher":"A retrouver depuis le token de connexion",
-        "message":"A retrouver edpuis le formulaire",
-        "studentId": "abcd",
-        "operation": "coco"
+        "message": this.timeForm.value.message,
+        "studentId": student.firstname+' '+student.lastname,
+        "operation": "Temps modifié"
       };
       this.createLog(payload2);
     });
