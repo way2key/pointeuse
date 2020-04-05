@@ -1,6 +1,7 @@
 const User = require('../data-schematic/user-schematic');
 const Log = require('../data-schematic/log-schematic');
 const performedTimeService = require('../action/performedTime-service.js');
+const action = require('../action/action');
 const moment = require('moment');
 
 exports.getAllStudents = (req, res)=>{
@@ -31,9 +32,21 @@ exports.createLog = (req, res) => {
   });
   newLog.save()
   .then(
-    msg => res.status(201).json({msg})
+    response => res.status(201).json({response})
   )
   .catch(
     error => res.status(400).json({error})
   );
+}
+
+exports.getATeacher = (req, res) => {
+  const token = req.headers.authorization.split(' ')[1];
+  action.getTeacherFromToken(token)
+  .then(
+    (teacher) => res.status(200).json(teacher)
+  )
+  .catch(
+    (error) => res.status(500).json({error})
+  )
+
 }

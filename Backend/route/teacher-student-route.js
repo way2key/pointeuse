@@ -5,9 +5,10 @@ const auth = require('../middleware/auth');
 const teacherStudentController = require('../controller/teacher-student-controller');
 
 //Routes
+router.get('/teacher', auth, teacherStudentController.getATeacher);
 router.get('/:id', auth, teacherStudentController.getAStudent);
 router.get('/', auth, teacherStudentController.getAllStudents);
-router.post('/time', teacherStudentController.modifyPerformedTime);
-router.post('/log', teacherStudentController.createLog);
+router.post('/time', auth, teacherStudentController.modifyPerformedTime);
+router.post('/log', auth, teacherStudentController.createLog);
 
 module.exports = router;

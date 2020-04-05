@@ -4,6 +4,7 @@ const dayService = require('./day-service.js');
 const clockService = require('./clock-service.js');
 const performedTimeService = require('./performedTime-service.js');
 const studentService = require('./student-service.js');
+const tokenService = require('./token-service.js');
 
 const action = {
   test: testAction.test,
@@ -16,6 +17,7 @@ const action = {
   getStudentInfo: studentService.getStudentInfo,
   updatePerformedTime: performedTimeService.updatePerformedTime,
   modifyPerformedTime: performedTimeService.modifyPerformedTime,
+  getTeacherFromToken: tokenService.getTeacherFromToken,
 }
 
 

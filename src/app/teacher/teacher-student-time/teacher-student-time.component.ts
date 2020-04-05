@@ -10,7 +10,7 @@ import * as moment from 'moment';
   styleUrls: ['./teacher-student-time.component.scss']
 })
 export class TeacherStudentTimeComponent implements OnInit {
-
+  teacher;
   students = [];
   timeForm = new FormGroup({
     time: new FormControl(''),
@@ -32,6 +32,7 @@ export class TeacherStudentTimeComponent implements OnInit {
   constructor(private teacherStudentService: TeacherStudentService, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit(): void {
+    this.getATeacher();
     this.data.forEach(student => {
       if(student.isSelected) {
         this.students.push(student)
@@ -50,7 +51,7 @@ export class TeacherStudentTimeComponent implements OnInit {
       let payload = {time: hours, hash:student.hash}
       this.modifyTime(payload);
       let payload2 = {
-        "teacher":"A retrouver depuis le token de connexion",
+        "teacher": this.teacher.firstname + " " + this.teacher.lastname,
         "message": this.timeForm.value.message,
         "studentId": student.firstname+' '+student.lastname,
         "operation": "Temps modifié"
@@ -90,6 +91,15 @@ export class TeacherStudentTimeComponent implements OnInit {
     this.teacherStudentService.createLog(payload)
     .subscribe(
       result => console.log(result)
+    )
+  }
+
+  getATeacher(){
+    this.teacherStudentService.getATeacher()
+    .subscribe(
+      teacher => {
+        this.teacher = teacher;
+    }
     )
   }
 }

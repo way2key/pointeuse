@@ -21,6 +21,11 @@ export class TeacherStudentService {
     return this.http.get<String[]>(this.apiUrl, this.httpOptions);
   }
 
+  getATeacher(){
+    const url = this.apiUrl + "/teacher";
+    return this.http.get<String[]>(url, this.httpOptions);
+  }
+
   modifyPerformedTime(payload){
     let url = this.apiUrl + '/time';
     return this.http.post<any>(url, payload, this.httpOptions);
@@ -35,4 +40,5 @@ export class TeacherStudentService {
     let url = this.apiUrl + '/log';
     return this.http.post<any>(url, payload, this.httpOptions);
   }
+
 }
