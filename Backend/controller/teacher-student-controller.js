@@ -24,7 +24,7 @@ exports.modifyPerformedTime = (req, res) => {
 
 exports.createLog = (req, res) => {
   const newLog = new Log({
-    date: moment().format("YYYY/MM/DD"),
+    date: moment().format("YYYY/MM/DD h:mm:ss"),
     teacher: req.body.teacher,
     message: req.body.message,
     studentId: req.body.studentId,
