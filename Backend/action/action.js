@@ -5,19 +5,28 @@ const clockService = require('./clock-service.js');
 const performedTimeService = require('./performedTime-service.js');
 const studentService = require('./student-service.js');
 const tokenService = require('./token-service.js');
+const incidentService = require('./incident-service.js');
 
 const action = {
   test: testAction.test,
-  createDayForEachUser: dayService.createDayForEachUser,
   createDay: dayService.createDay,
+  createDayForEachUser: dayService.createDayForEachUser,
   getStudentCurrentDay: dayService.getStudentCurrentDay,
-  checkClockStatus: statusService.checkClockStatus,
+  getTeacherFromToken: tokenService.getTeacherFromToken,
   checkStudentStatus: statusService.checkStudentStatus,
+  checkClockStatus: statusService.checkClockStatus,
   getStudentClock: clockService.getStudentClock,
   getStudentInfo: studentService.getStudentInfo,
   updatePerformedTime: performedTimeService.updatePerformedTime,
   modifyPerformedTime: performedTimeService.modifyPerformedTime,
-  getTeacherFromToken: tokenService.getTeacherFromToken,
+  getUntreatedIncident: incidentService.getUntreatedIncident,
+  quotaTimeIncident: incidentService.quotaTimeIncident,
+  latenessArrivalIncident: incidentService.latenessArrivalIncident,
+  unallowedPresenceIncident: incidentService.unallowedPresenceIncident,
+  dailyTimeNotCompletedIncident: incidentService.dailyTimeNotCompletedIncident,
+  hastyDepartureIncident: incidentService.hastyDepartureIncident,
+  clockOversightIncident: incidentService.clockOversightIncident,
+  getTeatedIncident: incidentService.getTeatedIncident,
 }
 
 
