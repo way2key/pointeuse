@@ -10,7 +10,19 @@ const Incident = require('../data-schematic/incident-schematic');
 exports.quotaTimeIncident = () => {
   return new Promise( (resolve,reject) => {
     //code here
-    resolve('it work');
+    let newIncident = new Incident({
+      date: moment().format("YYYY/MM/DD HH:mm:ss"),
+      studentId: "xoxo",
+      type: "Quota Insuffisant",
+      treated: true
+    });
+    newIncident.save()
+    .then(
+      resolve()
+    )
+    .catch(
+      reject()
+    )
   });
 }
 
@@ -52,7 +64,17 @@ exports.hastyDepartureIncident = () => {
 exports.getTreatedIncident = () => {
   return new Promise( (resolve,reject) => {
     //code here
-    resolve('it work');
+    Incident.find({treated:true})
+    .then(
+      incidents => {
+        resolve(incidents);
+      }
+    )
+    .catch(
+      error => {
+        reject(error);
+      }
+    )
   });
 }
 

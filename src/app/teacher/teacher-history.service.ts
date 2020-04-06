@@ -17,8 +17,13 @@ export class TeacherHistoryService {
   };
   constructor(private http: HttpClient) { }
 
-  getAllLog(){
+  getAllLog() {
     const url = this.apiUrl + '/log';
+    return this.http.get<any>(url, this.httpOptions);
+  }
+
+  getAllIncident() {
+    const url = this.apiUrl + '/incident';
     return this.http.get<any>(url, this.httpOptions);
   }
 }

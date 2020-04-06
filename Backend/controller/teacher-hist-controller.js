@@ -7,3 +7,15 @@ exports.getAllLog = (req, res) => {
   .then(students => res.status(200).json(students))
   .catch(error => res.status(400).json({error}));
 }
+
+exports.getAllIncident = (req, res) => {
+  action.getTreatedIncident().
+  then(
+    incidents => {
+      res.status(200).json(incidents);
+    }
+  )
+  .catch(
+    error => res.status(500).json({error})
+  )
+}

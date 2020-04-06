@@ -29,6 +29,11 @@ cron.schedule('00 00 00 * * *', () => {
   action.recordStudentHours();
 });
 
+// Contrôle chaque semaine à 00:00
+cron.schedule('00 00 00 */7 * *', () => {
+  action.quotaTimeIncident();
+});
+
 // test s'écrit toutes les heures
 cron.schedule('00 00 */1 * * *', () => {
   action.test();
