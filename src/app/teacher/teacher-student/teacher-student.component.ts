@@ -47,11 +47,9 @@ export class TeacherStudentComponent implements OnInit {
       for (let student of this.students) {
         this.getStudentStatus(student.hash)
         .then(
-          () => {
+          status => {
             student['isSelected'] = false;
             student['presence'] = true;
-          },
-          status => {
             student['status'] = status;
           }
         )

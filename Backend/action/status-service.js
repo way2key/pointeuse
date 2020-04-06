@@ -30,7 +30,7 @@ exports.checkClockStatus = (clockId) => {
     )
     .catch(
       error => {
-        reject(error);
+        resolve(false);
       }
     )
   });
