@@ -28,6 +28,11 @@ exports.checkClockStatus = (clockId) => {
         resolve(!(count%2==0));
       }
     )
+    .catch(
+      error => {
+        reject(error);
+      }
+    )
   });
 }
 
