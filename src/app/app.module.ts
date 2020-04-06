@@ -24,6 +24,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSortModule } from '@angular/material/sort';
 
 //Components teacher
 import { TeacherLoginComponent } from './teacher/teacher-login/teacher-login.component';
@@ -87,6 +88,7 @@ import { TeacherAuthGuard } from './teacher/teacher-auth.guard';
     MatListModule,
     MatCardModule,
     MatTableModule,
+    MatSortModule,
     MatSelectModule,
     MatSlideToggleModule,
     MatFormFieldModule,

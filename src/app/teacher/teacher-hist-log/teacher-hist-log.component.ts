@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import * as moment from 'moment';
 import { TeacherHistoryService } from '../teacher-history.service.js';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-teacher-hist-log',
@@ -8,20 +10,24 @@ import { TeacherHistoryService } from '../teacher-history.service.js';
   styleUrls: ['./teacher-hist-log.component.scss']
 })
 export class TeacherHistLogComponent implements OnInit {
-
-  logs = [];
-
+  displayedColumns: string[] = ['date', 'teacher', 'message', 'operation', 'studentId'];
+  dataSource = new MatTableDataSource();
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   constructor(private teacherHistoryService:TeacherHistoryService) { }
 
-  ngOnInit(): void {
+
+  ngOnInit() {
     this.getAllLog();
+    this.dataSource.sort = this.sort;
   }
 
-  getAllLog(): void{
+  getAllLog() {
     this.teacherHistoryService.getAllLog()
     .subscribe(
-      logs => this.logs = logs
+      logs => {
+        this.dataSource.data = logs;
+      }
     )
   }
 
