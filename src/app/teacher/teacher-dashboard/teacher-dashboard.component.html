@@ -3,18 +3,46 @@
 <div class="dashboard">
 
   <div class="clock" align="middle">
-    <h1> Heure actuelle</h1>
     <app-teacher-clock></app-teacher-clock>
   </div>
 
   <mat-divider></mat-divider>
 
   <div class="incident">
-    <h1> Incident </h1>
-    <mat-list>
-      <mat-list-item> Info1 </mat-list-item>
-      <mat-list-item> Info2 </mat-list-item>
-      <mat-list-item> Info3 </mat-list-item>
-    </mat-list>
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+        <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="type">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Incident </th>
+        <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="studentId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Stagiaire </th>
+        <td mat-cell *matCellDef="let element"> {{element.studentId}} </td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+        <td mat-cell *matCellDef="let element">
+          <button class="button is-success is-rounded" (click)="checkIncident(element)">
+            <i class="fas fa-check fa-2x p"></i>
+          </button>
+        </td>
+      </ng-container>
+
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <p class="title" *ngIf="this.dataSource.data.length==0">Vous avez traité tous les incidents :D</p>
   </div>
 </div>

@@ -63,7 +63,6 @@ exports.hastyDepartureIncident = () => {
 
 exports.getTreatedIncident = () => {
   return new Promise( (resolve,reject) => {
-    //code here
     Incident.find({treated:true})
     .then(
       incidents => {
@@ -80,7 +79,33 @@ exports.getTreatedIncident = () => {
 
 exports.getUntreatedIncident = () => {
   return new Promise( (resolve,reject) => {
-    //code here
-    resolve('it work');
+    Incident.find({treated:false})
+    .then(
+      incidents => {
+        resolve(incidents);
+      }
+    )
+    .catch(
+      error => {
+        reject(error);
+      }
+    )
+  });
+}
+
+exports.checkIncident = (incident) => {
+  return new Promise( (resolve,reject) => {
+    Incident.updateOne({_id:incident._id},{$set:{treated: true}})
+    .then(
+      (msg) => {
+        console.log(incident._id);
+        resolve("Incident quittancé!");
+      }
+    )
+    .catch(
+      error => {
+        reject(error);
+      }
+    )
   });
 }

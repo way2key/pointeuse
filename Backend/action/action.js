@@ -27,6 +27,7 @@ const action = {
   hastyDepartureIncident: incidentService.hastyDepartureIncident,
   clockOversightIncident: incidentService.clockOversightIncident,
   getTreatedIncident: incidentService.getTreatedIncident,
+  checkIncident: incidentService.checkIncident,
 }
 
 

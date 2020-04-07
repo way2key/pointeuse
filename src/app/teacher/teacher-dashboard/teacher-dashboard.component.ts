@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import * as moment from 'moment';
 import { TeacherDashboardService } from '../teacher-dashboard.service';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-teacher-dashboard',
@@ -12,15 +15,31 @@ export class TeacherDashboardComponent implements OnInit {
     lastname: 'Prenom'
   }
   constructor(private teacherDashboardService: TeacherDashboardService) { }
+  displayedColumns: string[] = ['date', 'type', 'studentId', 'action'];
+  dataSource = new MatTableDataSource();
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   ngOnInit(): void {
     this.getTeacher();
+    this.getIncident();
+    this.dataSource.sort = this.sort;
   }
 
   getTeacher(): void {
     this.teacherDashboardService.getTeacher().subscribe(
       teacher => this.teacher = teacher
     )
+  }
+
+  getIncident(): void {
+    this.teacherDashboardService.getIncident().subscribe(
+      incident => this.dataSource.data = incident
+    )
+  }
+
+  checkIncident(incident): void {
+    this.dataSource.data = this.dataSource.data.filter(a => a !== incident);
+    this.teacherDashboardService.checkIncident(incident).subscribe();
   }
 
 }
