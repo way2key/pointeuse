@@ -98,7 +98,6 @@ exports.checkIncident = (incident) => {
     Incident.updateOne({_id:incident._id},{$set:{treated: true}})
     .then(
       (msg) => {
-        console.log(incident._id);
         resolve("Incident quittancé!");
       }
     )

@@ -32,7 +32,7 @@ exports.createLog = (req, res) => {
   });
   newLog.save()
   .then(
-    response => res.status(201).json({response})
+    response => res.status(201).json({response:"Log créé avec succès"})
   )
   .catch(
     error => res.status(400).json({error})
