@@ -2,17 +2,18 @@
   <h1>Statistiques</h1>
   <form class="form" (ngSubmit)="getStudent()">
     <mat-form-field>
-      <mat-select>
-        <mat-option value="food">Présent</mat-option>
-        <mat-option value="food">Absent</mat-option>
-        <mat-option value="food">Manque heures</mat-option>
+      <mat-label>Ordre</mat-label>
+      <mat-select [formControl]="sortCriteria" (selectionChange)="reloadStudents()">
+        <mat-option value="lowToHigh">Temps croissant</mat-option>
+        <mat-option value="highToLow">Temps decroissant</mat-option>
+        <mat-option value="alphabetical">Alphabétique</mat-option>
       </mat-select>
     </mat-form-field>
     <br>
     <mat-form-field class="example-full-width">
       <input type="text" placeholder="Trouvez un stagiaire"
              matInput
-             [formControl]="myControl"
+             [formControl]="myControlSearch"
              [matAutocomplete]="auto">
       <mat-autocomplete #auto="matAutocomplete">
         <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
@@ -25,3 +26,17 @@
     </button>
   </form>
 </mat-toolbar>
+
+
+<div>
+  <h1>Statistiques</h1>
+  <div>
+    <ng-container *ngFor="let s of shownStudents">
+      <div class="student">
+        <div class="student-info">
+          <h1 matSubheader>{{s.firstname}} {{s.lastname}}</h1>
+          <p>Temps effectué {{s.performedTime}}</p>
+        </div>
+      </div>
+    </ng-container>
+</div>
