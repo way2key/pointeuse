@@ -25,6 +25,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSortModule } from '@angular/material/sort';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 //Components teacher
 import { TeacherLoginComponent } from './teacher/teacher-login/teacher-login.component';
@@ -99,6 +100,7 @@ import { TeacherAuthGuard } from './teacher/teacher-auth.guard';
     HttpClientModule,
     MatCheckboxModule,
     MatTooltipModule,
+    MatExpansionModule,
 
   ],
   providers: [

@@ -31,12 +31,28 @@
 <div>
   <h1>Statistiques</h1>
   <div>
-    <ng-container *ngFor="let s of shownStudents">
-      <div class="student">
-        <div class="student-info">
-          <h1 matSubheader>{{s.firstname}} {{s.lastname}}</h1>
-          <p>Temps effectué {{s.performedTime}}</p>
-        </div>
-      </div>
-    </ng-container>
+    <mat-accordion>
+        <mat-expansion-panel *ngFor="let s of shownStudents"
+                              (opened)="getStudentClock(s.hash)"
+                              (closed)="stopTimeline()">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{s.firstname}} {{s.lastname}}
+              </mat-panel-title>
+              <mat-panel-description>
+                Temps effectué: {{s.performedTime}}
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <ng-template matExpansionPanelContent>
+              <div id="{{s.hash}}"></div>
+            </ng-template>
+        </mat-expansion-panel>
+        <!--div class="student">
+          <div class="student-info">
+
+            <!--h1 matSubheader>{{s.firstname}} {{s.lastname}}</h1>
+            <p>Temps effectué {{s.performedTime}}</p>
+          </div>
+        </div-->
+    </mat-accordion>
 </div>

@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TeacherStudentService } from '../teacher-student.service';
+import { StudentService } from '../../student/student.service';
 import {FormGroup, FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
+import * as p5 from 'p5';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-teacher-hist-stat',
@@ -22,7 +25,12 @@ export class TeacherHistStatComponent implements OnInit {
   options: string[] = ['One', 'Two', 'Three'];
   filteredOptions: Observable<string[]>;
 
-  constructor(private teacherStudentService: TeacherStudentService,) { }
+  canvas: any;
+  time;
+  clock = [];
+
+  constructor(private teacherStudentService: TeacherStudentService,
+              private studentService: StudentService) { }
 
   ngOnInit(): void {
     this.getStudents();
@@ -125,6 +133,141 @@ export class TeacherHistStatComponent implements OnInit {
   reloadStudents() {
     this.getStudents();
     this.shownStudents.sort(this.sortOrder());
+  }
+
+  getStudentClock(hash){
+
+    this.studentService.getStudentClock(hash).subscribe(
+      clocks => {
+        this.clock = clocks;
+
+        this.drawTimeLine(hash);
+      },
+      error => {
+        console.log(error.message);
+      }
+    )
+  }
+
+  getStudentTimeline(hash: string) {
+    //this.canvas.remove(p5);
+    this.getStudentClock(hash);
+
+
+  }
+
+  drawTimeLine(hash: string) {
+    const sketch = s => {
+      var x_start;
+      var x_end;
+      var lowerBound;
+      var upperBound;
+      var y;
+
+      s.setup = () => {
+        s.createCanvas(600,300).parent(hash);
+        x_start = 0.1*s.width;
+        x_end = 0.9*s.width;
+        y = 0.8*s.height;
+
+      }
+
+
+      s.draw = () => {
+        this.time = moment.duration(moment().format('HH:mm:ss'));
+        let range = this.clock[this.clock.length-1]-this.clock[0];
+        let margin;
+        if(range){
+          margin = 0.2*range;
+        }else{
+          margin = 0.1*this.clock[0];
+        }
+        lowerBound = this.clock[0]-margin;
+        upperBound = this.time.asHours()+margin;
+
+        s.clear();
+
+        // Baseline
+        s.strokeWeight(4);
+        s.stroke(0);
+        let baseline = s.line(x_start, y, x_end, y);
+
+        // Timeline
+        s.fill(0,255,0);
+        s.stroke(0);
+        let x_time = s.map(this.time.asHours(),lowerBound,upperBound,x_start,x_end);
+        s.strokeWeight(4);
+        let timeline = s.line(x_time,0.85*s.height,x_time,0.34*s.height);
+
+        // Timeline Hour
+        s.fill(230);
+        s.noStroke(0);
+        s.textSize(0.05*s.height);
+        s.textAlign(s.CENTER);
+        s.text(this.time.format('hh:mm:ss'), x_time, 0.3*s.height);
+
+        // Graduation
+        s.strokeWeight(2);
+        let max = s.ceil(this.clock[this.clock.length-1]);
+        let r = max+1;
+        console.log(r, lowerBound);
+
+        while(r > lowerBound){
+          let x = s.map(r,lowerBound,upperBound,x_start,x_end);
+          s.stroke(0);
+          s.line(x,y,x,0.82*s.height);
+          // Time
+          s.noStroke(0);
+          s.fill(230);
+          s.textSize(0.03*s.height);
+          s.textAlign(s.CENTER);
+          s.text(r+':00', x, 0.85*s.height);
+          r--;
+        }
+
+        // Clocks
+        /*
+        for(let p of this.clock){
+          let x_time = s.map(p,lowerBound,upperBound,x_start,x_end);
+          s.strokeWeight(3);
+          s.line(x_time,y,x_time,0.63*s.height);
+        }
+        */
+
+        // Completed period
+        for(let i=0; i < this.clock.length; i+=2){
+          s.fill(0,255,0,140);
+          s.strokeWeight(3);
+          s.stroke(0);
+          s.rect(s.map(this.clock[i],lowerBound,upperBound,x_start,x_end), y, s.map(this.clock[i+1],lowerBound,upperBound,x_start,x_end)-s.map(this.clock[i],lowerBound,upperBound,x_start,x_end), -0.17*s.height);
+        }
+
+        // last period
+        if(this.clock.length %2!=0){
+          s.fill(250,255,0,175);
+          let index = this.clock.length - 1;
+          let x_time = s.map(this.time.asHours(),lowerBound,upperBound,x_start,x_end);
+
+          s.rect(
+            s.map(this.clock[index],lowerBound,upperBound,x_start,x_end),
+            y,
+            s.map(this.time.asHours(),lowerBound,upperBound,x_start,x_end)-s.map(this.clock[index],lowerBound,upperBound,x_start,x_end),
+            -0.17*s.height
+          );
+        }
+
+      }
+    };
+    this.canvas = new p5(sketch);
+
+  };
+
+  stopTimeline() {
+    this.canvas.remove(p5);
+  }
+
+  ngOnDestroy() {
+    this.stopTimeline();
   }
 
 }
