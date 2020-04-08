@@ -36,6 +36,11 @@ export class TeacherStudentService {
     return this.http.get<any>(url);
   }
 
+  getStudentPresence(hash: string){
+    const url = this.apiUrl + '/presence/' + hash;
+    return this.http.get<any>(url);
+  }
+
   createLog(payload){
     const url = this.apiUrl + '/log';
     return this.http.post<any>(url, payload, this.httpOptions);

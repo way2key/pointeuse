@@ -6,6 +6,7 @@ const performedTimeService = require('./performedTime-service.js');
 const studentService = require('./student-service.js');
 const tokenService = require('./token-service.js');
 const incidentService = require('./incident-service.js');
+const presenceService = require('./presence-service.js');
 
 const action = {
   test: testAction.test,
@@ -19,6 +20,7 @@ const action = {
   getStudentInfo: studentService.getStudentInfo,
   updatePerformedTime: performedTimeService.updatePerformedTime,
   modifyPerformedTime: performedTimeService.modifyPerformedTime,
+  checkStudentPresence: presenceService.checkStudentPresence,
   getUntreatedIncident: incidentService.getUntreatedIncident,
   quotaTimeIncident: incidentService.quotaTimeIncident,
   latenessArrivalIncident: incidentService.latenessArrivalIncident,

@@ -5,6 +5,7 @@ const auth = require('../middleware/auth');
 const teacherStudentController = require('../controller/teacher-student-controller');
 
 //Routes
+router.get('/presence/:hash', teacherStudentController.getStudentPresence);
 router.get('/teacher', auth, teacherStudentController.getATeacher);
 router.get('/:id', auth, teacherStudentController.getAStudent);
 router.get('/', auth, teacherStudentController.getAllStudents);

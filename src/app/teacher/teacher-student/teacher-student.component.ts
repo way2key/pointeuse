@@ -48,8 +48,15 @@ export class TeacherStudentComponent implements OnInit {
         .then(
           status => {
             student['isSelected'] = false;
-            student['presence'] = true;
             student['status'] = status;
+          }
+        )
+        this.getStudentPresence(student.hash)
+        .then(
+          presence => {
+            console.log(presence);
+
+            student['presence'] = presence;
           }
         )
       }
@@ -79,6 +86,15 @@ export class TeacherStudentComponent implements OnInit {
   getStudentStatus(studentHash) {
     return new Promise(( resolve, reject) => {
       this.teacherStudentService.getStudentStatus(studentHash)
+      .subscribe(
+        status => resolve(status)
+      )
+    })
+  }
+
+  getStudentPresence(studentHash) {
+    return new Promise(( resolve, reject) => {
+      this.teacherStudentService.getStudentPresence(studentHash)
       .subscribe(
         status => resolve(status)
       )

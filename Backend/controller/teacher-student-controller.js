@@ -70,3 +70,15 @@ exports.modifyPresence = (req, res) => {
     (error) => res.status(500).json({error})
   )
 }
+
+exports.getStudentPresence = (req, res) => {
+  action.checkStudentPresence(req.params.hash)
+  .then(
+    presence => {
+      res.status(200).json(presence);
+    }
+  )
+  .catch(
+    error => res.status(400).json({error})
+  )
+}
