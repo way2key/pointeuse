@@ -17,6 +17,7 @@ const action = {
   checkStudentStatus: statusService.checkStudentStatus,
   checkClockStatus: statusService.checkClockStatus,
   getStudentClock: clockService.getStudentClock,
+  clockAStudent: clockService.clockAStudent,
   getStudentInfo: studentService.getStudentInfo,
   updatePerformedTime: performedTimeService.updatePerformedTime,
   modifyPerformedTime: performedTimeService.modifyPerformedTime,

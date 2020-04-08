@@ -34,3 +34,31 @@ exports.getStudentClock = (studentHash) => {
     )
   });
 }
+
+exports.clockAStudent = (studentHash) => {
+  return new Promise( (resolve, reject) => {
+    let dayId;
+    dayService.getStudentCurrentDay(studentHash)
+    .then(
+      dayId => {
+        this.dayId = dayId;
+        const newClock = new Clock({
+          dayId: dayId,
+          time: moment().format("HH:mm:ss")
+        });
+        return newClock.save();
+      }
+    )
+    .then(
+      () => {
+        return Day.findOneAndUpdate({_id:this.dayId},{$set:{present:true}});
+      }
+    )
+    .then(
+      () => resolve("Clock créé")
+    )
+    .catch(
+      () => resolve("Erreur de création de clock")
+    )
+  })
+}

@@ -45,16 +45,11 @@ exports.getStudentClock = (req, res) => {
 }
 
 exports.clockAStudent = (req, res) => {
-  action.getStudentCurrentDay(req.body.hash)
+  action.clockAStudent(req.body.hash)
   .then(
-    dayId => {
-      const newClock = new Clock({
-        dayId: dayId,
-        time: moment().format("HH:mm:ss")
-      });
-      return newClock.save();
-    }
+    () => res.status(200).json({message:"Clock créé avec succès"})
   )
-  .then(() => res.status(201).json({message: 'Clock créé'}))
-  .catch((error) => res.status(400).json({error: 'Erreur création clock'}));
+  .catch(
+    () => res.status(500).json({message:"Erreur de pointage"})
+  )
 }

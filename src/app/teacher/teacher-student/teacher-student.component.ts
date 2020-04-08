@@ -18,15 +18,11 @@ import * as moment from 'moment';
 export class TeacherStudentComponent implements OnInit {
 
   students = [];
-
   shownStudents = [];
-
   disabled = true;
-
   myControl = new FormControl();
   options = [];
   filteredOptions: Observable<string[]>;
-
   searchField = '';
 
   constructor(private teacherStudentService: TeacherStudentService,
@@ -126,8 +122,7 @@ export class TeacherStudentComponent implements OnInit {
   }
 
   onCheckBox() {
-
-    if (this.students.every(student =>student.isSelected)){
+    if (this.students.every(student => student.isSelected)){
         document.getElementById("allButton").innerHTML = "Tout déselectionner";
     } else {
           document.getElementById("allButton").innerHTML = "Tout selectionner";
@@ -138,15 +133,13 @@ export class TeacherStudentComponent implements OnInit {
     } else {
       this.disabled = true;
     }
-
     this.clearSearchField();
   }
 
   modifyTime() {
     let dialogRef = this.dialog.open(TeacherStudentTimeComponent, {data: this.students});
 
-
-    dialogRef.afterClosed().subscribe(result =>{
+    dialogRef.afterClosed().subscribe(result => {
       this.openSnackBar('Temps modifié avec succès');
       this.getStudents();
       this.deselectAll();
@@ -159,12 +152,15 @@ export class TeacherStudentComponent implements OnInit {
         let payload = { hash: student.hash }
         this.teacherStudentService.modifyPresence(payload)
         .subscribe(
-          result => console.log(result)
+          result => {
+            console.log(result)
+            this.getStudents();
+            this.openSnackBar('Presence modifiée avec succès');
+            this.deselectAll();
+          }
         );
       }
     });
-    this.openSnackBar('Presence modifiée avec succès');
-    this.deselectAll();
   }
 
   openSnackBar(message: string) {
