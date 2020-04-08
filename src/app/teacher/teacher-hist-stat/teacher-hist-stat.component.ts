@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TeacherStudentService } from '../teacher-student.service';
 import { StudentService } from '../../student/student.service';
-import {FormGroup, FormControl} from '@angular/forms';
-import {Observable} from 'rxjs';
+import { FormGroup, FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import * as p5 from 'p5';
 import * as moment from 'moment';
@@ -45,10 +45,6 @@ export class TeacherHistStatComponent implements OnInit {
     const filterValue = value.toLowerCase();
 
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
-  }
-
-  getStudent() {
-    alert("you got one!");
   }
 
   getStudents(): void {
