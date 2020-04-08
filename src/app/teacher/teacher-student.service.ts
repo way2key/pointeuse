@@ -27,7 +27,7 @@ export class TeacherStudentService {
   }
 
   modifyPerformedTime(payload){
-    let url = this.apiUrl + '/time';
+    const url = this.apiUrl + '/time';
     return this.http.post<any>(url, payload, this.httpOptions);
   }
 
@@ -37,8 +37,13 @@ export class TeacherStudentService {
   }
 
   createLog(payload){
-    let url = this.apiUrl + '/log';
+    const url = this.apiUrl + '/log';
     return this.http.post<any>(url, payload, this.httpOptions);
+  }
+
+  modifyPresence(payload){
+    const url = this.apiUrl + '/presence';
+    return this.http.put(url, payload, this.httpOptions);
   }
 
 }

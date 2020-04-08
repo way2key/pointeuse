@@ -1,6 +1,6 @@
 <mat-toolbar class="toolbar">
   <h1>Statistiques</h1>
-  <form class="form" (ngSubmit)="getStudent()">
+  <form class="form" (ngSubmit)="getStudents()">
     <mat-form-field>
       <mat-label>Ordre</mat-label>
       <mat-select [formControl]="sortCriteria" (selectionChange)="reloadStudents()">

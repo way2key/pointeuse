@@ -35,7 +35,6 @@ export class TeacherStudentComponent implements OnInit {
 
   ngOnInit(): void {
     this.getStudents();
-
   }
 
 
@@ -141,7 +140,11 @@ export class TeacherStudentComponent implements OnInit {
   modifyPresence() {
     this.students.forEach(student => {
       if(student.isSelected) {
-        console.log('Modified presence on student ', student.firstname);
+        let payload = { hash: student.hash }
+        this.teacherStudentService.modifyPresence(payload)
+        .subscribe(
+          result => console.log(result)
+        );
       }
     });
     this.openSnackBar('Presence modifiée avec succès');

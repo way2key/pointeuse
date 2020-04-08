@@ -1,5 +1,6 @@
 const User = require('../data-schematic/user-schematic');
 const Log = require('../data-schematic/log-schematic');
+const Day = require('../data-schematic/day-schematic');
 const performedTimeService = require('../action/performedTime-service.js');
 const action = require('../action/action');
 const moment = require('moment');
@@ -48,5 +49,24 @@ exports.getATeacher = (req, res) => {
   .catch(
     (error) => res.status(500).json({error})
   )
+}
 
+exports.modifyPresence = (req, res) => {
+  action.getStudentCurrentDay(req.body.hash)
+  .then(
+    dayId => {
+      return Day.findOne({_id: dayId});
+    }
+  )
+  .then(
+    day => {
+      return Day.findOneAndUpdate({_id: day.id},{$set:{present:!day.present}});
+    }
+  )
+  .then(
+    () => res.status(200).json("Présence modifiée avec succès.")
+  )
+  .catch(
+    (error) => res.status(500).json({error})
+  )
 }

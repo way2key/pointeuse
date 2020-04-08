@@ -37,8 +37,6 @@ export class TeacherHistStatComponent implements OnInit {
 
   ngOnInit(): void {
     this.getStudents();
-
-
   }
 
   private _filter(value: string): string[] {
