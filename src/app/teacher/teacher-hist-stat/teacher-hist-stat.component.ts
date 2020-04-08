@@ -83,6 +83,11 @@ export class TeacherHistStatComponent implements OnInit {
     //Chercher timeline correspondant à la date sélectionnée
   }
 
+  clearSearchField() {
+    this.myControlSearch = new FormControl();
+    this.getStudents();
+  }
+
   autocompleteFill() {
     this.options = [];
     for(let student of this.students) {
