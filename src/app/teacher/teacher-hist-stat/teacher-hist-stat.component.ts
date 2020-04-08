@@ -29,11 +29,16 @@ export class TeacherHistStatComponent implements OnInit {
   time;
   clock = [];
 
+  date = new FormControl(moment());
+  maxDate = moment();
+
   constructor(private teacherStudentService: TeacherStudentService,
               private studentService: StudentService) { }
 
   ngOnInit(): void {
     this.getStudents();
+
+
   }
 
   private _filter(value: string): string[] {
@@ -71,6 +76,11 @@ export class TeacherHistStatComponent implements OnInit {
         })
       );
     });
+  }
+
+  dateSelect() {
+    let selectedDate = this.date.value.format('DD MM YYYY');
+    //Chercher timeline correspondant à la date sélectionnée
   }
 
   autocompleteFill() {
@@ -263,7 +273,7 @@ export class TeacherHistStatComponent implements OnInit {
   };
 
   stopTimeline() {
-    this.canvas.remove(p5);
+    this.canvas.remove();
   }
 
   ngOnDestroy() {

@@ -25,7 +25,11 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSortModule } from '@angular/material/sort';
-import {MatExpansionModule} from '@angular/material/expansion';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatMomentDateModule, MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+
 
 //Components teacher
 import { TeacherLoginComponent } from './teacher/teacher-login/teacher-login.component';
@@ -101,11 +105,21 @@ import { TeacherAuthGuard } from './teacher/teacher-auth.guard';
     MatCheckboxModule,
     MatTooltipModule,
     MatExpansionModule,
+    MatDatepickerModule,
+    MatMomentDateModule,
 
   ],
   providers: [
     TeacherAuthGuard,
-    MatSnackBar
+    MatSnackBar,
+    {provide: MAT_DATE_LOCALE, useValue: 'fr-FR'},
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
+    {provide: MAT_DATE_FORMATS, useValue: {parse: {dateInput:'DD/MM/YYYY'} ,display: {dateInput: 'DD/MM/YYYY',
+      monthYearLabel: 'MMM YYYY',
+      dateA11yLabel: 'LL',
+      monthYearA11yLabel: 'MMMM YYYY',}}}
+
   ],
   bootstrap: [AppComponent]
 })
