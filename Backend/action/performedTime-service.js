@@ -11,7 +11,7 @@ exports.updatePerformedTime = () => {
   .then(
     users => {
       for(let user of users){
-        clockService.getStudentClock(user.hash)
+        clockService.getStudentClockFromHash(user.hash)
         .then(
           clocks => {
             let time = 0;
@@ -33,7 +33,7 @@ exports.updatePerformedTime = () => {
               shifts.push(shift);
               time += completedShift;
             }
-
+            /*
             if(shifts.length){
               if(!breakPerformedInInterval(shifts,11,14,0.5)){
                 console.log("Il n'a pas mangé.");
@@ -44,7 +44,7 @@ exports.updatePerformedTime = () => {
               console.log("END");
               console.log("");
             }
-
+*/
           }
         )
       }

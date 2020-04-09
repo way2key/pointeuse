@@ -16,7 +16,7 @@ const action = {
   getTeacherFromToken: tokenService.getTeacherFromToken,
   checkStudentStatus: statusService.checkStudentStatus,
   checkClockStatus: statusService.checkClockStatus,
-  getStudentClock: clockService.getStudentClockFromHash,
+  getStudentClockFromHash: clockService.getStudentClockFromHash,
   clockAStudent: clockService.clockAStudent,
   getStudentInfo: studentService.getStudentInfo,
   getStudentMeal: studentService.getStudentMeal,

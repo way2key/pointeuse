@@ -55,7 +55,7 @@ exports.getStudentBreather = (req, res) => {
 }
 
 exports.getStudentClock = (req, res) => {
-  action.getStudentClock(req.params.hash)
+  action.getStudentClockFromHash(req.params.hash)
   .then(
     clocks => {
       let out = [];

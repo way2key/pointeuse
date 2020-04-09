@@ -23,7 +23,6 @@ exports.getStudentCurrentDay = (studentHash) => {
             dateId.push(day);
           }
         }
-
         if(dateId.length == 1) {
           resolve(dateId[0]);
         }
@@ -59,7 +58,6 @@ exports.createDayForEachUser = () => {
       }
     }
   )
-
 }
 
 exports.createDay = (studentHash) => {

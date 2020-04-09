@@ -38,7 +38,7 @@ exports.checkClockStatus = (clockId) => {
 
 exports.checkStudentStatus = (studentHash) => {
   return new Promise( (resolve, reject) => {
-    clockService.getStudentClock(studentHash)
+    clockService.getStudentClockFromHash(studentHash)
     .then(
       clocks => {
         let mostRecent = '000000000000000000000000';
