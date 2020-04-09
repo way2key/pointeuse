@@ -21,6 +21,16 @@ export class StudentService {
     return this.http.get<any>(url);
   }
 
+  getStudentMeal(hash: string){
+    const url = this.apiURL + '/meal/' + hash;
+    return this.http.get<any>(url);
+  }
+
+  getStudentBreather(hash: string){
+    const url = this.apiURL + '/breather/' + hash;
+    return this.http.get<any>(url);
+  }
+
   clockAStudent(hash: string): Observable<any> {
     return this.http.post<any>(this.apiURL, {hash: hash});
   }

@@ -105,7 +105,7 @@ let breakPerformedInInterval = (shifts,min,max,interval) => {
 let breakPerformed = (shifts) => {
   let count=0;
   let balai=shifts[0].in;
-  console.log("START !");
+  console.log("START");
   for(let s of shifts){
     console.log("");
     if(s.in >= balai){

@@ -8,9 +8,11 @@
   <div mat-dialog-content>
     <mat-divider></mat-divider>
     <br>
-    <p>{{ student.firstname }} {{ student.lastname }}</p>
-    <span *ngIf = "status" class="tag is-success is-large" >IN</span>
-    <span *ngIf = "!status" class="tag is-danger is-large" >OUT</span>
+    <div class="student">
+      <h1 class="main-title">{{ student.firstname }} {{ student.lastname }}</h1>
+      <span *ngIf = "status" class="tag is-success is-large" >IN</span>
+      <span *ngIf = "!status" class="tag is-danger is-large" >OUT</span>
+    </div>
     <mat-divider></mat-divider>
     <app-student-timeline></app-student-timeline>
     <mat-divider></mat-divider>

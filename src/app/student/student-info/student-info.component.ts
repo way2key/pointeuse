@@ -24,6 +24,8 @@ export class StudentInfoComponent implements OnInit {
   ngOnInit(): void {
     this.getStatus(this.data.hash);
     this.getStudent(this.data.hash);
+    this.getMeal(this.data.hash);
+    this.getBreather(this.data.hash);
   }
 
   getStatus(studentHash): void {
@@ -40,11 +42,8 @@ export class StudentInfoComponent implements OnInit {
   getStudent(hash): void {
     this.studentService.getStudentInfo(hash).subscribe(
       student => {
-
         this.student = student;
         this.message = 1;
-        this.meal = false;
-        this.breather = false;
       },
       error => {
         console.log(error.message);
@@ -53,4 +52,25 @@ export class StudentInfoComponent implements OnInit {
     )
   }
 
+  getMeal(studentHash): void {
+    this.studentService.getStudentMeal(studentHash).subscribe(
+      meal => {
+        this.meal = meal;
+      },
+      error => {
+        console.log(error.message);
+      }
+    )
+  }
+
+  getBreather(studentHash): void {
+    this.studentService.getStudentBreather(studentHash).subscribe(
+      breather => {
+        this.breather = breather;
+      },
+      error => {
+        console.log(error.message);
+      }
+    )
+  }
 }

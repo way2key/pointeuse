@@ -30,6 +30,30 @@ exports.getStudentStatus = (req, res) => {
   )
 }
 
+exports.getStudentMeal = (req, res) => {
+  action.getStudentMeal(req.params.hash)
+  .then(
+    meal => {
+      res.status(200).json(meal);
+    }
+  )
+  .catch(
+    error => res.status(400).json({error})
+  )
+}
+
+exports.getStudentBreather = (req, res) => {
+  action.getStudentBreather(req.params.hash)
+  .then(
+    breather => {
+      res.status(200).json(breather);
+    }
+  )
+  .catch(
+    error => res.status(400).json({error})
+  )
+}
+
 exports.getStudentClock = (req, res) => {
   action.getStudentClock(req.params.hash)
   .then(

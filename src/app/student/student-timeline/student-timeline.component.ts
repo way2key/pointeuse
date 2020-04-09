@@ -76,7 +76,6 @@ export class StudentTimelineComponent implements OnInit, OnDestroy {
         s.strokeWeight(2);
         let max = s.ceil(this.clock[this.clock.length-1]);
         let r = max+1;
-        console.log(r, lowerBound);
 
         while(r > lowerBound){
           let x = s.map(r,lowerBound,upperBound,x_start,x_end);

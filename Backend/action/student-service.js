@@ -25,3 +25,15 @@ exports.getStudentInfo = (studentHash) => {
     );
   });
 }
+
+exports.getStudentMeal = (studentHash) => {
+  return new Promise( (resolve, reject) => {
+    resolve(false);
+  });
+}
+
+exports.getStudentBreather = (studentHash) => {
+  return new Promise( (resolve, reject) => {
+    resolve(true);
+  });
+}
