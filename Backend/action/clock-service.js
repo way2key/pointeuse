@@ -7,7 +7,7 @@ const Clock = require('../data-schematic/clock-schematic');
 const User = require('../data-schematic/user-schematic');
 
 
-exports.getStudentClock = (studentHash) => {
+exports.getStudentClockFromHash = (studentHash) => {
   return new Promise( (resolve, reject) => {
     dayService.getStudentCurrentDay(studentHash)
     .then(

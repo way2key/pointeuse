@@ -28,12 +28,12 @@ exports.getStudentInfo = (studentHash) => {
 
 exports.getStudentMeal = (studentHash) => {
   return new Promise( (resolve, reject) => {
-    resolve(false);
+    resolve(true);
   });
 }
 
 exports.getStudentBreather = (studentHash) => {
   return new Promise( (resolve, reject) => {
-    resolve(true);
+    resolve(false);
   });
 }
