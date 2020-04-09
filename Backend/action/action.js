@@ -7,6 +7,7 @@ const studentService = require('./student-service.js');
 const tokenService = require('./token-service.js');
 const incidentService = require('./incident-service.js');
 const presenceService = require('./presence-service.js');
+const dayTimeService = require('./dayTime-service.js');
 
 const action = {
   test: testAction.test,
@@ -14,25 +15,27 @@ const action = {
   createDayForEachUser: dayService.createDayForEachUser,
   getStudentCurrentDay: dayService.getStudentCurrentDay,
   getTeacherFromToken: tokenService.getTeacherFromToken,
-  checkStudentStatus: statusService.checkStudentStatus,
   checkClockStatus: statusService.checkClockStatus,
-  getStudentClockFromHash: clockService.getStudentClockFromHash,
+  checkStudentStatus: statusService.checkStudentStatus,
   clockAStudent: clockService.clockAStudent,
+  getStudentClockFromHash: clockService.getStudentClockFromHash,
+  checkStudentPresence: presenceService.checkStudentPresence,
   getStudentInfo: studentService.getStudentInfo,
   getStudentMeal: studentService.getStudentMeal,
   getStudentBreather: studentService.getStudentBreather,
   updatePerformedTime: performedTimeService.updatePerformedTime,
   modifyPerformedTime: performedTimeService.modifyPerformedTime,
-  checkStudentPresence: presenceService.checkStudentPresence,
-  getUntreatedIncident: incidentService.getUntreatedIncident,
+  checkIncident: incidentService.checkIncident,
   quotaTimeIncident: incidentService.quotaTimeIncident,
+  getTreatedIncident: incidentService.getTreatedIncident,
+  getUntreatedIncident: incidentService.getUntreatedIncident,
+  hastyDepartureIncident: incidentService.hastyDepartureIncident,
+  clockOversightIncident: incidentService.clockOversightIncident,
   latenessArrivalIncident: incidentService.latenessArrivalIncident,
   unallowedPresenceIncident: incidentService.unallowedPresenceIncident,
   dailyTimeNotCompletedIncident: incidentService.dailyTimeNotCompletedIncident,
-  hastyDepartureIncident: incidentService.hastyDepartureIncident,
-  clockOversightIncident: incidentService.clockOversightIncident,
-  getTreatedIncident: incidentService.getTreatedIncident,
-  checkIncident: incidentService.checkIncident,
+  getStudentDayTimeFromStudentHash: dayTimeService.getStudentDayTimeFromStudentHash,
+  getStudentDayTimeFromDayId: dayTimeService.getStudentDayTimeFromDayId,
 }
 
 

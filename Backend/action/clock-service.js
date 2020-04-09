@@ -20,7 +20,7 @@ exports.getStudentClockFromHash = (studentHash) => {
         )
         .catch(
           error => {
-            console.log("Unable to fetch student's clock :( ");
+            console.log("Unable to fetch student's clock ☠ ");
             reject(error);
           }
         )
@@ -28,7 +28,24 @@ exports.getStudentClockFromHash = (studentHash) => {
     )
     .catch(
       error => {
-        console.log("Unable to fetch student's clock :( ");
+        console.log("Unable to fetch student's clock ☠ ");
+        reject(error);
+      }
+    )
+  });
+}
+
+exports.getStudentClockFromDayId = (dayId) => {
+  return new Promise( (resolve, reject) => {
+    Clock.find({dayId:dayId})
+    .then(
+      clocks => {
+        resolve(clocks);
+      }
+    )
+    .catch(
+      error => {
+        console.log("Unable to fetch clocks with this dayId ☠");
         reject(error);
       }
     )

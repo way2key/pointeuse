@@ -54,6 +54,18 @@ exports.getStudentBreather = (req, res) => {
   )
 }
 
+exports.getStudentDayTime = (req, res) => {
+  action.getStudentDayTimeFromStudentHash(req.params.hash)
+  .then(
+    time => {
+      res.status(200).json(time);
+    }
+  )
+  .catch(
+    error => res.status(400).json(error)
+  )
+}
+
 exports.getStudentClock = (req, res) => {
   action.getStudentClockFromHash(req.params.hash)
   .then(

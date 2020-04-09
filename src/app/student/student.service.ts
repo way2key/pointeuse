@@ -6,28 +6,33 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class StudentService {
-  private apiURL = 'http://localhost:3000/api/student';
+  private apiUrl = 'http://localhost:3000/api/student';
 
 
   constructor(private http: HttpClient) { }
 
   getStudentStatus(hash: string){
-    const url = this.apiURL + '/status/' + hash;
+    const url = this.apiUrl + '/status/' + hash;
     return this.http.get<any>(url);
   }
 
   getStudentInfo(hash: string){
-    const url = this.apiURL + '/' + hash;
+    const url = this.apiUrl + '/' + hash;
+    return this.http.get<any>(url);
+  }
+
+  getStudentDayTime(hash: string){
+    const url = this.apiUrl + '/day-time/' + hash;
     return this.http.get<any>(url);
   }
 
   getStudentMeal(hash: string){
-    const url = this.apiURL + '/meal/' + hash;
+    const url = this.apiUrl + '/meal/' + hash;
     return this.http.get<any>(url);
   }
 
   getStudentBreather(hash: string){
-    const url = this.apiURL + '/breather/' + hash;
+    const url = this.apiUrl + '/breather/' + hash;
     return this.http.get<any>(url);
   }
 
@@ -36,7 +41,7 @@ export class StudentService {
   }
 
   getStudentClock(hash: string): Observable<any> {
-    const url = this.apiURL + '/clock/' + hash;
+    const url = this.apiUrl + '/clock/' + hash;
     return this.http.get<any>(url);
   }
 }

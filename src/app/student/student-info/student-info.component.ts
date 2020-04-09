@@ -1,6 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { StudentService } from '../student.service';
+import * as moment from 'moment';
+import 'moment-duration-format';
 
 @Component({
   selector: 'app-student-info',
@@ -12,11 +14,11 @@ export class StudentInfoComponent implements OnInit {
     meal = false;
     breather = false;
     status = null;
+    dayTime = null;
     student = {
     break: true,
     firstname: "Olivier",
     lastname: "Dancona",
-    elapsedTime: '2'
   }
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private studentService: StudentService) { }
@@ -24,6 +26,7 @@ export class StudentInfoComponent implements OnInit {
   ngOnInit(): void {
     this.getStatus(this.data.hash);
     this.getStudent(this.data.hash);
+    this.getDayTime(this.data.hash);
     this.getMeal(this.data.hash);
     this.getBreather(this.data.hash);
   }
@@ -49,6 +52,17 @@ export class StudentInfoComponent implements OnInit {
         console.log(error.message);
       }
 
+    )
+  }
+
+  getDayTime(hash): void {
+    this.studentService.getStudentDayTime(hash).subscribe(
+      time => {
+        this.dayTime = moment.duration(time,'h').format('hh:mm:ss');
+      },
+      error => {
+        console.log(error.message)
+      }
     )
   }
 
