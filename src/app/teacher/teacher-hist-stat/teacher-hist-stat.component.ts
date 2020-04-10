@@ -159,9 +159,7 @@ export class TeacherHistStatComponent implements OnInit {
   }
 
   getStudentTimeline(hash: string) {
-    //this.canvas.remove(p5);
     this.getStudentClock(hash);
-
 
   }
 

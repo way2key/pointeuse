@@ -26,4 +26,5 @@ export class TeacherHistoryService {
     const url = this.apiUrl + '/incident';
     return this.http.get<any>(url, this.httpOptions);
   }
+
 }

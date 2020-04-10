@@ -78,3 +78,31 @@ exports.createDay = (studentHash) => {
     }
   )
 };
+
+
+exports.getStudentSpecificDayId = (studentHash, date) => {
+    const day = moment(date);
+    const dayPlusOne = moment(date).add(1, 'day');
+    const dayIdMin = (day.unix()).toString(16) +'0000000000000000';
+    const dayIdMax = (dayPlusOne.unix()).toString(16) +'0000000000000000';
+
+    return new Promise( (resolve, reject) => {
+      studentService.getStudentInfo(studentHash)
+      .then(
+        (student) => {
+          for(let d of student.data) {
+            if(d >= dayIdMin && d < dayIdMax){
+              resolve(d);
+            }
+          };
+
+        }
+      )
+      .catch(
+        (error) => {
+          console.log('error', error);
+          reject(error);
+        }
+      )
+  });
+};

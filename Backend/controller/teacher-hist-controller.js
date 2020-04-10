@@ -19,3 +19,22 @@ exports.getAllIncident = (req, res) => {
     error => res.status(500).json({error})
   )
 }
+
+exports.getStudentClocksSpecificDay = (req, res) => {
+  action.getStudentSpecificDayId(req.body.hash, req.body.date)
+  .then(
+    (dayId) => {
+      return action.getStudentClockFromDayId(dayId);
+    }
+  )
+  .then(
+    (clocks) => {
+      res.status(200).json({clocks});
+    }
+  )
+  .catch(
+    (error) => {
+      res.status(500).json({error});
+    }
+  )
+}
