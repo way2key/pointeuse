@@ -42,3 +42,20 @@ exports.getStudentClocksSpecificDay = (req, res) => {
     }
   )
 }
+
+exports.getStudentDayTime = (req, res) => {
+  action.getStudentSpecificDayId(req.body.hash, req.body.date)
+  .then(
+    (dayId) => {
+      return action.getStudentDayTimeFromDayId(dayId);
+    }
+  )
+  .then(
+    time => {
+      res.status(200).json(time);
+    }
+  )
+  .catch(
+    error => res.status(400).json(error)
+  )
+}

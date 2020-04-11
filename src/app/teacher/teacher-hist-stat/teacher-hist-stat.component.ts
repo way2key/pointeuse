@@ -21,6 +21,7 @@ export class TeacherHistStatComponent implements OnInit {
 
   sortCriteria = new FormControl('alphabetical');
 
+  dayPerformedTime = 0;
 
   myControlSearch = new FormControl();
   options: string[] = ['One', 'Two', 'Three'];
@@ -32,7 +33,7 @@ export class TeacherHistStatComponent implements OnInit {
 
   date = new FormControl(moment());
 
-  calendarFilter = (d: Moment): boolean => {
+  calendarFilter = (d: moment.Moment): boolean => {
     const day = d.day();
     // Prevent Saturday and Sunday from being selected.
     return d <= moment() && day !== 0;
@@ -170,6 +171,16 @@ export class TeacherHistStatComponent implements OnInit {
         console.log(error.message);
       }
     )
+
+    this.teacherHistoryService.getStudentDayTime(payload).subscribe(
+      time => {
+        console.log('time', time);
+        this.dayPerformedTime = time;
+      },
+      error => {
+        console.log(error.message);
+      }
+    )
   }
 
   getStudentTimeline(hash: string, date) {
@@ -222,7 +233,6 @@ export class TeacherHistStatComponent implements OnInit {
           s.fill(0,255,0);
           s.stroke(0);
           let x_time = s.map(this.time.asHours(),lowerBound,upperBound,x_start,x_end);
-          console.log(x_time);
 
           s.strokeWeight(4);
           let timeline = s.line(x_time,0.85*s.height,x_time,0.34*s.height);
@@ -284,6 +294,45 @@ export class TeacherHistStatComponent implements OnInit {
     if(this.canvas){
       this.canvas.remove();
     }
+  }
+
+  convertTime(thisValue: number) {
+    let timeValue = Math.abs(thisValue);
+    let time;
+    let hours = timeValue-(timeValue%1);
+    let minutes = ((timeValue%1)*60);
+
+    if (minutes > 59.5) {
+      hours = hours + 1;
+      minutes = 0;
+    }
+    minutes = parseInt(minutes.toFixed(0));
+
+    let minutesText;
+    let hoursText;
+    if (hours === 0 ) {
+      hoursText = '00';
+    } else if (hours < 10 ) {
+      hoursText = '0' + hours.toString();
+    } else {
+      hoursText =  hours.toString();
+    }
+
+    if (minutes === 0 ) {
+      minutesText = '00';
+    } else if (minutes < 10 ) {
+      minutesText = '0' + minutes.toString();
+    } else {
+      minutesText = minutes.toString();
+    }
+
+    if (thisValue < -(0.1/12)) {
+      time = '- ' + hoursText + ' : ' + minutesText;
+    } else {
+      time = '  ' + hoursText + ' : ' + minutesText;
+    }
+
+    return time;
   }
 
   ngOnDestroy() {

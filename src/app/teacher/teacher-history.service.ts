@@ -32,4 +32,9 @@ export class TeacherHistoryService {
     return this.http.put<any>(url, payload, this.httpOptions);
   }
 
+  getStudentDayTime(payload) {
+    const url = this.apiUrl + '/stat/day-time';
+    return this.http.put<any>(url, payload, this.httpOptions);
+  }
+
 }

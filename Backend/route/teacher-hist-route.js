@@ -8,6 +8,7 @@ const teacherHistController = require('../controller/teacher-hist-controller');
 router.get('/incident', teacherHistController.getAllIncident);
 router.get('/log', auth, teacherHistController.getAllLog);
 router.put('/stat', teacherHistController.getStudentClocksSpecificDay);
+router.put('/stat/day-time', teacherHistController.getStudentDayTime);
 
 
 module.exports = router;

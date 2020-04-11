@@ -27,8 +27,8 @@
         <mat-panel-title>
           {{s.firstname}} {{s.lastname}}
         </mat-panel-title>
-        <mat-panel-description>
-          Temps validé: {{s.performedTime}}
+        <mat-panel-description [ngClass]="{'performedTime': true, 'negativeTime': s.performedTime < -(0.1/12), 'positiveTime': s.performedTime >= -(0.1/12) }">
+          Temps validé: {{convertTime(s.performedTime)}}
         </mat-panel-description>
       </mat-expansion-panel-header>
       <ng-template matExpansionPanelContent>
@@ -39,6 +39,7 @@
             <mat-datepicker-toggle matSuffix [for]="myDatePicker"></mat-datepicker-toggle>
             <mat-datepicker #myDatePicker></mat-datepicker>
           </mat-form-field>
+          <p class="performedTime">Temps effectué ce jour {{convertTime(dayPerformedTime)}} </p>
         </form>
         <div id="{{s.hash}}"></div>
       </ng-template>
