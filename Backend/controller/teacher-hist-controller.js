@@ -29,6 +29,7 @@ exports.getStudentClocksSpecificDay = (req, res) => {
   )
   .then(
     (clocks) => {
+      console.log(clocks);
       res.status(200).json({clocks});
     }
   )

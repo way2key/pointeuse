@@ -27,4 +27,9 @@ export class TeacherHistoryService {
     return this.http.get<any>(url, this.httpOptions);
   }
 
+  getStudentClocksSpecificDay(payload) {
+    const url = this.apiUrl + '/stat';
+    return this.http.put<any>(url, payload, this.httpOptions);
+  }
+
 }
