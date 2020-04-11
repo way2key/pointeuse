@@ -145,11 +145,9 @@ export class TeacherHistStatComponent implements OnInit {
   }
 
   getStudentClock(hash){
-
     this.studentService.getStudentClock(hash).subscribe(
       clocks => {
         this.clock = clocks;
-
         this.drawTimeLine(hash);
       },
       error => {
@@ -160,7 +158,6 @@ export class TeacherHistStatComponent implements OnInit {
 
   getStudentTimeline(hash: string) {
     this.getStudentClock(hash);
-
   }
 
   drawTimeLine(hash: string) {
@@ -176,9 +173,7 @@ export class TeacherHistStatComponent implements OnInit {
         x_start = 0.1*s.width;
         x_end = 0.9*s.width;
         y = 0.8*s.height;
-
       }
-
 
       s.draw = () => {
         this.time = moment.duration(moment().format('HH:mm:ss'));
@@ -191,7 +186,6 @@ export class TeacherHistStatComponent implements OnInit {
         }
         lowerBound = this.clock[0]-margin;
         upperBound = this.time.asHours()+margin;
-
         s.clear();
 
         // Baseline
@@ -217,7 +211,6 @@ export class TeacherHistStatComponent implements OnInit {
         s.strokeWeight(2);
         let max = s.ceil(this.clock[this.clock.length-1]);
         let r = max+1;
-        console.log(r, lowerBound);
 
         while(r > lowerBound){
           let x = s.map(r,lowerBound,upperBound,x_start,x_end);
@@ -231,15 +224,6 @@ export class TeacherHistStatComponent implements OnInit {
           s.text(r+':00', x, 0.85*s.height);
           r--;
         }
-
-        // Clocks
-        /*
-        for(let p of this.clock){
-          let x_time = s.map(p,lowerBound,upperBound,x_start,x_end);
-          s.strokeWeight(3);
-          s.line(x_time,y,x_time,0.63*s.height);
-        }
-        */
 
         // Completed period
         for(let i=0; i < this.clock.length; i+=2){
@@ -266,11 +250,12 @@ export class TeacherHistStatComponent implements OnInit {
       }
     };
     this.canvas = new p5(sketch);
-
   };
 
   stopTimeline() {
-    this.canvas.remove();
+    if(this.canvas){
+      this.canvas.remove();
+    }
   }
 
   ngOnDestroy() {

@@ -11,25 +11,25 @@
   <div class="incident">
     <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
-      <!-- Position Column -->
+      <!-- Date Column -->
       <ng-container matColumnDef="date">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
         <td mat-cell *matCellDef="let element"> {{element.date}} </td>
       </ng-container>
 
-      <!-- Name Column -->
+      <!-- Incident Column -->
       <ng-container matColumnDef="type">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Incident </th>
         <td mat-cell *matCellDef="let element"> {{element.type}} </td>
       </ng-container>
 
-      <!-- Symbol Column -->
+      <!-- Student Column -->
       <ng-container matColumnDef="studentId">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Stagiaire </th>
         <td mat-cell *matCellDef="let element"> {{element.studentId}} </td>
       </ng-container>
 
-      <!-- Symbol Column -->
+      <!-- Action Column -->
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
         <td mat-cell *matCellDef="let element">
