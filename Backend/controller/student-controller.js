@@ -5,7 +5,7 @@ const action = require('../action/action');
 const moment = require('moment');
 
 exports.getStudentInfo = (req, res) => {
-  action.getStudentInfo(req.params.hash)
+  action.getStudentFromHash(req.params.hash)
   .then(
     student => {
       res.status(200).json(student);

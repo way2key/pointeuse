@@ -18,9 +18,13 @@ export class StudentMessageComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private studentService: StudentService) { }
 
   ngOnInit(): void {
-    this.getStatus(this.data.hash);
-    this.clock(this.data.hash);
-    this.getStudent(this.data.hash);
+    this.clock(this.data.hash)
+    .then(
+      () => {
+        this.getStudent(this.data.hash);
+        this.getStatus(this.data.hash);
+      }
+    )
   }
 
   getStatus(studentHash): void {
@@ -47,14 +51,18 @@ export class StudentMessageComponent implements OnInit {
   }
 
   clock(studentHash): void{
-    this.studentService.clockAStudent(studentHash).subscribe(
-      data => {
-        console.log('success: ', data);
-      },
-      error => {
-        console.log('error: ',error);
-      }
-    );
+    return new Promise( (resolve, reject) => {
+      this.studentService.clockAStudent(studentHash).subscribe(
+        data => {
+          console.log('success: ', data);
+          resolve(data);
+        },
+        error => {
+          console.log('error: ',error);
+          reject(error);
+        }
+      )
+    });
   }
 
 }

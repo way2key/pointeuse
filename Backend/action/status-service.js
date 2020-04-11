@@ -25,12 +25,12 @@ exports.checkClockStatus = (clockId) => {
           }
           count++;
         }
-        resolve(!(count%2==0));
+        resolve((count%2==0));
       }
     )
     .catch(
       error => {
-        resolve(false);
+        resolve(true);
       }
     )
   });

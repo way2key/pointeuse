@@ -8,7 +8,7 @@ const Clock = require('../data-schematic/clock-schematic');
 const User = require('../data-schematic/user-schematic');
 
 
-exports.getStudentInfo = (studentHash) => {
+exports.getStudentFromHash = (studentHash) => {
   return new Promise( (resolve, reject) => {
     User.findOne({hash: studentHash})
     .then(
@@ -39,13 +39,20 @@ exports.getStudentMeal = (studentHash) => {
           shift = {in:t1.asHours(),out:t2.asHours()};
           shifts.push(shift);
         }
-        /*
-        if(breakPerformedInInterval(shifts,11,14,0.5)){
-          resolve(true);
+        let m = moment.duration(moment().format('HH:mm:ss')).asHours();
+        if(m > 11 && m < 14){
+          if(breakPerformedInInterval(shifts,11,m,0.5)){
+            resolve(true);
+          }else{
+            resolve(false);
+          }
         }else{
-          resolve(false);
-        }*/
-        resolve(true);
+          if(breakPerformedInInterval(shifts,11,14,0.5)){
+            resolve(true);
+          }else{
+            resolve(false);
+          }
+        }
       }
     )
     .catch(
