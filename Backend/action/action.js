@@ -22,7 +22,7 @@ const action = {
   getStudentClockFromHash: clockService.getStudentClockFromHash,
   getStudentClockFromDayId: clockService.getStudentClockFromDayId,
   checkStudentPresence: presenceService.checkStudentPresence,
-  getStudentInfo: studentService.getStudentInfo,
+  getStudentFromHash: studentService.getStudentFromHash,
   getStudentMeal: studentService.getStudentMeal,
   getStudentBreather: studentService.getStudentBreather,
   updatePerformedTime: performedTimeService.updatePerformedTime,

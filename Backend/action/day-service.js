@@ -61,7 +61,7 @@ exports.createDayForEachUser = () => {
 }
 
 exports.createDay = (studentHash) => {
-  studentService.getStudentInfo(studentHash)
+  studentService.getStudentFromHash(studentHash)
   .then(
     student => {
       const newDay = new Day({
@@ -87,7 +87,7 @@ exports.getStudentSpecificDayId = (studentHash, date) => {
     const dayIdMax = (dayPlusOne.unix()).toString(16) +'0000000000000000';
 
     return new Promise( (resolve, reject) => {
-      studentService.getStudentInfo(studentHash)
+      studentService.getStudentFromHash(studentHash)
       .then(
         (student) => {
           for(let d of student.data) {
