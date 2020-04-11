@@ -16,6 +16,7 @@ exports.getStudentClockFromHash = (studentHash) => {
         .then(
           clocks => {
             resolve(clocks);
+
           }
         )
         .catch(

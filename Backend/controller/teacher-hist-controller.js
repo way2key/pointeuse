@@ -29,8 +29,11 @@ exports.getStudentClocksSpecificDay = (req, res) => {
   )
   .then(
     (clocks) => {
-      console.log(clocks);
-      res.status(200).json({clocks});
+      let out = [];
+      for(let clock of clocks){
+        out.push(moment.duration(clock.time).asHours());
+      }
+      res.status(200).send(out);
     }
   )
   .catch(

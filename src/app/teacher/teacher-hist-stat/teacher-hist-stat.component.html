@@ -35,7 +35,7 @@
         <form>
           <mat-form-field>
             <mat-label>Choisir une date</mat-label>
-            <input matInput [matDatepicker]="myDatePicker" [formControl]="date" [max]="maxDate" (dateChange)="dateSelect()">
+            <input matInput [matDatepicker]="myDatePicker" [formControl]="date" [matDatepickerFilter]="calendarFilter"  (dateChange)="dateSelect(s.hash)">
             <mat-datepicker-toggle matSuffix [for]="myDatePicker"></mat-datepicker-toggle>
             <mat-datepicker #myDatePicker></mat-datepicker>
           </mat-form-field>

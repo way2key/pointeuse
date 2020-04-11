@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TeacherStudentService } from '../teacher-student.service';
+import { TeacherHistoryService } from '../teacher-history.service';
 import { StudentService } from '../../student/student.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -30,9 +31,15 @@ export class TeacherHistStatComponent implements OnInit {
   clock = [];
 
   date = new FormControl(moment());
-  maxDate = moment();
+
+  calendarFilter = (d: Moment): boolean => {
+    const day = d.day();
+    // Prevent Saturday and Sunday from being selected.
+    return d <= moment() && day !== 0;
+  }
 
   constructor(private teacherStudentService: TeacherStudentService,
+              private teacherHistoryService:TeacherHistoryService,
               private studentService: StudentService) { }
 
   ngOnInit(): void {
@@ -44,6 +51,8 @@ export class TeacherHistStatComponent implements OnInit {
 
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
+
+
 
   getStudents(): void {
     this.students = [];
@@ -72,8 +81,9 @@ export class TeacherHistStatComponent implements OnInit {
     });
   }
 
-  dateSelect() {
-    let selectedDate = this.date.value.format('DD MM YYYY');
+  dateSelect(hash) {
+    this.getStudentClock(hash);
+
     //Chercher timeline correspondant à la date sélectionnée
   }
 
@@ -145,7 +155,13 @@ export class TeacherHistStatComponent implements OnInit {
   }
 
   getStudentClock(hash){
-    this.studentService.getStudentClock(hash).subscribe(
+    this.stopTimeline();
+    const payload = {
+      hash: hash,
+      date:  this.date.value.format('YYYY-MM-DD'),
+    }
+
+    this.teacherHistoryService.getStudentClocksSpecificDay(payload).subscribe(
       clocks => {
         this.clock = clocks;
         this.drawTimeLine(hash);
@@ -156,8 +172,9 @@ export class TeacherHistStatComponent implements OnInit {
     )
   }
 
-  getStudentTimeline(hash: string) {
+  getStudentTimeline(hash: string, date) {
     this.getStudentClock(hash);
+
   }
 
   drawTimeLine(hash: string) {
@@ -178,14 +195,19 @@ export class TeacherHistStatComponent implements OnInit {
       s.draw = () => {
         this.time = moment.duration(moment().format('HH:mm:ss'));
         let range = this.clock[this.clock.length-1]-this.clock[0];
+        if(range < 3) {
+          range = 3;
+        }
+
         let margin;
         if(range){
           margin = 0.2*range;
         }else{
           margin = 0.1*this.clock[0];
         }
+
         lowerBound = this.clock[0]-margin;
-        upperBound = this.time.asHours()+margin;
+        upperBound = this.clock[this.clock.length-1]+margin;
         s.clear();
 
         // Baseline
@@ -194,18 +216,24 @@ export class TeacherHistStatComponent implements OnInit {
         let baseline = s.line(x_start, y, x_end, y);
 
         // Timeline
-        s.fill(0,255,0);
-        s.stroke(0);
-        let x_time = s.map(this.time.asHours(),lowerBound,upperBound,x_start,x_end);
-        s.strokeWeight(4);
-        let timeline = s.line(x_time,0.85*s.height,x_time,0.34*s.height);
+        if(this.date.value.format('YYYY-MM-DD') === moment().format('YYYY-MM-DD')) {
+          upperBound = upperBound = this.time.asHours()+margin;
 
-        // Timeline Hour
-        s.fill(230);
-        s.noStroke(0);
-        s.textSize(0.05*s.height);
-        s.textAlign(s.CENTER);
-        s.text(this.time.format('hh:mm:ss'), x_time, 0.3*s.height);
+          s.fill(0,255,0);
+          s.stroke(0);
+          let x_time = s.map(this.time.asHours(),lowerBound,upperBound,x_start,x_end);
+          console.log(x_time);
+
+          s.strokeWeight(4);
+          let timeline = s.line(x_time,0.85*s.height,x_time,0.34*s.height);
+
+          // Timeline Hour
+          s.fill(230);
+          s.noStroke(0);
+          s.textSize(0.05*s.height);
+          s.textAlign(s.CENTER);
+          s.text(this.time.format('hh:mm:ss'), x_time, 0.3*s.height);
+        }
 
         // Graduation
         s.strokeWeight(2);
