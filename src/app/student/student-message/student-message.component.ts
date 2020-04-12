@@ -17,7 +17,7 @@ export class StudentMessageComponent implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private studentService: StudentService) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.clock(this.data.hash)
     .then(
       () => {
@@ -50,7 +50,7 @@ export class StudentMessageComponent implements OnInit {
     )
   }
 
-  clock(studentHash): void{
+  clock(studentHash) {
     return new Promise( (resolve, reject) => {
       this.studentService.clockAStudent(studentHash).subscribe(
         data => {
