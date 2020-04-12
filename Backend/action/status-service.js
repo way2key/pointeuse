@@ -56,7 +56,7 @@ exports.checkStudentStatus = (studentHash) => {
       }
     )
     .catch(
-      error => reject(error)
+      error => reject(" Impossible de voir le status <= " + error)
     )
   });
 }

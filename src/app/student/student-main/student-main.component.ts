@@ -48,7 +48,6 @@ export class StudentMainComponent implements OnInit {
     let dialogRef = this.dialog.open(StudentMessageComponent,{data: {hash: studentHash}});
 
     dialogRef.afterClosed().subscribe(result =>{
-      console.log('The dialog was closed');
     })
   }
 

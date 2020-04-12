@@ -58,7 +58,6 @@ export class StudentMessageComponent implements OnInit {
           resolve(data);
         },
         error => {
-          console.log('error: ',error);
           reject(error);
         }
       )

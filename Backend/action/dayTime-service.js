@@ -26,7 +26,7 @@ exports.getStudentDayTimeFromDayId = (dayId) => {
       }
     )
     .catch(
-      error => reject(error)
+      error => reject("impossible de récupérer le temps quotidien <= " + error)
     )
   })
 }
@@ -45,7 +45,7 @@ exports.getStudentDayTimeFromStudentHash = (studentHash) => {
       }
     )
     .catch(
-      error => reject(error)
+      error => reject("impossible de récupérer le temps quotidien <= " + error)
     )
   })
 }

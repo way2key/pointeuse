@@ -26,7 +26,9 @@ exports.getStudentStatus = (req, res) => {
     }
   )
   .catch(
-    error => res.status(400).json({error})
+    error => {
+      res.status(200).json(true);
+    }
   )
 }
 
@@ -77,7 +79,7 @@ exports.getStudentClock = (req, res) => {
       res.status(200).send(out);
     }
   )
-  .catch((error) => res.status(400).json({error: 'Erreur Récupération Clock'}));
+  .catch((error) => res.status(400).json('Erreur Récupération Clock <= ' + error);
 }
 
 exports.clockAStudent = (req, res) => {
@@ -86,6 +88,6 @@ exports.clockAStudent = (req, res) => {
     () => res.status(200).json({message:"Clock créé avec succès"})
   )
   .catch(
-    () => res.status(500).json({message:"Erreur de pointage"})
+    (error) => res.status(500).json("Erreur de pointage <= " + error)
   )
 }

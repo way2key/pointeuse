@@ -20,7 +20,7 @@ exports.checkStudentPresence = (studentHash) => {
       }
     )
     .catch(
-      error => reject(error)
+      error => reject("Impossible de contrôler la présence <= " + error)
     )
   });
 }

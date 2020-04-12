@@ -16,21 +16,18 @@ exports.getStudentClockFromHash = (studentHash) => {
         .then(
           clocks => {
             resolve(clocks);
-
           }
         )
         .catch(
           error => {
-            console.log("Unable to fetch student's clock ☠ ");
-            reject(error);
+            reject("Unable to find student's clock ☠ ");
           }
         )
       }
     )
     .catch(
       error => {
-        console.log("Unable to fetch student's clock ☠ ");
-        reject(error);
+        reject("No clocks available <= " + error);
       }
     )
   });
@@ -46,8 +43,7 @@ exports.getStudentClockFromDayId = (dayId) => {
     )
     .catch(
       error => {
-        console.log("Unable to fetch clocks with this dayId ☠");
-        reject(error);
+        reject("Unable to fetch clocks with this dayId ☠");
       }
     )
   });
@@ -76,7 +72,7 @@ exports.clockAStudent = (studentHash) => {
       () => resolve("Clock créé")
     )
     .catch(
-      () => resolve("Erreur de création de clock")
+      (error) => reject("Clock non créé <= " + error)
     )
   })
 }

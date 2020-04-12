@@ -50,8 +50,6 @@ export class TeacherStudentComponent implements OnInit {
         this.getStudentPresence(student.hash)
         .then(
           presence => {
-            console.log(presence);
-
             student['presence'] = presence;
           }
         )

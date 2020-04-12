@@ -47,6 +47,9 @@ exports.updatePerformedTime = () => {
 */
           }
         )
+        .catch(
+          error => console.log("Impossible de comptabiliser le temps <= " + error)
+        )
       }
     }
   )

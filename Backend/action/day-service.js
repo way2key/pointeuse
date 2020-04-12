@@ -25,13 +25,13 @@ exports.getStudentCurrentDay = (studentHash) => {
         }
         if(dateId.length == 1) {
           resolve(dateId[0]);
+        }else {
+          reject("Le jour n'existe pas dans l'utilisateur.");
         }
       }
     )
     .catch(
-      error => {
-        reject(error);
-      }
+      error => reject(error)
     )
   });
 }
@@ -77,6 +77,9 @@ exports.createDay = (studentHash) => {
       );
     }
   )
+  .catch(
+    error => console.log("Impossible de créer un jour pour l'étudiant <= " + error)
+  )
 };
 
 
@@ -95,13 +98,11 @@ exports.getStudentSpecificDayId = (studentHash, date) => {
               resolve(d);
             }
           };
-
         }
       )
       .catch(
         (error) => {
-          console.log('error', error);
-          reject(error);
+          reject('Impossible de récupérer un jour spécifique <= ' + error);
         }
       )
   });
