@@ -79,7 +79,9 @@ exports.getStudentClock = (req, res) => {
       res.status(200).send(out);
     }
   )
-  .catch((error) => res.status(400).json('Erreur Récupération Clock <= ' + error);
+  .catch(
+    (error) => res.status(400).json('Erreur Récupération Clock <= ' + error)
+  )
 }
 
 exports.clockAStudent = (req, res) => {

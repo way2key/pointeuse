@@ -98,10 +98,10 @@ export class TeacherStudentComponent implements OnInit {
   onAll() {
     if (this.students.every(student =>student.isSelected)){
       this.deselectAll();
-      document.getElementById("allButton").innerHTML = "Tout selectionner";
+      document.getElementById("allButton").innerHTML = "Tout sélectionner";
     } else {
       this.selectAll();
-      document.getElementById("allButton").innerHTML = "Tout déselectionner";
+      document.getElementById("allButton").innerHTML = "Tout désélectionner";
     }
   }
 
