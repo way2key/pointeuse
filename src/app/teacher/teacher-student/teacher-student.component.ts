@@ -123,7 +123,7 @@ export class TeacherStudentComponent implements OnInit {
     if (this.students.every(student => student.isSelected)){
         document.getElementById("allButton").innerHTML = "Tout déselectionner";
     } else {
-          document.getElementById("allButton").innerHTML = "Tout selectionner";
+        document.getElementById("allButton").innerHTML = "Tout selectionner";
     }
 
     if(this.students.some((student) => student.isSelected)) {
@@ -140,7 +140,7 @@ export class TeacherStudentComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.openSnackBar('Temps modifié avec succès');
       this.getStudents();
-      this.deselectAll();
+      this.onAll();
     })
   }
 
@@ -154,7 +154,7 @@ export class TeacherStudentComponent implements OnInit {
             console.log(result)
             this.getStudents();
             this.openSnackBar('Presence modifiée avec succès');
-            this.deselectAll();
+            this.onAll();
           }
         );
       }

@@ -2,6 +2,8 @@
   <h1>Logs</h1>
 </mat-toolbar>
 
+<mat-paginator [pageSizeOptions]="[5, 15, 30]" showFirstLastButtons></mat-paginator>
+
 <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
   <!-- Date Column -->
