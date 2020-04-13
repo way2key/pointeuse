@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TeacherStudentService } from '../teacher-student.service';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import * as moment from 'moment';
 
 @Component({
@@ -12,11 +12,13 @@ import * as moment from 'moment';
 export class TeacherStudentTimeComponent implements OnInit {
   teacher;
   students = [];
-  timeForm = new FormGroup({
+  /*timeForm = new FormGroup({
     time: new FormControl(''),
     message: new FormControl('')
   });
-  defaultTime = "01:00";
+  defaultTime = "01:00";*/
+
+  timeForm: FormGroup;
   choice = 0;
 
   motives = [
@@ -29,16 +31,26 @@ export class TeacherStudentTimeComponent implements OnInit {
 
 
 
-  constructor(private teacherStudentService: TeacherStudentService, @Inject(MAT_DIALOG_DATA) public data: any) { }
+  constructor(private teacherStudentService: TeacherStudentService,
+              private formBuilder: FormBuilder,
+              @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit(): void {
     this.getATeacher();
+    this.initForm();
     this.data.forEach(student => {
       if(student.isSelected) {
         this.students.push(student)
       }
     });
     this.students.sort(this.alphabeticalSort('lastname'));
+  }
+
+  initForm() {
+    this.timeForm = this.formBuilder.group({
+      time: '01:00',
+      message: '',
+    });
   }
 
   onSubmit(){
@@ -102,4 +114,5 @@ export class TeacherStudentTimeComponent implements OnInit {
     }
     )
   }
+
 }
