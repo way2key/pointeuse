@@ -16,7 +16,6 @@ import * as moment from 'moment';
 })
 
 export class TeacherStudentComponent implements OnInit {
-
   students = [];
   shownStudents = [];
   disabled = true;
