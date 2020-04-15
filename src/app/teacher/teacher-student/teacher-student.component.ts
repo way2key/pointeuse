@@ -123,13 +123,16 @@ export class TeacherStudentComponent implements OnInit {
     if (this.students.every(student => student.isSelected)){
         document.getElementById("allButton").innerHTML = "Tout déselectionner";
     } else {
-        document.getElementById("allButton").innerHTML = "Tout selectionner";
+        document.getElementById("allButton").innerHTML = "Tout sélectionner";
     }
 
     if(this.students.some((student) => student.isSelected)) {
       this.disabled = false;
+
+      return false;
     } else {
       this.disabled = true;
+      return true;
     }
     this.clearSearchField();
   }
@@ -153,14 +156,13 @@ export class TeacherStudentComponent implements OnInit {
           result => {
             console.log(result)
             this.getStudents();
-            this.openSnackBar('Presence modifiée avec succès');
+            this.openSnackBar('Présence modifiée avec succès');
             this.onAll();
           }
         );
       }
     });
   }
-
   openSnackBar(message: string) {
     this.snackBar.open(message, 'FERMER', {
       duration: 2000,

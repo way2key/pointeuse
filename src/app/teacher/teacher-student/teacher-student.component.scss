@@ -51,27 +51,10 @@
 .checkbox {
    margin: inherit;
 }
-#allButton {
-  width: 160px;
-}
 
-.buttons {
-  margin: auto;
-  display: inline-flex;
-}
-
-.search{
+.search {
   align-self: right;
-  width: auto;
-  margin: 25px;
-
-}
-
-.form {
-  display:flex;
-  justify-content: space-around;
-  align-items: center;
-  align-content: center;
+  margin: 4%;
 }
 
 .clear {
@@ -80,7 +63,7 @@
   font-size: 25px;
 }
 
-.performedTime{
+.performedTime {
   font-size: 20px;
   font-weight: bold;
 }
