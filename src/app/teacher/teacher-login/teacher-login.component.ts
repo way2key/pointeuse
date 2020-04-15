@@ -43,8 +43,7 @@ export class TeacherLoginComponent implements OnInit {
         console.log('error!!!!!',err);
       },
       () => {this.router.navigate(['/teacher/dashboard'])}
-    );
-
+    )
   }
 
 
