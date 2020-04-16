@@ -8,15 +8,27 @@ const User = require('../data-schematic/user-schematic');
 const Incident = require('../data-schematic/incident-schematic');
 
 exports.quotaTimeIncident = () => {
+  console.log('here');
+  let insufficientTimeStudents = [];
+  let i = 0;
   return new Promise( (resolve,reject) => {
-    //code here
-    let newIncident = new Incident({
-      date: moment().format("YYYY/MM/DD HH:mm:ss"),
-      studentId: "xoxo",
-      type: "Quota Insuffisant",
-      treated: true
-    });
-    newIncident.save()
+    User.find({type:0})
+    .then(
+      students => {
+        for(let student of students) {
+          if(student.performedTime < 0) {
+            insufficientTimeStudents.push(student._id);
+            let newIncident = new Incident({
+              date: moment().format("YYYY/MM/DD HH:mm:ss"),
+              studentId: student._id,
+              type: "Quota Insuffisant",
+              treated: false
+            });
+            console.log(newIncident);
+            newIncident.save()
+          }
+        }
+      })
     .then(
       resolve()
     )
