@@ -65,7 +65,7 @@ export class TeacherStudentTimeComponent implements OnInit {
       let payload2 = {
         "teacher": this.teacher.firstname + " " + this.teacher.lastname,
         "message": this.timeForm.value.message,
-        "studentId": student.firstname+' '+student.lastname,
+        "studentId": student._id,
         "operation": "Temps modifié"
       };
       this.createLog(payload2);

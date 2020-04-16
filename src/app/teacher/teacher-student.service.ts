@@ -51,4 +51,9 @@ export class TeacherStudentService {
     return this.http.put(url, payload, this.httpOptions);
   }
 
+  getAStudent(incident) {
+    const url = this.apiUrl + '/' + incident.studentId;
+    return this.http.get<any>(url, this.httpOptions);
+  }
+
 }

@@ -31,9 +31,14 @@
   </ng-container>
 
   <!-- Student Column -->
-  <ng-container matColumnDef="studentId">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> Stagiaire </th>
-    <td mat-cell *matCellDef="let element"> {{element.studentId}} </td>
+  <ng-container matColumnDef="firstname">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Prénom </th>
+    <td mat-cell *matCellDef="let element"> {{element.firstname}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="lastname">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Nom </th>
+    <td mat-cell *matCellDef="let element"> {{element.lastname}} </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
