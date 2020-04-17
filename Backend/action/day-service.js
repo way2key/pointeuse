@@ -95,6 +95,7 @@ exports.getStudentSpecificDayId = (studentHash, date) => {
         (student) => {
           for(let d of student.data) {
             if(d >= dayIdMin && d < dayIdMax){
+
               resolve(d);
             }
           };

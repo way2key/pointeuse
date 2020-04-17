@@ -5,5 +5,6 @@ const serverDayController = require('../controller/server-day-controller');
 
 //Routes
 router.post('/', serverDayController.createDay);
+router.get('/', serverDayController.clockOversightIncident)
 
 module.exports = router;

@@ -76,3 +76,18 @@ exports.clockAStudent = (studentHash) => {
     )
   })
 }
+
+exports.createLastClock = (studentHash, dayId, time) => {
+    return new Promise( (resolve, reject) => {
+      const newClock = new Clock({
+        dayId: dayId,
+        time: time
+      });
+      return newClock.save().
+      then(
+        () => {
+          resolve('last clock created');
+        }
+      )
+    })
+}

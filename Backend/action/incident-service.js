@@ -1,6 +1,7 @@
 const db = require('../database/db');
 const moment = require('moment');
 const clockService = require('./clock-service.js');
+const dayService = require('./day-service.js')
 
 const Day = require('../data-schematic/day-schematic');
 const Clock = require('../data-schematic/clock-schematic');
@@ -40,8 +41,53 @@ exports.quotaTimeIncident = () => {
 
 exports.clockOversightIncident = () => {
   return new Promise( (resolve,reject) => {
-    //code here
-    resolve('it work');
+    let date = moment()/*.subtract(1, 'days')*/.format('YYYY-MM-DD');
+    User.find({type:0})
+    .then(
+      students => {
+        return (async function loop() {
+          for(let student of students) {
+             await new Promise( resolve => {
+              dayService.getStudentSpecificDayId(student.hash, date)
+              .then(
+                (day) => {
+                  return clockService.getStudentClockFromDayId(day);
+                }
+              )
+              .then(
+                (clocks) => {
+                  if(clocks.length % 2 === 0) {
+                    resolve();
+                  } else {
+                    let highestClock = '16:00:00';
+                    for(let clock of clocks) {
+                      if(clock.time > highestClock) {
+                        highestClock = clock.time;
+                      }
+                    }
+                    return clockService.createLastClock(students.hash, clocks[0].dayId, highestClock);
+                  }
+                }
+              )
+              .then(
+                () => {
+                  resolve();
+                }
+
+              )
+            })
+          }
+        })();
+      }
+    )
+    .then(
+      resolve('Timbrage verifié avec succès')
+    )
+    .catch(
+      error => {
+        reject(error);
+      }
+    )
   });
 }
 

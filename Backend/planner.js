@@ -27,7 +27,7 @@ cron.schedule('00 00 00 * * *', () => {
 
 // Crée les days tous les jours à 00:00:01s
 cron.schedule('00 00 00 * * *', () => {
-  action.recordStudentHours();
+  action.clockOversightIncident();
 });
 
 // Contrôle chaque semaine à 00:00
