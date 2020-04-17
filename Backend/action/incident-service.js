@@ -64,17 +64,28 @@ exports.clockOversightIncident = () => {
                       if(clock.time > highestClock) {
                         highestClock = clock.time;
                       }
+                      clockService.createLastClock(students.hash, clocks[0].dayId, highestClock)
+                      .then(
+                        () => {
+                          let newIncident = new Incident({
+                            date: moment().format("YYYY/MM/DD HH:mm:ss"),
+                            studentId: student._id,
+                            type: "Oubli de timbrage",
+                            treated: false
+                          });
+                          console.log(newIncident);
+                          return newIncident.save();
+                        }
+                      )
+                      .then(
+                        resolve()
+                      )
                     }
-                    return clockService.createLastClock(students.hash, clocks[0].dayId, highestClock);
                   }
                 }
               )
-              .then(
-                () => {
-                  resolve();
-                }
 
-              )
+
             })
           }
         })();

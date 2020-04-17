@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import * as moment from 'moment';
 import { TeacherDashboardService } from '../teacher-dashboard.service';
+import { TeacherStudentService } from '../teacher-student.service';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
@@ -14,8 +15,10 @@ export class TeacherDashboardComponent implements OnInit {
     firstname: 'Nom',
     lastname: 'Prenom'
   }
-  constructor(private teacherDashboardService: TeacherDashboardService) { }
-  displayedColumns: string[] = ['date', 'type', 'studentId', 'action'];
+  constructor(private teacherDashboardService: TeacherDashboardService,
+              private teacherStudentService: TeacherStudentService,) { }
+
+  displayedColumns: string[] = ['date', 'type', 'firstname', 'lastname', 'action'];
   dataSource = new MatTableDataSource();
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
@@ -33,13 +36,32 @@ export class TeacherDashboardComponent implements OnInit {
 
   getIncident(): void {
     this.teacherDashboardService.getIncident().subscribe(
-      incident => this.dataSource.data = incident
+      incidents => {
+        this.dataSource.data = this.getStudentNames(incidents);
+      }
     )
   }
 
   checkIncident(incident): void {
     this.dataSource.data = this.dataSource.data.filter(a => a !== incident);
     this.teacherDashboardService.checkIncident(incident).subscribe();
+  }
+
+  getStudentNames(incidents) {
+    for(let incident of incidents) {
+      let name;
+      this.teacherStudentService.getAStudent(incident)
+      .subscribe(
+        student => {
+          //name = student.lastname.toUpperCase() + ' ' + student.firstname;
+          incident.firstname = student.firstname;
+          incident.lastname = student.lastname;
+          //console.log(incident);
+
+        }
+      )
+    }
+    return incidents;
   }
 
 }
