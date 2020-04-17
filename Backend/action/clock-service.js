@@ -1,6 +1,7 @@
 const moment = require('moment');
 const db = require('../database/db');
 const dayService = require('./day-service.js');
+const incidentService = require('./incident-service.js');
 
 const Day = require('../data-schematic/day-schematic');
 const Clock = require('../data-schematic/clock-schematic');
@@ -51,6 +52,7 @@ exports.getStudentClockFromDayId = (dayId) => {
 
 exports.clockAStudent = (studentHash) => {
   return new Promise( (resolve, reject) => {
+    incidentService.clockIncidentCheck(studentHash);
     let dayId;
     dayService.getStudentCurrentDay(studentHash)
     .then(

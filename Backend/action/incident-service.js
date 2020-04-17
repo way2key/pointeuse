@@ -9,24 +9,13 @@ const User = require('../data-schematic/user-schematic');
 const Incident = require('../data-schematic/incident-schematic');
 
 exports.quotaTimeIncident = () => {
-  console.log('here');
-  let insufficientTimeStudents = [];
-  let i = 0;
   return new Promise( (resolve,reject) => {
     User.find({type:0})
     .then(
       students => {
         for(let student of students) {
           if(student.performedTime < 0) {
-            insufficientTimeStudents.push(student._id);
-            let newIncident = new Incident({
-              date: moment().format("YYYY/MM/DD HH:mm:ss"),
-              studentId: student._id,
-              type: "Quota Insuffisant",
-              treated: false
-            });
-            console.log(newIncident);
-            newIncident.save()
+            this.saveNewIncident(student._id, "Quota Insuffisant");
           }
         }
       })
@@ -67,14 +56,7 @@ exports.clockOversightIncident = () => {
                       clockService.createLastClock(students.hash, clocks[0].dayId, highestClock)
                       .then(
                         () => {
-                          let newIncident = new Incident({
-                            date: moment().format("YYYY/MM/DD HH:mm:ss"),
-                            studentId: student._id,
-                            type: "Oubli de timbrage",
-                            treated: false
-                          });
-                          console.log(newIncident);
-                          return newIncident.save();
+                          return this.saveNewIncident(student._id, "Oubli de timbrage");
                         }
                       )
                       .then(
@@ -84,8 +66,6 @@ exports.clockOversightIncident = () => {
                   }
                 }
               )
-
-
             })
           }
         })();
@@ -102,10 +82,25 @@ exports.clockOversightIncident = () => {
   });
 }
 
-exports.unallowedPresenceIncident = () => {
+exports.unallowedPresenceIncident = (studentHash) => {
   return new Promise( (resolve,reject) => {
-    //code here
-    resolve('it work');
+    const currentTime = moment().format('HH:mm:ss');
+    if(currentTime >= '06:00:00' && currentTime < '22:00:00') {
+      resolve('Dans les horaires');
+    } else {
+      User.findOne({hash: studentHash})
+      .then(
+        student => {
+          return this.saveNewIncident(student._id, "En dehors des heures de travail");
+        }
+      )
+      .then(
+        resolve('Pas dans les horaires')
+      )
+      .catch(
+        reject()
+      )
+    }
   });
 }
 
@@ -176,4 +171,35 @@ exports.checkIncident = (incident) => {
       }
     )
   });
+}
+
+exports.saveNewIncident = (studentId, type) => {
+  return new Promise( (resolve,reject) => {
+    let newIncident = new Incident({
+      date: moment().format("YYYY/MM/DD HH:mm:ss"),
+      studentId: studentId,
+      type: type,
+      treated: false
+    });
+    console.log(newIncident);
+    newIncident.save()
+    .then(
+      resolve()
+    )
+    .catch(
+      reject()
+    )
+  });
+}
+
+exports.clockIncidentCheck = (studentHash) => {
+  return new Promise( (resolve,reject) => {
+    this.unallowedPresenceIncident(studentHash)
+    .then(
+      resolve()
+    )
+    .catch(
+      reject()
+    )
+  })
 }

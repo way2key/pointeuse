@@ -7,8 +7,8 @@ exports.createDay = (req, res) => {
   res.sendStatus(200);
 }
 
-exports.clockOversightIncident = (req, res) => {
-  action.clockOversightIncident()
+exports.unallowedPresenceIncident = (req, res) => {
+  action.unallowedPresenceIncident()
   .then(
     (message) => {
       res.status(200).json(message)
