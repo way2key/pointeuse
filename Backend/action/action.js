@@ -8,6 +8,7 @@ const tokenService = require('./token-service.js');
 const incidentService = require('./incident-service.js');
 const presenceService = require('./presence-service.js');
 const dayTimeService = require('./dayTime-service.js');
+const clockMachineService = require("./clock-machine-service.js");
 
 const action = {
   test: testAction.test,
@@ -38,6 +39,8 @@ const action = {
   dailyTimeNotCompletedIncident: incidentService.dailyTimeNotCompletedIncident,
   getStudentDayTimeFromStudentHash: dayTimeService.getStudentDayTimeFromStudentHash,
   getStudentDayTimeFromDayId: dayTimeService.getStudentDayTimeFromDayId,
+  createClockmachine: clockMachineService.createClockmachine,
+  getClockmachine: clockMachineService.getClockmachine,
 }
 
 
