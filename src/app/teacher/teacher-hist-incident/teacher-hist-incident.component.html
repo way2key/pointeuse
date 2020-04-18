@@ -2,8 +2,6 @@
   <h1>Incidents</h1>
 </mat-toolbar>
 
-<mat-paginator [pageSizeOptions]="[5, 15, 30]" showFirstLastButtons></mat-paginator>
-
 <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
   <!-- Date Column -->
@@ -34,3 +32,5 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
+
+<mat-paginator [pageSizeOptions]="[5, 15, 30]" showFirstLastButtons></mat-paginator>

@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const db = require('./database/db');
+const teacherDB = require('./database/teacherDB');
 
 const teacherStudentRoute = require('./route/teacher-student-route.js');
 const teacherAuthRoute = require('./route/teacher-auth-route.js');

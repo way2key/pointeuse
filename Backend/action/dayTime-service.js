@@ -1,5 +1,5 @@
 const moment = require('moment');
-const db = require('../database/db');
+const teacherDB = require('../database/teacherDB');
 const clockService = require('./clock-service.js');
 const dayService = require('./day-service.js');
 

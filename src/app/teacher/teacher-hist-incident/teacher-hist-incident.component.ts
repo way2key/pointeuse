@@ -40,6 +40,7 @@ export class TeacherHistIncidentComponent implements OnInit {
   getStudentNames(incidents) {
     for(let incident of incidents) {
       let name;
+
       this.teacherStudentService.getAStudent(incident)
       .subscribe(
         student => {

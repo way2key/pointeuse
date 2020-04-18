@@ -1,4 +1,4 @@
-const db = require('../database/db');
+const teacherDB = require('../database/teacherDB');
 const moment = require('moment');
 const clockService = require('./clock-service.js');
 const dayService = require('./day-service.js')
@@ -30,7 +30,7 @@ exports.quotaTimeIncident = () => {
 
 exports.clockOversightIncident = () => {
   return new Promise( (resolve,reject) => {
-    
+
   });
 }
 

@@ -8,7 +8,7 @@ const moment = require('moment');
 exports.getAllStudents = (req, res)=>{
   User.find({type:0})
   .then(students => res.status(200).json(students))
-  .catch(error => res.status(400).json({error}));
+  .catch(error => res.status(400).json(error));
 }
 
 exports.getAStudent = (req, res)=>{
