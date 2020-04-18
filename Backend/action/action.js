@@ -38,6 +38,8 @@ const action = {
   dailyTimeNotCompletedIncident: incidentService.dailyTimeNotCompletedIncident,
   getStudentDayTimeFromStudentHash: dayTimeService.getStudentDayTimeFromStudentHash,
   getStudentDayTimeFromDayId: dayTimeService.getStudentDayTimeFromDayId,
+  dailyIncidentCheck: incidentService.dailyIncidentCheck,
+  weeklyIncidentCheck: incidentService.weeklyIncidentCheck,
 }
 
 
