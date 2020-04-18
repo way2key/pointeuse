@@ -30,29 +30,115 @@ exports.quotaTimeIncident = () => {
 
 exports.clockOversightIncident = () => {
   return new Promise( (resolve,reject) => {
-
+    let date = moment().subtract(1, 'days').format('YYYY-MM-DD');
+    User.find({type:0})
+    .then(
+      students => {
+        return (async function loop() {
+          for(let student of students) {
+             await new Promise( resolve => {
+              dayService.getStudentSpecificDayId(student.hash, date)
+              .then(
+                (day) => {
+                  return clockService.getStudentClockFromDayId(day);
+                }
+              )
+              .then(
+                (clocks) => {
+                  if(clocks.length % 2 === 0) {
+                    resolve();
+                  } else {
+                    let highestClock = '16:00:00';
+                    for(let clock of clocks) {
+                      if(clock.time > highestClock) {
+                        highestClock = clock.time;
+                      }
+                      clockService.createLastClock(students.hash, clocks[0].dayId, highestClock)
+                      .then(
+                        () => {
+                          return this.saveNewIncident(student._id, "Oubli de timbrage");
+                        }
+                      )
+                      .then(
+                        resolve()
+                      )
+                    }
+                  }
+                }
+              )
+            })
+          }
+        })();
+      }
+    )
+    .then(
+      resolve('Timbrage verifié avec succès')
+    )
+    .catch(
+      error => {
+        reject(error);
+      }
+    )
   });
 }
 
 exports.unallowedPresenceIncident = (studentHash) => {
   return new Promise( (resolve,reject) => {
+    const holidays = []; //fonction pour récupérer les holidays
+    const dayPlanEnd = '22:00:00' //récupérer heure de fin du jour
+    const dayPlanStart = '06:00:00' //récupérer heure de début du jour
     const currentTime = moment().format('HH:mm:ss');
-    if(currentTime >= '06:00:00' && currentTime < '22:00:00') {
-      resolve('Dans les horaires');
-    } else {
-      User.findOne({hash: studentHash})
-      .then(
-        student => {
-          return this.saveNewIncident(student._id, "En dehors des heures de travail");
+    const currentDay = moment().format('YYYY MM DD');
+    let student;
+    User.findOne({hash: studentHash})
+    .then(
+      s => {
+        student = s;
+        if(currentTime < dayPlanStart || currentTime >= dayPlanEnd) {
+          module.exports.saveNewIncident(student._id, "En dehors des heures de travail")
+          .then(
+            resolve('Pas dans les horaires')
+          )
+          .catch(
+            reject()
+          )
+        } else if (0 === moment().days()) {
+          module.exports.saveNewIncident(student._id, "En dehors des heures de travail")
+          .then(
+            resolve('Pas dans les horaires')
+          )
+          .catch(
+            reject()
+          )
+        } else {
+          return (async function loop() {
+            for(let holiday of holidays) {
+               await new Promise( resolve => {
+                 if(!holiday.authorizedPresence && holiday.timeStart <= currentDay && holiday.timeEnd >= currentDay) {
+                    module.exports.saveNewIncident(student._id, "Timbrage pendant les vacances")
+                   .then(
+                     resolve("Timbrage pendant les vacances")
+                   )
+                   .catch(
+                     error => {
+                     console.log('error',error);
+                     reject(error);
+                   });
+                 } else {
+                   resolve();
+                 }
+               })
+             }
+           })();
         }
-      )
-      .then(
-        resolve('Pas dans les horaires')
-      )
-      .catch(
-        reject()
-      )
-    }
+    })
+    .catch(
+      error => {
+        console.log(error);
+          reject(error)
+      }
+    )
+
   });
 }
 

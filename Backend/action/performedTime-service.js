@@ -17,7 +17,6 @@ exports.updatePerformedTime = () => {
           clocks => {
             let time = 0;
             if(clocks.length%2!=0){
-              incidentService.saveNewIncident(user._id, "Oubli de timbrage");
               let t1 = moment.duration(clocks[clocks.length-1].time);
               let t2 = moment.duration("16:00:00");
               if(t1 < t2){
