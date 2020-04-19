@@ -2,6 +2,7 @@ const User = require('../data-schematic/user-schematic');
 const jwt = require('jsonwebtoken');
 const secret = require('../secret.js');
 const bcrypt = require('bcrypt');
+const action = require('../action/action.js');
 
 exports.changePassword = (req, res) => {
   try {
@@ -20,4 +21,14 @@ exports.changePassword = (req, res) => {
       error: new Error('Invalid request!')
     });
   }
+}
+
+exports.getClockMachine = (req, res) => {
+  action.getClockMachine(req.params.clockMachineId)
+  .then(
+    machine => res.status(200).json(machine)
+  )
+  .catch(
+    error => res.status(500).json("Impossible de récupérer les réglages de la machine <= "+error)
+  )
 }

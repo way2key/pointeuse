@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class TeacherSettingService {
-  private changePasswordUrl = 'http://localhost:3000/api/teacher-setting';
+  private apiUrl = 'http://localhost:3000/api/teacher-setting';
   private auth = 'Bearer '+ localStorage.getItem("token");
   private httpOptions = {
     headers: new HttpHeaders({
@@ -17,7 +17,16 @@ export class TeacherSettingService {
   };
   constructor(private http: HttpClient) { }
 
-  changePassword(password){
-    return this.http.post<any>(this.changePasswordUrl, password, this.httpOptions);
+  changePassword(password) {
+    return this.http.post<any>(this.apiUrl, password, this.httpOptions);
+  }
+
+  getClockMachine(clockMachineId) {
+    const url = this.apiUrl + "/" + clockMachineId;
+    return this.http.get<any>(url, this.httpOptions);
+  }
+
+  getTimeplan(){
+
   }
 }

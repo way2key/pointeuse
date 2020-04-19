@@ -10,6 +10,7 @@ const clockMachineSchema = mongoose.Schema({
   lateArrivalNotification: {type: Boolean, required:false, default:true},
   earlyDepartureNotification: {type: Boolean, required:false, default:true},
   unallowedPresenceNotification: {type: Boolean, required:false, default:true},
+  dayplan: {type: String, required:false},
 });
 
 clockMachineSchema.plugin(uniqueValidator);

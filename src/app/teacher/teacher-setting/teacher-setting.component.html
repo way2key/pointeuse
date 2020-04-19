@@ -43,16 +43,15 @@
   </mat-form-field>
 </div>
 
-<div class="interface">
-  <h1 class="title"> Notification </h1>
+<div class="incidentNotification" *ngIf="!loading">
+  <h1 class="title"> Notifications </h1>
   <p>Choissisez les notifications que vous voulez recevoir</p>
-  <mat-slide-toggle>Quota inssuffisant</mat-slide-toggle><br>
-  <mat-slide-toggle>Oubli de pointage</mat-slide-toggle><br>
-  <mat-slide-toggle>Retard</mat-slide-toggle><br>
-  <mat-slide-toggle>Départ anticipé</mat-slide-toggle><br>
-  <mat-slide-toggle>Dehors des heures réglementaires</mat-slide-toggle><br>
-  <mat-slide-toggle>Pas de pause</mat-slide-toggle><br>
-  <mat-slide-toggle>Temps quotidien inssuffisant</mat-slide-toggle><br>
+  <mat-slide-toggle [checked]="clockMachine.insufficientWeekTimeQuotaNotification">Quota inssuffisant</mat-slide-toggle><br>
+  <mat-slide-toggle [checked]="clockMachine.insufficientDayTimeQuotaNotification">Temps quotidien inssuffisant</mat-slide-toggle><br>
+  <mat-slide-toggle [checked]="clockMachine.clockingOversightNotification">Oubli de pointage</mat-slide-toggle><br>
+  <mat-slide-toggle [checked]="clockMachine.lateArrivalNotification">Retard</mat-slide-toggle><br>
+  <mat-slide-toggle [checked]="clockMachine.earlyDepartureNotification">Départ anticipé</mat-slide-toggle><br>
+  <mat-slide-toggle [checked]="clockMachine.unallowedPresenceNotification">Présence non autorisée</mat-slide-toggle><br>
 </div>
 
 <h1 class="title"> Administrateurs </h1>

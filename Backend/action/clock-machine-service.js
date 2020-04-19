@@ -17,10 +17,42 @@ exports.createClockmachine = (machine) => {
   })
 }
 
-exports.getClockmachine = () => {
+exports.getClockMachine = (clockMachineId) => {
   return new Promise( (resolve, reject) => {
-    ClockMachine.find()
+    ClockMachine.findOne({_id:clockMachineId})
     .then((machine) => resolve(machine))
     .catch(error => reject("Unable to fetch ClockMachine from db <= "+error));
+  })
+}
+
+exports.setClockMachineTimeplan = (machineID, timeplanID) => {
+  return new Promise( (resolve, reject) => {
+    ClockMachine.findOneAndUpdate({_id:machineID},{$set: {dayplan:timeplanID}})
+    .then(
+      () => resolve("Timeplan Modifié")
+    )
+    .catch(
+      (error) => reject("Impossible de mettre à jour l'horaire <= "+error)
+    )
+  })
+}
+
+exports.updateClockMachineNotification = (machineID, incidentNotification) => {
+  return new Promise( (resolve, reject) => {
+    ClockMachine.findOneAndUpdate({_id:machineID},{$set:
+      {
+        insufficientWeekTimeQuotaNotification:incidentNotification.insufficientWeekTimeQuotaNotification,
+        insufficientDayTimeQuotaNotification:incidentNotification.insufficientDayTimeQuotaNotification,
+        clockingOversightNotification:incidentNotification.clockingOversightNotification,
+        lateArrivalNotification:incidentNotification.lateArrivalNotification,
+        earlyDepartureNotification:incidentNotification.earlyDepartureNotification,
+        unallowedPresenceNotification:incidentNotification.unallowedPresenceNotification,
+      }})
+    .then(
+      () => resolve("Notifications modifiées")
+    )
+    .catch(
+      (error) => reject("Impossible de mettre à jour les notifications <= "+error)
+    )
   })
 }

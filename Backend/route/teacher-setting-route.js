@@ -6,5 +6,6 @@ const teacherSettingController = require('../controller/teacher-setting-controll
 
 //Routes
 router.post('/', auth, teacherSettingController.changePassword);
+router.get('/:clockMachineId', auth, teacherSettingController.getClockMachine);
 
 module.exports = router;

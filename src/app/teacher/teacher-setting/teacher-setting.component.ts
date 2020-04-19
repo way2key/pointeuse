@@ -18,10 +18,13 @@ export class TeacherSettingComponent implements OnInit {
     'Horaire Mobile',
     'Horaire Personnalisé 1'
   ];
+  clockMachine;
   constructor(private teacherSettingService: TeacherSettingService, private router: Router) { }
 
   ngOnInit(): void {
-
+    this.loading = true;
+    this.getClockMachine('5e9bfc772178aa4084f14ba2');
+    this.getTimeplan();
   }
 
   changePassword(): void {
@@ -39,6 +42,20 @@ export class TeacherSettingComponent implements OnInit {
         })
       );
     }
+  }
+
+  getClockMachine(clockMachineId): void {
+    this.teacherSettingService.getClockMachine(clockMachineId)
+    .subscribe(
+      machine => {
+        this.clockMachine = machine;
+        this.loading = false;
+      }
+    )
+  }
+
+  getTimeplan(): void {
+
   }
 
 }

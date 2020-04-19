@@ -39,8 +39,8 @@ const action = {
   dailyTimeNotCompletedIncident: incidentService.dailyTimeNotCompletedIncident,
   getStudentDayTimeFromStudentHash: dayTimeService.getStudentDayTimeFromStudentHash,
   getStudentDayTimeFromDayId: dayTimeService.getStudentDayTimeFromDayId,
-  createClockmachine: clockMachineService.createClockmachine,
-  getClockmachine: clockMachineService.getClockmachine,
+  createClockMachine: clockMachineService.createClockMachine,
+  getClockMachine: clockMachineService.getClockMachine,
 }
 
 
