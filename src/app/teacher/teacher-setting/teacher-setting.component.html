@@ -46,12 +46,12 @@
 <div class="incidentNotification" *ngIf="!loading">
   <h1 class="title"> Notifications </h1>
   <p>Choissisez les notifications que vous voulez recevoir</p>
-  <mat-slide-toggle [checked]="clockMachine.insufficientWeekTimeQuotaNotification">Quota inssuffisant</mat-slide-toggle><br>
-  <mat-slide-toggle [checked]="clockMachine.insufficientDayTimeQuotaNotification">Temps quotidien inssuffisant</mat-slide-toggle><br>
-  <mat-slide-toggle [checked]="clockMachine.clockingOversightNotification">Oubli de pointage</mat-slide-toggle><br>
-  <mat-slide-toggle [checked]="clockMachine.lateArrivalNotification">Retard</mat-slide-toggle><br>
-  <mat-slide-toggle [checked]="clockMachine.earlyDepartureNotification">Départ anticipé</mat-slide-toggle><br>
-  <mat-slide-toggle [checked]="clockMachine.unallowedPresenceNotification">Présence non autorisée</mat-slide-toggle><br>
+  <mat-slide-toggle [(ngModel)]="clockMachine.insufficientWeekTimeQuotaNotification" (change)="updateClockMachineNotification()">Quota inssuffisant</mat-slide-toggle><br>
+  <mat-slide-toggle [(ngModel)]="clockMachine.insufficientDayTimeQuotaNotification" (change)="updateClockMachineNotification()">Temps quotidien inssuffisant</mat-slide-toggle><br>
+  <mat-slide-toggle [(ngModel)]="clockMachine.clockingOversightNotification" (change)="updateClockMachineNotification()">Oubli de pointage</mat-slide-toggle><br>
+  <mat-slide-toggle [(ngModel)]="clockMachine.lateArrivalNotification" (change)="updateClockMachineNotification()">Retard</mat-slide-toggle><br>
+  <mat-slide-toggle [(ngModel)]="clockMachine.earlyDepartureNotification" (change)="updateClockMachineNotification()">Départ anticipé</mat-slide-toggle><br>
+  <mat-slide-toggle [(ngModel)]="clockMachine.unallowedPresenceNotification" (change)="updateClockMachineNotification()">Présence non autorisée</mat-slide-toggle><br>
 </div>
 
 <h1 class="title"> Administrateurs </h1>

@@ -18,12 +18,18 @@ export class TeacherSettingService {
   constructor(private http: HttpClient) { }
 
   changePassword(password) {
+    const url = this.apiUrl + "/password";
     return this.http.post<any>(this.apiUrl, password, this.httpOptions);
   }
 
   getClockMachine(clockMachineId) {
     const url = this.apiUrl + "/" + clockMachineId;
     return this.http.get<any>(url, this.httpOptions);
+  }
+
+  updateClockMachineNotification(payload) {
+    const url = this.apiUrl + "/notification";
+    return this.http.post<any>(url, payload, this.httpOptions);
   }
 
   getTimeplan(){

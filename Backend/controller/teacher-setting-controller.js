@@ -32,3 +32,14 @@ exports.getClockMachine = (req, res) => {
     error => res.status(500).json("Impossible de récupérer les réglages de la machine <= "+error)
   )
 }
+
+
+exports.updateClockMachineNotification = (req, res) => {
+  action.updateClockMachineNotification(req.body)
+  .then(
+    () => res.status(200).json("Notification modifiées avec succès !")
+  )
+  .catch(
+    error => res.status(500).json(" Impossible de mettre à jour les notifications <= ")
+  )
+}

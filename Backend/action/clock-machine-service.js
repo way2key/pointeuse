@@ -37,16 +37,17 @@ exports.setClockMachineTimeplan = (machineID, timeplanID) => {
   })
 }
 
-exports.updateClockMachineNotification = (machineID, incidentNotification) => {
+exports.updateClockMachineNotification = (clockMachine) => {
+  console.log(clockMachine.clockingOversightNotification);
   return new Promise( (resolve, reject) => {
-    ClockMachine.findOneAndUpdate({_id:machineID},{$set:
+    ClockMachine.findOneAndUpdate({_id:clockMachine._id},{$set:
       {
-        insufficientWeekTimeQuotaNotification:incidentNotification.insufficientWeekTimeQuotaNotification,
-        insufficientDayTimeQuotaNotification:incidentNotification.insufficientDayTimeQuotaNotification,
-        clockingOversightNotification:incidentNotification.clockingOversightNotification,
-        lateArrivalNotification:incidentNotification.lateArrivalNotification,
-        earlyDepartureNotification:incidentNotification.earlyDepartureNotification,
-        unallowedPresenceNotification:incidentNotification.unallowedPresenceNotification,
+        insufficientWeekTimeQuotaNotification: clockMachine.insufficientWeekTimeQuotaNotification,
+        insufficientDayTimeQuotaNotification: clockMachine.insufficientDayTimeQuotaNotification,
+        clockingOversightNotification: clockMachine.clockingOversightNotification,
+        lateArrivalNotification: clockMachine.lateArrivalNotification,
+        earlyDepartureNotification: clockMachine.earlyDepartureNotification,
+        unallowedPresenceNotification: clockMachine.unallowedPresenceNotification,
       }})
     .then(
       () => resolve("Notifications modifiées")

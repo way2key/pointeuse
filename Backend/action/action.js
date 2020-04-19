@@ -41,6 +41,7 @@ const action = {
   getStudentDayTimeFromDayId: dayTimeService.getStudentDayTimeFromDayId,
   createClockMachine: clockMachineService.createClockMachine,
   getClockMachine: clockMachineService.getClockMachine,
+  updateClockMachineNotification: clockMachineService.updateClockMachineNotification,
 }
 
 
