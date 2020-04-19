@@ -13,11 +13,7 @@ export class TeacherSettingComponent implements OnInit {
     newPassword: new FormControl(''),
     confirmPassword: new FormControl(''),
   });
-  timeplan = [
-    'Horaire Fixe',
-    'Horaire Mobile',
-    'Horaire Personnalisé 1'
-  ];
+  timeplan = [];
   clockMachine;
   loading;
   clockMachineId='5e9bfc772178aa4084f14ba2';
@@ -56,14 +52,23 @@ export class TeacherSettingComponent implements OnInit {
     )
   }
   updateClockMachineNotification(): void {
-    this.teacherSettingService.updateClockMachineNotification(this.clockMachine).
-    subscribe(
+    this.teacherSettingService.updateClockMachineNotification(this.clockMachine)
+    .subscribe(
       succes => console.log(succes),
       error => console.log(error)
     )
   }
   getTimeplan(): void {
-
+    this.teacherSettingService.getTimeplan()
+    .subscribe(
+      timeplans => {
+        this.timeplan=[];
+        for (let t of timeplans) {
+          this.timeplan.push({name:t.name,id:t.id})
+        }
+      },
+      error => console.log(error)
+    )
   }
 
 }

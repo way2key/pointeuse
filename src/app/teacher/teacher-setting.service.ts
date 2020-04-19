@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 })
 export class TeacherSettingService {
   private apiUrl = 'http://localhost:3000/api/teacher-setting';
+  private apiUrl2 = 'http://localhost:4000/api/admin-data-timeplan';
   private auth = 'Bearer '+ localStorage.getItem("token");
   private httpOptions = {
     headers: new HttpHeaders({
@@ -33,6 +34,7 @@ export class TeacherSettingService {
   }
 
   getTimeplan(){
-
+    const url = this.apiUrl2 + "/timeplan";
+    return this.http.get<any>(url, this.httpOptions);
   }
 }
