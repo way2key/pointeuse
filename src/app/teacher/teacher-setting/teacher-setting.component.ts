@@ -13,6 +13,7 @@ export class TeacherSettingComponent implements OnInit {
     newPassword: new FormControl(''),
     confirmPassword: new FormControl(''),
   });
+  timeplanId:string;
   timeplan = [];
   clockMachine;
   loading;
@@ -47,6 +48,9 @@ export class TeacherSettingComponent implements OnInit {
     .subscribe(
       machine => {
         this.clockMachine = machine;
+        if(machine.dayplan) {
+          this.timeplanId = machine.dayplan;
+        }
         this.loading = false;
       }
     )
@@ -64,9 +68,20 @@ export class TeacherSettingComponent implements OnInit {
       timeplans => {
         this.timeplan=[];
         for (let t of timeplans) {
-          this.timeplan.push({name:t.name,id:t.id})
+          this.timeplan.push({name:t.name,id:t._id})
         }
       },
+      error => console.log(error)
+    )
+  }
+  updateTimeplan(){
+    let payload = {
+      dayplan:this.timeplanId,
+      id:this.clockMachineId
+    }
+    this.teacherSettingService.updateTimeplan(payload)
+    .subscribe(
+      succes => console.log(succes),
       error => console.log(error)
     )
   }

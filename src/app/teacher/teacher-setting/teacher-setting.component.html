@@ -35,8 +35,8 @@
   <h1 class="title"> Horaire </h1>
   <p>Définissez un horaire</p>
   <mat-form-field appearance='outline'>
-    <mat-select>
-      <mat-option *ngFor="let tp of timeplan" [value]="tp">
+    <mat-select [(ngModel)]="timeplanId"  (selectionChange)="updateTimeplan()">
+      <mat-option *ngFor="let tp of timeplan" [value]="tp.id">
         {{tp.name}}
       </mat-option>
     </mat-select>

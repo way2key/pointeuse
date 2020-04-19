@@ -7,6 +7,7 @@ const teacherSettingController = require('../controller/teacher-setting-controll
 //Routes
 router.post('/password', auth, teacherSettingController.changePassword);
 router.post('/notification', auth, teacherSettingController.updateClockMachineNotification);
+router.post('/dayplan', auth, teacherSettingController.updateTimeplan);
 router.get('/:clockMachineId', auth, teacherSettingController.getClockMachine);
 
 module.exports = router;

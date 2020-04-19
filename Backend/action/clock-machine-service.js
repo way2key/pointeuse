@@ -38,7 +38,6 @@ exports.setClockMachineTimeplan = (machineID, timeplanID) => {
 }
 
 exports.updateClockMachineNotification = (clockMachine) => {
-  console.log(clockMachine.clockingOversightNotification);
   return new Promise( (resolve, reject) => {
     ClockMachine.findOneAndUpdate({_id:clockMachine._id},{$set:
       {
@@ -49,6 +48,18 @@ exports.updateClockMachineNotification = (clockMachine) => {
         earlyDepartureNotification: clockMachine.earlyDepartureNotification,
         unallowedPresenceNotification: clockMachine.unallowedPresenceNotification,
       }})
+    .then(
+      () => resolve("Notifications modifiées")
+    )
+    .catch(
+      (error) => reject("Impossible de mettre à jour les notifications <= "+error)
+    )
+  })
+}
+
+exports.updateTimeplan = (payload) => {
+  return new Promise( (resolve, reject) => {
+    ClockMachine.findOneAndUpdate({_id:payload.id},{$set:{dayplan: payload.dayplan}})
     .then(
       () => resolve("Notifications modifiées")
     )
