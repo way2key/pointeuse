@@ -1,6 +1,8 @@
 const http = require('http');
 const planner = require('./planner');
 const api = require('./api');
+const clockMachineId = require('./clockMachineId');
+const action = require('./action/action');
 
 const normalizePort = val => {
   const port = parseInt(val, 10);
@@ -46,3 +48,12 @@ server.on('listening', () => {
 });
 
 server.listen(port);
+
+//socket
+const io = require('socket.io-client');
+const socket = io.connect("http://localhost:4000/clockMachine");
+
+action.getClockMachine(clockMachineId).
+then(
+  machine => socket.emit('proclamation', machine)
+)
