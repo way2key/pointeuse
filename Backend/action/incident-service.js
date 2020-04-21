@@ -193,10 +193,25 @@ exports.latenessArrivalIncident = (studentHash, studentId) => {
   });
 }
 
-exports.hastyDepartureIncident = () => {
+exports.hastyDepartureIncident = (studentHash, studentId) => {
   return new Promise( (resolve,reject) => {
-    //code here
-    resolve('it work');
+    let timeEnd = "16:00" // rechercher heure de fin dans shift
+    clockService.getStudentClockFromHash(studentHash)
+    .then(
+      clocks => {
+        if(clocks.length % 2 === 0) {
+          if(clocks[clocks.length - 1].time < timeEnd) {
+            return module.exports.saveNewIncident(studentId, "Départ en avance");
+          }
+        }
+      }
+    )
+    .then(
+      resolve()
+    )
+    .catch(
+      reject()
+    )
   });
 }
 
@@ -303,11 +318,11 @@ exports.dailyIncidentCheck = () => {
                presenceService.checkStudentPresence(student.hash)
                .then(
                  presence => {
-                   if (!presence) {
-                     resolve();
-                   } else {
-                     return module.exports.checkStudentMeal(student.hash, student._id);
-                   }
+                    if(!presence) {
+                      throw error;
+                    } else {
+                      return module.exports.checkStudentMeal(student.hash, student._id);
+                    }
                  }
                )
                .then(
@@ -318,6 +333,11 @@ exports.dailyIncidentCheck = () => {
                .then(
                  () => {
                    return module.exports.clockOversightIncident(student.hash, student._id);
+                 }
+               )
+               .then(
+                 () => {
+                   return module.exports.hastyDepartureIncident(student.hash, student._id);
                  }
                )
                .then(

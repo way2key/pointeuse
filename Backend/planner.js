@@ -25,7 +25,7 @@ cron.schedule('00 00 00 * * *', () => {
 });
 
 // Crée les days tous les jours à 00:00:01s
-cron.schedule('00 59 23 * * *', () => {
+cron.schedule('00 00 00 * * *', () => {
   action.dailyIncidentCheck();
 });
 
