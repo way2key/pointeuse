@@ -2,6 +2,7 @@ const teacherDB = require('../database/teacherDB');
 const moment = require('moment');
 const clockService = require('./clock-service.js');
 const dayService = require('./day-service.js')
+const dayTimeService = require('./dayTime-service.js')
 const studentService = require('./student-service.js')
 const presenceService = require('./presence-service.js')
 
@@ -149,10 +150,23 @@ exports.checkStudentMeal = (studentHash, studentId) => {
   });
 }
 
-exports.dailyTimeNotCompletedIncident = () => {
+exports.dailyTimeNotCompletedIncident = (studentHash, studentId) => {
   return new Promise( (resolve,reject) => {
-    //code here
-    resolve('it work');
+    let requiredDayTime = "8"; //récupérer heures à faire du daypPlan
+    dayTimeService.getStudentDayTimeFromStudentHash(studentHash)
+    .then(
+      time => {
+        if(time < requiredDayTime) {
+          return module.exports.saveNewIncident(studentId, "Quota journalier insuffisant");
+        }
+      }
+    )
+    .then(
+      resolve()
+    )
+    .catch(
+      reject()
+    )
   });
 }
 
@@ -305,7 +319,11 @@ exports.dailyIncidentCheck = () => {
                  () => {
                    return module.exports.clockOversightIncident(student.hash, student._id);
                  }
-
+               )
+               .then(
+                 () => {
+                   return module.exports.dailyTimeNotCompletedIncident(student.hash, student._id);
+                 }
                )
                .then(
                  resolve()
