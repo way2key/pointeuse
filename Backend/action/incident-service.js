@@ -60,63 +60,50 @@ exports.clockOversightIncident = (studentHash, studentId) => {
   });
 }
 
-exports.unallowedPresenceIncident = (studentHash) => {
+exports.unallowedPresenceIncident = (studentHash, studentId) => {
   return new Promise( (resolve,reject) => {
     const holidays = []; //fonction pour récupérer les holidays
     const dayPlanEnd = '22:00:00' //récupérer heure de fin du jour
     const dayPlanStart = '06:00:00' //récupérer heure de début du jour
     const currentTime = moment().format('HH:mm:ss');
     const currentDay = moment().format('YYYY MM DD');
-    let student;
-    User.findOne({hash: studentHash})
-    .then(
-      s => {
-        student = s;
-        if(currentTime < dayPlanStart || currentTime >= dayPlanEnd) {
-          module.exports.saveNewIncident(student._id, "En dehors des heures de travail")
-          .then(
-            resolve('Pas dans les horaires')
-          )
-          .catch(
-            reject()
-          )
-        } else if (0 === moment().days()) {
-          module.exports.saveNewIncident(student._id, "En dehors des heures de travail")
-          .then(
-            resolve('Pas dans les horaires')
-          )
-          .catch(
-            reject()
-          )
-        } else {
-          return (async function loop() {
-            for(let holiday of holidays) {
-               await new Promise( resolve => {
-                 if(!holiday.authorizedPresence && holiday.timeStart <= currentDay && holiday.timeEnd >= currentDay) {
-                    module.exports.saveNewIncident(student._id, "Timbrage pendant les vacances")
-                   .then(
-                     resolve("Timbrage pendant les vacances")
-                   )
-                   .catch(
-                     error => {
-                     console.log('error',error);
-                     reject(error);
-                   });
-                 } else {
-                   resolve();
-                 }
-               })
+    if(currentTime < dayPlanStart || currentTime >= dayPlanEnd) {
+      module.exports.saveNewIncident(studentId, "En dehors des heures de travail")
+      .then(
+        resolve('Pas dans les horaires')
+      )
+      .catch(
+        reject()
+      )
+    } else if (0 === moment().days()) {
+      module.exports.saveNewIncident(studentId, "En dehors des heures de travail")
+      .then(
+        resolve('Pas dans les horaires')
+      )
+      .catch(
+        reject()
+      )
+    } else {
+      return (async function loop() {
+        for(let holiday of holidays) {
+           await new Promise( resolve => {
+             if(!holiday.authorizedPresence && holiday.timeStart <= currentDay && holiday.timeEnd >= currentDay) {
+                module.exports.saveNewIncident(studentId, "Timbrage pendant les vacances")
+               .then(
+                 resolve("Timbrage pendant les vacances")
+               )
+               .catch(
+                 error => {
+                 console.log('error',error);
+                 reject(error);
+               });
+             } else {
+               resolve();
              }
-           })();
-        }
-    })
-    .catch(
-      error => {
-        console.log(error);
-          reject(error)
-      }
-    )
-
+           })
+         }
+       })();
+    }
   });
 }
 
@@ -170,10 +157,25 @@ exports.dailyTimeNotCompletedIncident = () => {
 }
 
 
-exports.latenessArrivalIncident = () => {
+exports.latenessArrivalIncident = (studentHash, studentId) => {
   return new Promise( (resolve,reject) => {
-    //code here
-    resolve('it work');
+    let timeStart = "09:00" // rechercher heure de début dans shift
+    clockService.getStudentClockFromHash(studentHash)
+    .then(
+      clocks => {
+        if(clocks.length === 1) {
+          if(clocks[0].time > timeStart) {
+            return module.exports.saveNewIncident(studentId, "Arrivée tardive");
+          }
+        }
+      }
+    )
+    .then(
+      resolve()
+    )
+    .catch(
+      reject()
+    )
   });
 }
 
@@ -253,7 +255,19 @@ exports.saveNewIncident = (studentId, type) => {
 
 exports.clockIncidentCheck = (studentHash) => {
   return new Promise( (resolve,reject) => {
-    this.unallowedPresenceIncident(studentHash)
+    let student;
+    User.findOne({hash: studentHash})
+    .then(
+      s => {
+        student = s;
+        return module.exports.unallowedPresenceIncident(studentHash, student._id);
+      }
+    )
+    .then(
+      () => {
+        return module.exports.latenessArrivalIncident(studentHash, student._id);
+      }
+    )
     .then(
       resolve()
     )

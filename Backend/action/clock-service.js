@@ -52,7 +52,6 @@ exports.getStudentClockFromDayId = (dayId) => {
 
 exports.clockAStudent = (studentHash) => {
   return new Promise( (resolve, reject) => {
-    incidentService.clockIncidentCheck(studentHash);
     let dayId;
     dayService.getStudentCurrentDay(studentHash)
     .then(
@@ -68,6 +67,11 @@ exports.clockAStudent = (studentHash) => {
     .then(
       () => {
         return Day.findOneAndUpdate({_id:this.dayId},{$set:{present:true}});
+      }
+    )
+    .then(
+      () => {
+        incidentService.clockIncidentCheck(studentHash);
       }
     )
     .then(
