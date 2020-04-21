@@ -53,7 +53,9 @@ server.listen(port);
 const io = require('socket.io-client');
 const socket = io.connect("http://localhost:4000/clockMachine");
 
-action.getClockMachine(clockMachineId).
-then(
-  machine => socket.emit('proclamation', machine)
-)
+socket.on('requestProclamation', () => {
+  action.getClockMachine(clockMachineId).
+  then(
+    machine => socket.emit('proclamation', machine)
+  )
+})
