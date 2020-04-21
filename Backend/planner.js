@@ -25,13 +25,13 @@ cron.schedule('00 00 00 * * *', () => {
 });
 
 // Crée les days tous les jours à 00:00:01s
-cron.schedule('00 00 00 * * *', () => {
-  action.clockOversightIncident();
+cron.schedule('00 59 23 * * *', () => {
+  action.dailyIncidentCheck();
 });
 
 // Contrôle chaque semaine à 00:00
 cron.schedule('00 00 00 * * Sun', () => {
-  action.quotaTimeIncident();
+  action.weeklyIncidentCheck();
 });
 
 // test s'écrit toutes les heures

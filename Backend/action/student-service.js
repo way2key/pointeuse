@@ -66,6 +66,7 @@ exports.getStudentBreather = (studentHash) => {
     clockService.getStudentClockFromHash(studentHash)
     .then(
       clocks => {
+
         let shifts = [];
         for(let i=0; i < clocks.length-1; i+=2){
           let t1 = moment.duration(clocks[i].time);
@@ -123,22 +124,26 @@ let breakPerformedInInterval = (shifts,min,max,interval) => {
 
 let breakPerformed = (shifts) => {
   let count=0;
-  let sweepLine=shifts[0].in;
-  console.log("START");
-  for(let s of shifts){
-    console.log("");
-    if(s.in >= sweepLine){
-      console.log("call function:",s.in,s.in+4);
-      if(!breakPerformedInInterval(shifts,s.in,s.in+4,1/3)){
-        sweepLine = s.in+4;
-        count++;
+  if(shifts.length > 0) {
+    let sweepLine=shifts[0].in;
+    console.log("START");
+    for(let s of shifts){
+      console.log("");
+      if(s.in >= sweepLine){
+        console.log("call function:",s.in,s.in+4);
+        if(!breakPerformedInInterval(shifts,s.in,s.in+4,1/3)){
+          sweepLine = s.in+4;
+          count++;
+        }
+      }else{
+        console.log("nocall: ");
+        console.log("cette période a déjà été controllé.");
       }
-    }else{
-      console.log("nocall: ");
-      console.log("cette période a déjà été controllé.");
     }
+    console.log("");
+    console.log("count: "+count);
+    return count;
+  } else {
+    return 0;
   }
-  console.log("");
-  console.log("count: "+count);
-  return count;
 }
