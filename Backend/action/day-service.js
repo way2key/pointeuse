@@ -88,6 +88,7 @@ exports.getStudentSpecificDayId = (studentHash, date) => {
     const dayPlusOne = moment(date).add(1, 'day');
     const dayIdMin = (day.unix()).toString(16) +'0000000000000000';
     const dayIdMax = (dayPlusOne.unix()).toString(16) +'0000000000000000';
+    let possibleDays = [];
 
     return new Promise( (resolve, reject) => {
       studentService.getStudentFromHash(studentHash)
@@ -96,9 +97,16 @@ exports.getStudentSpecificDayId = (studentHash, date) => {
           for(let d of student.data) {
             if(d >= dayIdMin && d < dayIdMax){
 
-              resolve(d);
-            }
+              //resolve(d);
+              possibleDays.push(d);
+            };
           };
+          if(possibleDays.length === 1) {
+            resolve(possibleDays[0]);
+          } else {
+
+            throw error;
+          }
         }
       )
       .catch(

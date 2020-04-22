@@ -31,6 +31,8 @@ export class TeacherHistStatComponent implements OnInit {
   time;
   clock = [];
 
+  clocksExist = true;
+
   date = new FormControl(moment());
 
   calendarFilter = (d: moment.Moment): boolean => {
@@ -179,17 +181,21 @@ export class TeacherHistStatComponent implements OnInit {
 
     this.teacherHistoryService.getStudentClocksSpecificDay(payload).subscribe(
       clocks => {
+        console.log(clocks);
+
+        this.clocksExist = true;
         this.clock = clocks;
         this.drawTimeLine(hash);
       },
       error => {
+        //this.clocksExist = false;
+        this.stopTimeline();
         console.log(error.message);
       }
     )
 
     this.teacherHistoryService.getStudentDayTime(payload).subscribe(
       time => {
-        console.log('time', time);
         this.dayPerformedTime = time;
       },
       error => {

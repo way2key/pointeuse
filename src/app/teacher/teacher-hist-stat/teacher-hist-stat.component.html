@@ -42,7 +42,8 @@
           </mat-form-field>
           <p class="performedTime">Temps effectué ce jour {{convertTime(dayPerformedTime)}} </p>
         </form>
-        <div id="{{s.hash}}"></div>
+        <div id="{{s.hash}}" *ngIf="clocksExist"></div>
+        <p *ngIf="!clocksExist"> Pas de timbrages pour ce jour</p>
       </ng-template>
     </mat-expansion-panel>
   </mat-accordion>

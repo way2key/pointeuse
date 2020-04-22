@@ -24,20 +24,27 @@ exports.getStudentClocksSpecificDay = (req, res) => {
   action.getStudentSpecificDayId(req.body.hash, req.body.date)
   .then(
     (dayId) => {
+      console.log(dayId);
       return action.getStudentClockFromDayId(dayId);
     }
   )
   .then(
     (clocks) => {
-      let out = [];
-      for(let clock of clocks){
-        out.push(moment.duration(clock.time).asHours());
+      if(clocks.length>0) {
+        let out = [];
+        for(let clock of clocks){
+          out.push(moment.duration(clock.time).asHours());
+        }
+        res.status(200).send(out);
+      } else {
+        throw 'Pas de clocks pour ce jour <= ';
       }
-      res.status(200).send(out);
+
     }
   )
   .catch(
     (error) => {
+      console.log(error);
       res.status(500).json({error});
     }
   )
