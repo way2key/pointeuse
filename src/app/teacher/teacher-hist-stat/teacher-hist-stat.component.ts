@@ -104,6 +104,8 @@ export class TeacherHistStatComponent implements OnInit {
   sortOrder() {
     if (this.sortCriteria.value === 'alphabetical') {
       return this.alphabeticalSort();
+    } else if (this.sortCriteria.value === 'unAlphabetical') {
+      return this.unAlphabeticalSort();
     } else if (this.sortCriteria.value === 'lowToHigh') {
       return this.lowToHighSort();
     } else if (this.sortCriteria.value === 'highToLow') {
@@ -117,6 +119,19 @@ export class TeacherHistStatComponent implements OnInit {
       if(a[lastname] > b[lastname]) {
         return 1;
       } else if (a[lastname] < b[lastname]) {
+        return -1;
+      } else {
+        return 0;
+      }
+    }
+  }
+
+  unAlphabeticalSort() {
+    let lastname = 'lastname';
+    return function(a, b) {
+      if(a[lastname] < b[lastname]) {
+        return 1;
+      } else if (a[lastname] > b[lastname]) {
         return -1;
       } else {
         return 0;
