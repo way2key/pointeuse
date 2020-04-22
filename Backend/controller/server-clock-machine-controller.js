@@ -1,7 +1,7 @@
 const action = require('../action/action.js');
 
 exports.createClockmachine = (req, res) => {
-  action.createClockmachine(req.body)
+  action.createClockMachine(req.body)
   .then(
     (clockMachine) => res.status(200).json(clockMachine)
   )

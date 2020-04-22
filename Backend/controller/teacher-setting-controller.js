@@ -44,6 +44,16 @@ exports.updateClockMachineNotification = (req, res) => {
   )
 }
 
+exports.updateClockMachineVolume = (req, res) => {
+  action.updateClockMachineVolume(req.body)
+  .then(
+    () => res.status(200).json("Volume modifiées avec succès !")
+  )
+  .catch(
+    error => res.status(500).json(" Impossible de mettre à jour le volume <= ")
+  )
+}
+
 
 exports.updateTimeplan = (req, res) => {
   action.updateTimeplan(req.body)

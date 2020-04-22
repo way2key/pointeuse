@@ -42,6 +42,7 @@ const action = {
   createClockMachine: clockMachineService.createClockMachine,
   getClockMachine: clockMachineService.getClockMachine,
   updateClockMachineNotification: clockMachineService.updateClockMachineNotification,
+  updateClockMachineVolume: clockMachineService.updateClockMachineVolume,
   updateTimeplan: clockMachineService.updateTimeplan,
   dailyIncidentCheck: incidentService.dailyIncidentCheck,
   weeklyIncidentCheck: incidentService.weeklyIncidentCheck,

@@ -33,6 +33,11 @@ export class TeacherSettingService {
     return this.http.post<any>(url, payload, this.httpOptions);
   }
 
+  updateClockMachineVolume(payload) {
+    const url = this.teacherUrl + "/volume";
+    return this.http.post<any>(url, payload, this.httpOptions);
+  }
+
   getTimeplan(){
     const url = this.adminUrl + "/timeplan";
     return this.http.get<any>(url, this.httpOptions);

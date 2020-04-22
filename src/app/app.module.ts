@@ -30,6 +30,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule, MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSliderModule } from '@angular/material/slider';
 
 
 //Components teacher
@@ -109,6 +110,7 @@ import { TeacherAuthGuard } from './teacher/teacher-auth.guard';
     MatDatepickerModule,
     MatMomentDateModule,
     MatPaginatorModule,
+    MatSliderModule,
 
   ],
   providers: [

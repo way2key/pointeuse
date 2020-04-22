@@ -17,7 +17,10 @@ export class TeacherSettingComponent implements OnInit {
   timeplan = [];
   clockMachine;
   loading;
-  clockMachineId='5e9bfc772178aa4084f14ba2';
+  clockMachineId='5ea0b63045ede03a20907202';
+
+
+
   constructor(private teacherSettingService: TeacherSettingService, private router: Router) { }
 
   ngOnInit(): void {
@@ -48,6 +51,7 @@ export class TeacherSettingComponent implements OnInit {
     .subscribe(
       machine => {
         this.clockMachine = machine;
+
         if(machine.dayplan) {
           this.timeplanId = machine.dayplan;
         }
@@ -55,6 +59,7 @@ export class TeacherSettingComponent implements OnInit {
       }
     )
   }
+
   updateClockMachineNotification(): void {
     this.teacherSettingService.updateClockMachineNotification(this.clockMachine)
     .subscribe(
@@ -62,6 +67,15 @@ export class TeacherSettingComponent implements OnInit {
       error => console.log(error)
     )
   }
+
+  updateClockMachineVolume(): void {
+    this.teacherSettingService.updateClockMachineVolume(this.clockMachine)
+    .subscribe(
+      succes => console.log(succes),
+      error => console.log(error)
+    )
+  }
+
   getTimeplan(): void {
     this.teacherSettingService.getTimeplan()
     .subscribe(

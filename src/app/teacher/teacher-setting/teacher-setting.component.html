@@ -43,6 +43,13 @@
   </mat-form-field>
 </div>
 
+<div class="volume">
+  <h1 class="title"> Volume </h1>
+  <p>Choissisez le volume de la timbreuse</p>
+  <mat-slider class="slider" [(ngModel)] ="clockMachine.volume" thumbLabel (change)="updateClockMachineVolume()">
+    </mat-slider>
+</div>
+
 <div class="incidentNotification" *ngIf="!loading">
   <h1 class="title"> Notifications </h1>
   <p>Choissisez les notifications que vous voulez recevoir</p>

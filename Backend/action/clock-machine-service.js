@@ -1,7 +1,7 @@
 const ClockMachine = require('../data-schematic/clock-machine-schematic');
 
 
-exports.createClockmachine = (machine) => {
+exports.createClockMachine = (machine) => {
   return new Promise( (resolve, reject) => {
     let newClockMachine = new ClockMachine({
       title: machine.title
@@ -65,6 +65,20 @@ exports.updateTimeplan = (payload) => {
     )
     .catch(
       (error) => reject("Impossible de mettre à jour les notifications <= "+error)
+    )
+  })
+}
+
+exports.updateClockMachineVolume = (payload) => {
+  return new Promise( (resolve, reject) => {
+    ClockMachine.updateOne({_id:payload._id},{volume: payload.volume})
+    .then(
+      () => {
+        resolve("Volume modifié avec succès");
+      }
+    )
+    .catch(
+      (error) => reject("Impossible de mettre à jour le volume <= "+error)
     )
   })
 }
