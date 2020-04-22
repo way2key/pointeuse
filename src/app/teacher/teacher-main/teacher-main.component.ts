@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TeacherAuthService } from '../teacher-auth.service';
+import { TeacherDashboardService } from '../teacher-dashboard.service';
 
 @Component({
   selector: 'app-teacher-main',
@@ -7,14 +8,26 @@ import { TeacherAuthService } from '../teacher-auth.service';
   styleUrls: ['./teacher-main.component.scss']
 })
 export class TeacherMainComponent implements OnInit {
+  teacher = {
+    firstname: 'Nom',
+    lastname: 'Prenom'
+  }
 
-  constructor(private teacherAuthService: TeacherAuthService) { }
+  constructor(private teacherAuthService: TeacherAuthService,
+              private teacherDashboardService: TeacherDashboardService,) { }
 
   ngOnInit(): void {
+    this.getTeacher();
   }
 
   logUserOut(): void {
     this.teacherAuthService.logUserOut();
+  }
+
+  getTeacher(): void {
+    this.teacherDashboardService.getTeacher().subscribe(
+      teacher => this.teacher = teacher
+    )
   }
 
 }
