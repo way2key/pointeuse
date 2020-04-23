@@ -43,7 +43,7 @@
   </mat-form-field>
 </div>
 
-<div class="volume">
+<div class="volume" *ngIf="!loading">
   <h1 class="title"> Volume </h1>
   <p>Choissisez le volume de la timbreuse</p>
   <mat-slider class="slider" [(ngModel)] ="clockMachine.volume" thumbLabel (change)="updateClockMachineVolume()">

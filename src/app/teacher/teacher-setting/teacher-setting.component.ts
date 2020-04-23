@@ -17,7 +17,7 @@ export class TeacherSettingComponent implements OnInit {
   timeplan = [];
   clockMachine;
   loading;
-  clockMachineId='5ea0b63045ede03a20907202';
+  clockMachineId='5e9bfc772178aa4084f14ba2';
 
 
 

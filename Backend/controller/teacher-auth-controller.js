@@ -50,12 +50,7 @@ exports.signupAdmin = (req, res, next) => {
 exports.signupUser = (req, res, next) => {
   delete req.body._id;
   const usr = new User({
-    firstname: req.body.firstname,
-    lastname: req.body.lastname,
-    hash: req.body.hash,
-    type: 0,
-    performedTime: req.body.performedTime,
-    dayPlanId: req.body.dayPlanId
+    ...req.body
   });
   usr.save()
   .then(() => res.status(201).json({ message: 'Utilisateur enregistré'}))

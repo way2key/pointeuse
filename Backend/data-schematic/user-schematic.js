@@ -6,10 +6,10 @@ const userSchema = mongoose.Schema({
   lastname:  {type: String, required:true},
   hash: {type: String, required:false, unique:true, sparse: true},
   password: {type: String, required:false, unique:true, sparse: true},
-  type: {type: Number, required:true},
+  type: {type: Number, required:true, default:0},
   data: {type: [String], required:false},
-  performedTime:  {type: Number, required:false},
-  dayPlanId: {type: String, required:false, unique:true}
+  performedTime:  {type: Number, required:false, default:0},
+  dayPlanId: {type: String, required:false}
 });
 
 userSchema.plugin(uniqueValidator);
