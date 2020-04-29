@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { TeacherStudentTimeComponent } from '../teacher-student-time/teacher-student-time.component';
+import { TeacherStudentTimeplanComponent }from '../teacher-student-timeplan/teacher-student-timeplan.component';
 import * as moment from 'moment';
 
 
@@ -23,6 +24,7 @@ export class TeacherStudentComponent implements OnInit {
   options = [];
   filteredOptions: Observable<string[]>;
   searchField = '';
+  timeplan = [];
 
   constructor(private teacherStudentService: TeacherStudentService,
               private snackBar: MatSnackBar,
@@ -30,6 +32,7 @@ export class TeacherStudentComponent implements OnInit {
 
   ngOnInit(): void {
     this.getStudents();
+    this.getTimeplan();
   }
 
 
@@ -153,7 +156,6 @@ export class TeacherStudentComponent implements OnInit {
         this.teacherStudentService.modifyPresence(payload)
         .subscribe(
           result => {
-            console.log(result)
             this.getStudents();
             this.openSnackBar('Présence modifiée avec succès');
             this.onAll();
@@ -162,6 +164,17 @@ export class TeacherStudentComponent implements OnInit {
       }
     });
   }
+
+  assignTimeplan() {
+    let selectedStudent = this.students.filter(s => s.isSelected);
+    let dialogRef = this.dialog.open(TeacherStudentTimeplanComponent, {data:{students:selectedStudent, timeplan:this.timeplan}});
+    dialogRef.afterClosed().subscribe(result => {
+      this.openSnackBar('mamateka');
+      this.getStudents();
+      this.onAll();
+    })
+  }
+
   openSnackBar(message: string) {
     this.snackBar.open(message, 'FERMER', {
       duration: 2000,
@@ -181,6 +194,28 @@ export class TeacherStudentComponent implements OnInit {
     }
   }
 
+  getTimeplan(): void {
+    this.teacherStudentService.getTimeplan()
+    .subscribe(
+      timeplans => {
+        this.timeplan=[];
+        for (let t of timeplans) {
+          this.timeplan.push({name:t.name,id:t._id})
+        }
+      },
+      error => console.log(error)
+    )
+  }
+
+  getTimeplanName(id) {
+    let out = "";
+    this.timeplan.map(t => {
+      if(t.id == id){
+        out = t.name;
+      }
+    })
+    return out;
+  }
 
   alphabeticalSort(lastname: string) {
     return function(a, b) {

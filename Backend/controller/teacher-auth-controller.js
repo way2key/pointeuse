@@ -4,7 +4,6 @@ const jwt = require('jsonwebtoken');
 const secret = require('../secret.js');
 
 exports.login = (req, res, next) => {
-
     User.findOne({firstname: req.body.username})
     .then(usr => {
       if(!usr || usr.type !== 1){
@@ -38,7 +37,7 @@ exports.signupAdmin = (req, res, next) => {
         lastname: req.body.lastname,
         password: cryptedPassword,
         type: 1,
-        dayPlanId: req.body.dayPlanId
+        timeplanId: req.body.timeplanId
     });
     usr.save()
     .then(() => res.status(201).json({message: 'Administrateur enregistré'}))

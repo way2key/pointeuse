@@ -7,6 +7,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class TeacherStudentService {
   private apiUrl = 'http://localhost:3000/api/teacher-student';
+  private adminUrl = 'http://localhost:4000/api/admin-data-timeplan';
   private studentStatusUrl = 'http://localhost:3000/api/student';
   private auth = 'Bearer '+ localStorage.getItem("token");
   private httpOptions = {
@@ -21,14 +22,14 @@ export class TeacherStudentService {
     return this.http.get<String[]>(this.apiUrl, this.httpOptions);
   }
 
+  getAStudent(incident) {
+    const url = this.apiUrl + '/' + incident.studentId;
+    return this.http.get<any>(url, this.httpOptions);
+  }
+
   getATeacher(){
     const url = this.apiUrl + "/teacher";
     return this.http.get<String[]>(url, this.httpOptions);
-  }
-
-  modifyPerformedTime(payload){
-    const url = this.apiUrl + '/time';
-    return this.http.post<any>(url, payload, this.httpOptions);
   }
 
   getStudentStatus(hash: string){
@@ -46,14 +47,24 @@ export class TeacherStudentService {
     return this.http.post<any>(url, payload, this.httpOptions);
   }
 
-  modifyPresence(payload){
+  getTimeplan() {
+    const url = this.adminUrl + "/timeplan";
+    return this.http.get<any>(url, this.httpOptions);
+  }
+
+  modifyPresence(payload) {
     const url = this.apiUrl + '/presence';
     return this.http.put(url, payload, this.httpOptions);
   }
 
-  getAStudent(incident) {
-    const url = this.apiUrl + '/' + incident.studentId;
-    return this.http.get<any>(url, this.httpOptions);
+  modifyPerformedTime(payload) {
+    const url = this.apiUrl + '/time';
+    return this.http.post<any>(url, payload, this.httpOptions);
+  }
+
+  updateTimeplan(payload) {
+    const url = this.apiUrl + '/timeplan';
+    return this.http.post<any>(url, payload, this.httpOptions);
   }
 
 }

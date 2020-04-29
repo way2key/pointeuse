@@ -1,0 +1,8 @@
+<p>Choissisez un horaire</p>
+<mat-form-field appearance='outline'>
+  <mat-select [(ngModel)]="selectedTimeplan"  (selectionChange)="updateTimeplan()">
+    <mat-option *ngFor="let tp of timeplan" [value]="tp.id">
+      {{tp.name}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

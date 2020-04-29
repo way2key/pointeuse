@@ -13,11 +13,11 @@ export class TeacherSettingComponent implements OnInit {
     newPassword: new FormControl(''),
     confirmPassword: new FormControl(''),
   });
-  timeplanId:string;
+  selectedTimeplan:string;
   timeplan = [];
   clockMachine;
   loading;
-  clockMachineId='5e9bfc772178aa4084f14ba2';
+  clockMachineId='5ea9a5b378de5b2874498994';
 
 
 
@@ -52,8 +52,8 @@ export class TeacherSettingComponent implements OnInit {
       machine => {
         this.clockMachine = machine;
 
-        if(machine.dayplan) {
-          this.timeplanId = machine.dayplan;
+        if(machine.timeplan) {
+          this.selectedTimeplan = machine.timeplan;
         }
         this.loading = false;
       }
@@ -90,7 +90,7 @@ export class TeacherSettingComponent implements OnInit {
   }
   updateTimeplan(){
     let payload = {
-      dayplan:this.timeplanId,
+      timeplan:this.selectedTimeplan,
       id:this.clockMachineId
     }
     this.teacherSettingService.updateTimeplan(payload)

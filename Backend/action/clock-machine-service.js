@@ -1,10 +1,12 @@
 const ClockMachine = require('../data-schematic/clock-machine-schematic');
-
+const User = require('../data-schematic/user-schematic');
 
 exports.createClockMachine = (machine) => {
   return new Promise( (resolve, reject) => {
+    let defaultTimeplan = "default"
     let newClockMachine = new ClockMachine({
-      title: machine.title
+      title: machine.title,
+      timeplan: defaultTimeplan
     });
 
     newClockMachine.save()
@@ -27,7 +29,7 @@ exports.getClockMachine = (clockMachineId) => {
 
 exports.setClockMachineTimeplan = (machineID, timeplanID) => {
   return new Promise( (resolve, reject) => {
-    ClockMachine.findOneAndUpdate({_id:machineID},{$set: {dayplan:timeplanID}})
+    ClockMachine.findOneAndUpdate({_id:machineID},{$set: {timeplan:timeplanID}})
     .then(
       () => resolve("Timeplan Modifié")
     )
@@ -59,14 +61,15 @@ exports.updateClockMachineNotification = (clockMachine) => {
 
 exports.updateTimeplan = (payload) => {
   return new Promise( (resolve, reject) => {
-    ClockMachine.findOneAndUpdate({_id:payload.id},{$set:{dayplan: payload.dayplan}})
+    console.log(payload);
+    User.findOneAndUpdate({_id:payload._id},{$set:{timeplanId:payload.timeplan}})
     .then(
-      () => resolve("Notifications modifiées")
+      () => resolve("Succes")
     )
     .catch(
-      (error) => reject("Impossible de mettre à jour les notifications <= "+error)
+      error => reject("Impossible de modifier le timeplan <= " + error)
     )
-  })
+  });
 }
 
 exports.updateClockMachineVolume = (payload) => {

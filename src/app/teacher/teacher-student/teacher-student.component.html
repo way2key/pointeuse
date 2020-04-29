@@ -18,6 +18,7 @@
     <div class="buttons has-addons">
       <button class="button is-link" (click)="modifyTime()" [disabled]="onCheckBox()">Modifier le temps</button>
       <button class="button is-success"(click)="modifyPresence()" [disabled]="onCheckBox()">Modifier la présence</button>
+      <button class="button is-warning" (click)="assignTimeplan()" [disabled]="onCheckBox()">Attribuer un horaire</button>
       <button class="button" id="allButton" (click)="onAll()">Tout sélectionner</button>
       <button class="button is-info " id="allButton" (click)="getStudents()">
         <i class="fas fa-sync"></i>
@@ -40,6 +41,7 @@
           </div>
           <h1 matSubheader>{{s.firstname}} {{s.lastname}}</h1>
           <p [ngClass]="{'performedTime': true, 'negativeTime': s.performedTime < -(0.1/12), 'positiveTime': s.performedTime >= -(0.1/12) }"> {{convertTime(s.performedTime)}} </p>
+          <p> {{getTimeplanName(s.timeplanId)}}</p>
         </div>
         <mat-checkbox class="checkbox" [checked]="s.isSelected" [id]="s.hash"></mat-checkbox>
       </div>

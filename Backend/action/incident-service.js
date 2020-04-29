@@ -64,11 +64,11 @@ exports.clockOversightIncident = (studentHash, studentId) => {
 exports.unallowedPresenceIncident = (studentHash, studentId) => {
   return new Promise( (resolve,reject) => {
     const holidays = []; //fonction pour récupérer les holidays
-    const dayPlanEnd = '22:00:00' //récupérer heure de fin du jour
-    const dayPlanStart = '06:00:00' //récupérer heure de début du jour
+    const timeplanStart = '06:00:00' //récupérer heure de début du jour
+    const timeplanEnd = '22:00:00' //récupérer heure de fin du jour
     const currentTime = moment().format('HH:mm:ss');
     const currentDay = moment().format('YYYY MM DD');
-    if(currentTime < dayPlanStart || currentTime >= dayPlanEnd) {
+    if(currentTime < timeplanStart || currentTime >= timeplanEnd) {
       module.exports.saveNewIncident(studentId, "En dehors des heures de travail")
       .then(
         resolve('Pas dans les horaires')

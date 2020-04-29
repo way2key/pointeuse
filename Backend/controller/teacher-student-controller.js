@@ -82,3 +82,14 @@ exports.getStudentPresence = (req, res) => {
     error => res.status(200).json(false)
   )
 }
+
+exports.updateTimeplan = (req, res) => {
+  console.log(req.body);
+   action.updateTimeplan(req.body)
+   .then(
+     () => res.status(200).json("Horaire modifié avec succès")
+   )
+   .catch(
+     error => res.status(500).json("Impossible de modifier l'horaire <= "+error)
+   )
+}
