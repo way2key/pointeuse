@@ -56,8 +56,6 @@ export class TeacherDashboardComponent implements OnInit {
           //name = student.lastname.toUpperCase() + ' ' + student.firstname;
           incident.firstname = student.firstname;
           incident.lastname = student.lastname;
-          //console.log(incident);
-
         }
       )
     }

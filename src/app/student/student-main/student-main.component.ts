@@ -15,10 +15,12 @@ export class StudentMainComponent implements OnInit {
     cardNumber: new FormControl(''),
     password: new FormControl(''),
   });
+  refresh="";
 
   constructor(public dialog: MatDialog) { }
 
   ngOnInit(): void {
+    document.getElementById("cardNumber").focus();
   }
 
   public info(): void{
@@ -27,7 +29,7 @@ export class StudentMainComponent implements OnInit {
 
   readCard() {
     let studentHash = this.cardForm.value.cardNumber;
-
+    this.refresh="";
     if(this.infoRequested){
       this.infoRequested = !this.infoRequested;
       this.showInfo(studentHash);

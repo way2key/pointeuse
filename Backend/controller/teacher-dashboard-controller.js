@@ -4,10 +4,10 @@ exports.getATeacher = (req, res) => {
   const token = req.headers.authorization.split(' ')[1];
   action.getTeacherFromToken(token)
   .then(
-    (teacher) => res.status(200).json(teacher)
+    teacher => res.status(200).json(teacher)
   )
   .catch(
-    (error) => res.status(500).json({error})
+    error => res.status(500).json({error})
   )
 
 }
@@ -15,19 +15,19 @@ exports.getATeacher = (req, res) => {
 exports.getUntreatedIncident = (req, res) => {
   action.getUntreatedIncident()
   .then(
-    (incident) => res.status(200).json(incident)
+    incident => res.status(200).json(incident)
   )
   .catch(
-    (error) => res.status(500).json({error})
+    error => res.status(500).json({error})
   )
 }
 
 exports.checkIncident = (req, res) => {
   action.checkIncident(req.body)
   .then(
-    (msg) => res.status(200).json(msg)
+    msg => res.status(200).json(msg)
   )
   .catch(
-    (error) => res.status(500).json({error})
+    error => res.status(500).json({error})
   )
 }

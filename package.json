@@ -31,6 +31,7 @@
     "mongoose": "^5.9.10",
     "mongoose-unique-validator": "^2.0.3",
     "node-cron": "^2.0.3",
+    "node-fetch": "^2.6.0",
     "nodemon": "^2.0.3",
     "p5": "^1.0.0",
     "rxjs": "^6.5.5",

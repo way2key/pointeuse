@@ -9,6 +9,7 @@ const incidentService = require('./incident-service.js');
 const presenceService = require('./presence-service.js');
 const dayTimeService = require('./dayTime-service.js');
 const clockMachineService = require("./clock-machine-service.js");
+const authService = require("./auth-service");
 
 const action = {
   test: testAction.test,
@@ -46,6 +47,7 @@ const action = {
   updateTimeplan: clockMachineService.updateTimeplan,
   dailyIncidentCheck: incidentService.dailyIncidentCheck,
   weeklyIncidentCheck: incidentService.weeklyIncidentCheck,
+  isAuthenticatedOnServer: authService.isAuthenticatedOnServer,
 }
 
 

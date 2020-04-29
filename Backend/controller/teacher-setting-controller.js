@@ -47,7 +47,7 @@ exports.updateClockMachineNotification = (req, res) => {
 exports.updateClockMachineVolume = (req, res) => {
   action.updateClockMachineVolume(req.body)
   .then(
-    () => res.status(200).json("Volume modifiées avec succès !")
+    () => res.status(200).json("Volume modifié avec succès !")
   )
   .catch(
     error => res.status(500).json(" Impossible de mettre à jour le volume <= ")
@@ -58,7 +58,7 @@ exports.updateClockMachineVolume = (req, res) => {
 exports.updateTimeplan = (req, res) => {
   action.updateTimeplan(req.body)
   .then(
-    () => res.status(200).json("Timeplan modifiées avec succès !")
+    () => res.status(200).json("Timeplan modifié avec succès !")
   )
   .catch(
     error => res.status(500).json(" Impossible de mettre à jour le timeplan <= ")

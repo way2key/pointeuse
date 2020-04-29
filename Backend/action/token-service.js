@@ -1,14 +1,18 @@
 const User = require('../data-schematic/user-schematic');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const secret = require('../secret.js');
+const fetch = require('node-fetch');
 
 exports.getTeacherFromToken = (token) => {
   return new Promise( (resolve, reject) => {
-    verifiedJwt = jwt.verify(token, secret);
-    let userId= verifiedJwt.userId;
-    User.findOne({_id: userId, type:1})
-    .then((teacher) => resolve(teacher))
-    .catch(error => reject(teacher));
+    let url = 'http://localhost:4000/api/server-user/'+token;
+    fetch(url)
+    .then(
+      res => res.json()
+    )
+    .then(
+      teacher => resolve(teacher)
+    )
+    .catch(
+      error => reject("Unable to retrieve teacher <="+error)
+    )
   })
 }

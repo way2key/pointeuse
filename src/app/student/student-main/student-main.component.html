@@ -13,7 +13,7 @@
      <br>
      <form [formGroup]="cardForm" (ngSubmit)="readCard()">
        <div class="form-group">
-         <input type="text" id="cardNumber" class="form-control" placeholder="Numéro de la carte" formControlName="cardNumber">
+         <input type="text" id="cardNumber" class="form-control" placeholder="Numéro de la carte" formControlName="cardNumber" [(ngModel)]="refresh">
        </div><br>
        <button class="btn btn-primary" type="submit" [disabled]="cardForm.invalid">Timbrez</button>
      </form>

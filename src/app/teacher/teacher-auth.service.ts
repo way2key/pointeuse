@@ -7,8 +7,8 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class TeacherAuthService {
-  private loginUrl = 'http://localhost:3000/api/teacher-auth/login';
-  private verifyTokenUrl = 'http://localhost:3000/api/teacher-auth/verifyToken';
+  private loginUrl = 'http://localhost:4000/api/admin-auth/login';
+  private verifyTokenUrl = 'http://localhost:4000/api/admin-auth/verifyToken';
   private auth = 'Bearer '+ localStorage.getItem("token");
   private httpOptions = {
     headers: new HttpHeaders({
