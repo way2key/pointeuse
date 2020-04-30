@@ -2,7 +2,7 @@
   <div class="tile is-parent">
     <div class="tile is-child box">
       <div class="login-box">
-        <p class="title">Changer Mot de passe</p>
+        <p class="title">Modifier mot de passe🔏</p>
         <form [formGroup]="changePasswordForm" (ngSubmit)="changePassword()">
           <div class="field">
             <h2> Mot de passe </h2>
@@ -38,10 +38,10 @@
   <div class="tile is-4 is-vertical is-parent">
     <div class="tile is-child box">
       <div class="timeplan">
-        <p class="title">Horaire</p>
-        <p>Définissez un horaire</p>
-        <mat-form-field appearance='fill'>
-          <mat-select class="select" [(ngModel)]="selectedTimeplan"  (selectionChange)="updateTimeplan()">
+        <p class="title">Horaire par défaut📅</p>
+        <p>Définissez l'horaire par défaut</p>
+        <mat-form-field appearance='outline'>
+          <mat-select [(ngModel)]="selectedTimeplan"  (selectionChange)="updateTimeplan()">
             <mat-option *ngFor="let tp of timeplan" [value]="tp.id">
               {{tp.name}}
             </mat-option>
@@ -51,18 +51,19 @@
     </div>
     <div class="tile is-child box">
       <div class="volume" *ngIf="!loading">
-        <p class="title">Volume</p>
-        <p>Choissisez le volume de la timbreuse</p>
+        <p class="title">Volume🔊</p>
+        <p>Réglez le volume de la timbreuse</p>
         <mat-slider class="slider" [(ngModel)] ="clockMachine.volume" thumbLabel (change)="updateClockMachineVolume()">
         </mat-slider>
       </div>
     </div>
   </div>
 </div>
+
 <div class="tile is-ancestor">
   <div class="tile is-4 is-vertical is-parent">
     <div class="tile is-child box">
-      <p class="title">Notifications</p>
+      <p class="title">Notifications📫</p>
       <div class="incidentNotification" *ngIf="!loading">
         <p>Choissisez les notifications que vous voulez recevoir</p>
         <mat-slide-toggle [(ngModel)]="clockMachine.insufficientWeekTimeQuotaNotification" (change)="updateClockMachineNotification()">Quota inssuffisant</mat-slide-toggle><br>
@@ -74,14 +75,35 @@
       </div>
     </div>
     <div class="tile is-child box">
-      <p class="title">Sons</p>
-      <div class="sound" *ngIf="!loading">
-      </div>
+      <p class="title">Charger des sons💾</p>
     </div>
   </div>
   <div class="tile is-parent">
     <div class="tile is-child box">
-      <p class="title">Banque de son</p>
+      <p class="title">Attribuer les sons🎺</p>
+      <div class="sound" *ngIf="!loading">
+        <mat-list>
+         <mat-list-item>
+           <p>Clock In:</p>
+           <mat-form-field appearance='standard'>
+             <mat-select [(ngModel)]="selectedTimeplan"  (selectionChange)="updateTimeplan()">
+               <mat-option *ngFor="let tp of timeplan" [value]="tp.id">
+                 {{tp.name}}
+               </mat-option>
+             </mat-select>
+           </mat-form-field>
+         </mat-list-item>
+         <mat-list-item>
+           Clock Off:
+         </mat-list-item>
+         <mat-list-item>
+           Info:
+         </mat-list-item>
+         <mat-list-item>
+           Error:
+         </mat-list-item>
+        </mat-list>
+      </div>
     </div>
   </div>
 </div>
