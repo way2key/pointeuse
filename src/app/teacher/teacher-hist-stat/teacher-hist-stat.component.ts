@@ -4,7 +4,7 @@ import { TeacherHistoryService } from '../teacher-history.service';
 import { StudentService } from '../../student/student.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
+import { map, startWith } from 'rxjs/operators';
 import * as p5 from 'p5';
 import * as moment from 'moment';
 
@@ -14,27 +14,18 @@ import * as moment from 'moment';
   styleUrls: ['./teacher-hist-stat.component.scss']
 })
 export class TeacherHistStatComponent implements OnInit {
-
   students = [];
-
+  options;
   shownStudents = [];
-
   sortCriteria = new FormControl('alphabetical');
-
   dayPerformedTime = 0;
-
   myControlSearch = new FormControl();
-  options: string[] = ['One', 'Two', 'Three'];
   filteredOptions: Observable<string[]>;
-
   canvas: any;
   time;
   clock = [];
-
   clocksExist = true;
-
   date = new FormControl(moment());
-
   calendarFilter = (d: moment.Moment): boolean => {
     const day = d.day();
     // Prevent Saturday and Sunday from being selected.
@@ -54,8 +45,6 @@ export class TeacherHistStatComponent implements OnInit {
 
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
-
-
 
   getStudents(): void {
     this.students = [];

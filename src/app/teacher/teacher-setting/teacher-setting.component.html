@@ -1,64 +1,87 @@
-<div class="login-box">
-  <h1 class="title">Mot de passe</h1>
-  <form [formGroup]="changePasswordForm" (ngSubmit)="changePassword()">
-    <h2> Nouveau mot de passe </h2>
-    <div class="field">
-      <p class="control has-icons-left">
-        <input class="input has-background-light has-text-grey" type="password" placeholder="New Password" formControlName="newPassword">
-        <span class="icon is-small is-left">
-          <i class="fas fa-lock"></i>
-        </span>
-      </p>
+<div class="tile is-ancestor">
+  <div class="tile is-parent">
+    <div class="tile is-child box">
+      <div class="login-box">
+        <p class="title">Changer Mot de passe</p>
+        <form [formGroup]="changePasswordForm" (ngSubmit)="changePassword()">
+          <div class="field">
+            <h2> Mot de passe </h2>
+            <p class="control has-icons-left">
+              <input class="input has-background-light has-text-grey" type="password" placeholder="New Password" formControlName="newPassword">
+              <span class="icon is-small is-left">
+                <i class="fas fa-lock"></i>
+              </span>
+            </p>
+          </div>
+
+          <div class="field">
+            <h2> Confirmez le nouveau mot de passe </h2>
+            <p class="control has-icons-left">
+              <input class="input has-background-light has-text-grey" type="password" placeholder="Confirm Password" formControlName="confirmPassword">
+              <span class="icon is-small is-left">
+                <i class="fas fa-lock"></i>
+              </span>
+            </p>
+          </div>
+
+          <div class="field">
+            <p class="control">
+              <button class="button is-success " type="submit" [disabled]="!changePasswordForm.valid">
+                <i class="fas fa-arrow-right"></i>
+              </button>
+            </p>
+          </div>
+        </form>
+      </div>
     </div>
-
-    <div class="field">
-      <h2> Confirmez le nouveau mot de passe </h2>
-      <p class="control has-icons-left">
-        <input class="input has-background-light has-text-grey" type="password" placeholder="Confirm Password" formControlName="confirmPassword">
-        <span class="icon is-small is-left">
-          <i class="fas fa-lock"></i>
-        </span>
-      </p>
+  </div>
+  <div class="tile is-4 is-vertical is-parent">
+    <div class="tile is-child box">
+      <div class="timeplan">
+        <p class="title">Horaire</p>
+        <p>Définissez un horaire</p>
+        <mat-form-field appearance='fill'>
+          <mat-select class="select" [(ngModel)]="selectedTimeplan"  (selectionChange)="updateTimeplan()">
+            <mat-option *ngFor="let tp of timeplan" [value]="tp.id">
+              {{tp.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
     </div>
-
-    <div class="field is-pulled-right">
-      <p class="control">
-        <button class="button is-success " type="submit" [disabled]="!changePasswordForm.valid">
-          <i class="fas fa-sign-in-alt"></i>
-        </button>
-      </p>
+    <div class="tile is-child box">
+      <div class="volume" *ngIf="!loading">
+        <p class="title">Volume</p>
+        <p>Choissisez le volume de la timbreuse</p>
+        <mat-slider class="slider" [(ngModel)] ="clockMachine.volume" thumbLabel (change)="updateClockMachineVolume()">
+        </mat-slider>
+      </div>
     </div>
-  </form>
+  </div>
 </div>
-
-<div class="timeplan">
-  <h1 class="title"> Horaire </h1>
-  <p>Définissez un horaire</p>
-  <mat-form-field appearance='outline'>
-    <mat-select [(ngModel)]="selectedTimeplan"  (selectionChange)="updateTimeplan()">
-      <mat-option *ngFor="let tp of timeplan" [value]="tp.id">
-        {{tp.name}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+<div class="tile is-ancestor">
+  <div class="tile is-4 is-vertical is-parent">
+    <div class="tile is-child box">
+      <p class="title">Notifications</p>
+      <div class="incidentNotification" *ngIf="!loading">
+        <p>Choissisez les notifications que vous voulez recevoir</p>
+        <mat-slide-toggle [(ngModel)]="clockMachine.insufficientWeekTimeQuotaNotification" (change)="updateClockMachineNotification()">Quota inssuffisant</mat-slide-toggle><br>
+        <mat-slide-toggle [(ngModel)]="clockMachine.insufficientDayTimeQuotaNotification" (change)="updateClockMachineNotification()">Temps quotidien inssuffisant</mat-slide-toggle><br>
+        <mat-slide-toggle [(ngModel)]="clockMachine.clockingOversightNotification" (change)="updateClockMachineNotification()">Oubli de pointage</mat-slide-toggle><br>
+        <mat-slide-toggle [(ngModel)]="clockMachine.lateArrivalNotification" (change)="updateClockMachineNotification()">Retard</mat-slide-toggle><br>
+        <mat-slide-toggle [(ngModel)]="clockMachine.earlyDepartureNotification" (change)="updateClockMachineNotification()">Départ anticipé</mat-slide-toggle><br>
+        <mat-slide-toggle [(ngModel)]="clockMachine.unallowedPresenceNotification" (change)="updateClockMachineNotification()">Présence non autorisée</mat-slide-toggle><br>
+      </div>
+    </div>
+    <div class="tile is-child box">
+      <p class="title">Sons</p>
+      <div class="sound" *ngIf="!loading">
+      </div>
+    </div>
+  </div>
+  <div class="tile is-parent">
+    <div class="tile is-child box">
+      <p class="title">Banque de son</p>
+    </div>
+  </div>
 </div>
-
-<div class="volume" *ngIf="!loading">
-  <h1 class="title"> Volume </h1>
-  <p>Choissisez le volume de la timbreuse</p>
-  <mat-slider class="slider" [(ngModel)] ="clockMachine.volume" thumbLabel (change)="updateClockMachineVolume()">
-    </mat-slider>
-</div>
-
-<div class="incidentNotification" *ngIf="!loading">
-  <h1 class="title"> Notifications </h1>
-  <p>Choissisez les notifications que vous voulez recevoir</p>
-  <mat-slide-toggle [(ngModel)]="clockMachine.insufficientWeekTimeQuotaNotification" (change)="updateClockMachineNotification()">Quota inssuffisant</mat-slide-toggle><br>
-  <mat-slide-toggle [(ngModel)]="clockMachine.insufficientDayTimeQuotaNotification" (change)="updateClockMachineNotification()">Temps quotidien inssuffisant</mat-slide-toggle><br>
-  <mat-slide-toggle [(ngModel)]="clockMachine.clockingOversightNotification" (change)="updateClockMachineNotification()">Oubli de pointage</mat-slide-toggle><br>
-  <mat-slide-toggle [(ngModel)]="clockMachine.lateArrivalNotification" (change)="updateClockMachineNotification()">Retard</mat-slide-toggle><br>
-  <mat-slide-toggle [(ngModel)]="clockMachine.earlyDepartureNotification" (change)="updateClockMachineNotification()">Départ anticipé</mat-slide-toggle><br>
-  <mat-slide-toggle [(ngModel)]="clockMachine.unallowedPresenceNotification" (change)="updateClockMachineNotification()">Présence non autorisée</mat-slide-toggle><br>
-</div>
-
-<h1 class="title"> Administrateurs </h1>
