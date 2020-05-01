@@ -9,6 +9,7 @@ router.post('/password', auth, teacherSettingController.changePassword);
 router.post('/notification', auth, teacherSettingController.updateClockMachineNotification);
 router.post('/volume', auth, teacherSettingController.updateClockMachineVolume);
 router.post('/dayplan', auth, teacherSettingController.updateTimeplan);
+router.get('/sound', auth, teacherSettingController.getSound);
 router.get('/:clockMachineId', auth, teacherSettingController.getClockMachine);
 
 module.exports = router;

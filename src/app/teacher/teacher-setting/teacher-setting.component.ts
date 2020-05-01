@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { TeacherSettingService } from '../teacher-setting.service';
 import { Router } from '@angular/router';
 
@@ -13,20 +13,45 @@ export class TeacherSettingComponent implements OnInit {
     newPassword: new FormControl(''),
     confirmPassword: new FormControl(''),
   });
+  timeplan;
   selectedTimeplan:string;
-  timeplan = [];
+  sounds;
+  soundSetting;
   clockMachine;
+  clockMachineId='5eac2b3d197357249cc24249';
   loading;
-  clockMachineId='5ea9a5b378de5b2874498994';
+  clockInSound;
+  clockOffSound;
+  infoSound;
+  errorSound;
 
-
-
-  constructor(private teacherSettingService: TeacherSettingService, private router: Router) { }
+  constructor(private teacherSettingService: TeacherSettingService, private router: Router, private formBuilder: FormBuilder,) { }
 
   ngOnInit(): void {
     this.loading = true;
     this.getClockMachine(this.clockMachineId);
     this.getTimeplan();
+    this.getSound();
+  }
+
+  getTimeplan(): void {
+    this.teacherSettingService.getTimeplan()
+    .subscribe(
+      timeplans => {
+        this.timeplan=[];
+        for (let t of timeplans) {
+          this.timeplan.push({name:t.name,id:t._id})
+        }
+      },
+      error => console.log(error)
+    )
+  }
+
+  getSound(): void {
+    this.teacherSettingService.getSound()
+    .subscribe(
+      sounds => this.sounds = sounds
+    )
   }
 
   changePassword(): void {
@@ -55,6 +80,10 @@ export class TeacherSettingComponent implements OnInit {
         if(machine.timeplan) {
           this.selectedTimeplan = machine.timeplan;
         }
+
+        if(machine.sound) {
+          this.soundSetting = machine.sound;
+        }
         this.loading = false;
       }
     )
@@ -76,23 +105,12 @@ export class TeacherSettingComponent implements OnInit {
     )
   }
 
-  getTimeplan(): void {
-    this.teacherSettingService.getTimeplan()
-    .subscribe(
-      timeplans => {
-        this.timeplan=[];
-        for (let t of timeplans) {
-          this.timeplan.push({name:t.name,id:t._id})
-        }
-      },
-      error => console.log(error)
-    )
-  }
-  updateTimeplan(){
+  updateTimeplan(): void {
     let payload = {
       timeplan:this.selectedTimeplan,
       id:this.clockMachineId
     }
+
     this.teacherSettingService.updateTimeplan(payload)
     .subscribe(
       succes => console.log(succes),
@@ -100,4 +118,16 @@ export class TeacherSettingComponent implements OnInit {
     )
   }
 
+  updateSound(): void {
+    let payload = {
+      clockMachineId:this.clockMachineId,
+      sound: {
+        clockIn:this.clockMachine.sound.clockIn,
+        clockOff:this.clockMachine.sound.clockOff,
+        info:this.clockMachine.sound.info,
+        error:this.clockMachine.sound.error,
+      }
+    }
+    console.log(this.clockMachine.sound.clockIn);
+  }
 }

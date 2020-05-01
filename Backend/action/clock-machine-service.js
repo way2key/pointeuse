@@ -61,8 +61,7 @@ exports.updateClockMachineNotification = (clockMachine) => {
 
 exports.updateTimeplan = (payload) => {
   return new Promise( (resolve, reject) => {
-    console.log(payload);
-    User.findOneAndUpdate({_id:payload._id},{$set:{timeplanId:payload.timeplan}})
+    ClockMachine.findOneAndUpdate({_id:payload.id},{$set: {timeplan:payload.timeplan}})
     .then(
       () => resolve("Succes")
     )

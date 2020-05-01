@@ -33,7 +33,6 @@ exports.getClockMachine = (req, res) => {
   )
 }
 
-
 exports.updateClockMachineNotification = (req, res) => {
   action.updateClockMachineNotification(req.body)
   .then(
@@ -54,7 +53,6 @@ exports.updateClockMachineVolume = (req, res) => {
   )
 }
 
-
 exports.updateTimeplan = (req, res) => {
   action.updateTimeplan(req.body)
   .then(
@@ -62,5 +60,15 @@ exports.updateTimeplan = (req, res) => {
   )
   .catch(
     error => res.status(500).json(" Impossible de mettre à jour le timeplan <= ")
+  )
+}
+
+exports.getSound = (req, res) => {
+  action.getSound()
+  .then(
+    sounds => res.status(200).json(sounds)
+  )
+  .catch(
+    error => res.status(500).json("Impossible de récupérer les sons <= " + error)
   )
 }

@@ -28,6 +28,16 @@ export class TeacherSettingService {
     return this.http.get<any>(url, this.httpOptions);
   }
 
+  getTimeplan() {
+    const url = this.adminUrl + "/timeplan";
+    return this.http.get<any>(url, this.httpOptions);
+  }
+
+  getSound() {
+    const url = this.teacherUrl + "/sound";
+    return this.http.get<any>(url, this.httpOptions);
+  }
+
   updateClockMachineNotification(payload) {
     const url = this.teacherUrl + "/notification";
     return this.http.post<any>(url, payload, this.httpOptions);
@@ -38,10 +48,6 @@ export class TeacherSettingService {
     return this.http.post<any>(url, payload, this.httpOptions);
   }
 
-  getTimeplan(){
-    const url = this.adminUrl + "/timeplan";
-    return this.http.get<any>(url, this.httpOptions);
-  }
 
   updateTimeplan(payload){
     const url = this.teacherUrl + "/dayplan";

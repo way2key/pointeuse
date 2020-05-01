@@ -10,7 +10,7 @@ const presenceService = require('./presence-service.js');
 const dayTimeService = require('./dayTime-service.js');
 const clockMachineService = require("./clock-machine-service.js");
 const authService = require("./auth-service");
-
+const soundService = require("./sound-service");
 const action = {
   test: testAction.test,
   createDay: dayService.createDay,
@@ -48,6 +48,7 @@ const action = {
   dailyIncidentCheck: incidentService.dailyIncidentCheck,
   weeklyIncidentCheck: incidentService.weeklyIncidentCheck,
   isAuthenticatedOnServer: authService.isAuthenticatedOnServer,
+  getSound: soundService.getSound,
 }
 
 
