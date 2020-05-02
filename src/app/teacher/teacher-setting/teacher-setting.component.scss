@@ -5,3 +5,10 @@
 .box {
   background-color: rgba(100,0,100,0.3);
 }
+
+.tester {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: space-around;
+}

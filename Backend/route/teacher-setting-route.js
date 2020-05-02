@@ -10,6 +10,6 @@ router.post('/notification', auth, teacherSettingController.updateClockMachineNo
 router.post('/volume', auth, teacherSettingController.updateClockMachineVolume);
 router.post('/timeplan', auth, teacherSettingController.updateClockMachineTimeplan);
 router.post('/sound', auth, teacherSettingController.updateClockMachineSound);
-router.get('/:clockMachineId', auth, teacherSettingController.getClockMachine);
+router.get('/:clockMachineId', teacherSettingController.getClockMachine);
 
 module.exports = router;

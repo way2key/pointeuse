@@ -40,7 +40,7 @@
             <i *ngIf="s.presence"   class="fas fa-calendar-check fa-2x p"></i>
           </div>
           <div class="name">
-            <h1 matSubheader>{{s.firstname}} {{s.lastname}}</h1>
+            <h1>{{s.firstname}} {{s.lastname}}</h1>
           </div>
           <div class="time">
             <p [ngClass]="{'performedTime': true, 'negativeTime': s.performedTime < -(0.1/12), 'positiveTime': s.performedTime >= -(0.1/12) }"> {{convertTime(s.performedTime)}} </p>

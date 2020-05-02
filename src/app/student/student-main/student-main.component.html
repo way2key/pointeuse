@@ -1,7 +1,5 @@
 <div class="welcome">
-  <h1 class="title"> timbreuse mobile </h1>
-  <div class="clock">
-  </div>
+  <h1 class="title"> Timbreuse Mobile </h1>
   <button *ngIf="infoRequested" class="button is-link has-text-white" (click)="info()">
     <p>Info</p>
   </button>
@@ -10,15 +8,11 @@
   </button>
   <br>
   <div>
-     <br>
-     <form [formGroup]="cardForm" (ngSubmit)="readCard()">
-       <div class="form-group">
-         <input type="text" id="cardNumber" class="form-control" placeholder="Numéro de la carte" formControlName="cardNumber" [(ngModel)]="refresh">
-       </div><br>
-       <button class="btn btn-primary" type="submit" [disabled]="cardForm.invalid">Timbrez</button>
-     </form>
+    <form [formGroup]="cardForm" (ngSubmit)="readCard()">
+      <div class="form-group">
+        <input type="text" id="cardNumber" class="form-control" placeholder="Numéro de la carte" formControlName="cardNumber" [(ngModel)]="refresh">
+      </div>
+      <button class="btn btn-primary" type="submit" [disabled]="cardForm.invalid">Timbrez</button>
+    </form>
   </div>
-</div>
-
-<div class="time">
 </div>

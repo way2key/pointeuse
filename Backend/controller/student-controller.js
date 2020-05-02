@@ -87,7 +87,7 @@ exports.getStudentClock = (req, res) => {
 exports.clockAStudent = (req, res) => {
   action.clockAStudent(req.body.hash)
   .then(
-    () => res.status(200).json({message:"Clock créé avec succès"})
+    () => res.status(200).json("Clock créé avec succès")
   )
   .catch(
     (error) => res.status(500).json("Erreur de pointage <= " + error)

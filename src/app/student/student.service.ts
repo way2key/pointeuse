@@ -44,4 +44,9 @@ export class StudentService {
     const url = this.apiUrl + '/clock/' + hash;
     return this.http.get<any>(url);
   }
+
+  getClockMachine(clockMachineId): Observable<any> {
+    const url = 'http://localhost:3000/api/teacher-setting/' + clockMachineId;
+    return this.http.get<any>(url);
+  }
 }

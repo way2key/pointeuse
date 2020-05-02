@@ -75,7 +75,17 @@
       </div>
     </div>
     <div class="tile is-child box">
-      <p class="title">Charger des sons💾</p>
+      <p class="title">Testeur de sons📣</p>
+      <div class="tester">
+        <mat-form-field appearance='outline'>
+          <mat-select [(ngModel)]="soundToPlay">
+            <mat-option *ngFor="let sound of sounds" [value]="sound">
+              {{sound}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button type="button" class="button" (click)="playSound()"><i class="fas fa-play-circle"></i></button>
+      </div>
     </div>
   </div>
   <div class="tile is-parent">

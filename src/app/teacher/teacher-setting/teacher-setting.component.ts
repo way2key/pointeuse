@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { TeacherSettingService } from '../teacher-setting.service';
 import { Router } from '@angular/router';
+import { Howl, Howler } from 'howler';
 
 @Component({
   selector: 'app-teacher-setting',
@@ -17,6 +18,7 @@ export class TeacherSettingComponent implements OnInit {
   selectedTimeplan:string;
   sounds;
   soundSetting;
+  soundToPlay;
   clockMachine;
   clockMachineId='5eac2b3d197357249cc24249';
   loading;
@@ -133,5 +135,13 @@ export class TeacherSettingComponent implements OnInit {
       succes => console.log(succes),
       error => console.log(error)
     )
+  }
+
+  playSound(): void {
+    let path = "../../../assets/sound/"+this.soundToPlay;
+    const sound = new Howl({
+      src:[path]
+    });
+    sound.play();
   }
 }
