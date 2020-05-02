@@ -142,10 +142,14 @@ export class TeacherStudentComponent implements OnInit {
   }
 
   modifyTime() {
-    let dialogRef = this.dialog.open(TeacherStudentTimeComponent, {data: this.students});
+    let dialogRef = this.dialog.open(TeacherStudentTimeComponent, {data: {students: this.students, closed: false}});
 
     dialogRef.afterClosed().subscribe(result => {
-      this.openSnackBar('Temps modifié avec succès');
+      if(result){
+        this.openSnackBar('Temps modifié avec succès');
+      } else {
+        this.openSnackBar('Temps pas changé');
+      }
       this.getStudents();
       this.onAll();
     })
@@ -184,9 +188,14 @@ export class TeacherStudentComponent implements OnInit {
   assignTimeplan() {
     let selectedStudent = this.students.filter(s => s.isSelected);
     let dialogRef = this.dialog.open(TeacherStudentTimeplanComponent, {data:{students:selectedStudent, timeplan:this.timeplan}});
-    
+
     dialogRef.afterClosed().subscribe(result => {
-      this.openSnackBar('mamateka');
+      if(result) {
+        this.openSnackBar('Horaire mis à jour');
+      } else {
+        this.openSnackBar('Horaire pas changé');
+      }
+
       this.getStudents();
       this.onAll();
     })
