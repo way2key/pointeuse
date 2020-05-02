@@ -6,7 +6,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import * as p5 from 'p5';
-import * as moment from 'moment';
+import * as moment from 'moment/moment';
 
 @Component({
   selector: 'app-teacher-hist-stat',

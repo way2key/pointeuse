@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TeacherStudentService } from '../teacher-student.service';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
-import * as moment from 'moment';
+import * as moment from 'moment/moment';
 
 @Component({
   selector: 'app-teacher-student-time',
