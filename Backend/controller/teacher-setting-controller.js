@@ -53,22 +53,22 @@ exports.updateClockMachineVolume = (req, res) => {
   )
 }
 
-exports.updateTimeplan = (req, res) => {
-  action.updateTimeplan(req.body)
+exports.updateClockMachineSound = (req, res) => {
+  action.updateClockMachineSound(req.body)
+  .then(
+    () => res.status(200).json("Sons modifiés avec succès !")
+  )
+  .catch(
+    error => res.status(500).json(" Impossible de mettre à jour les sons <= ")
+  )
+}
+
+exports.updateClockMachineTimeplan = (req, res) => {
+  action.updateClockMachineTimeplan(req.body)
   .then(
     () => res.status(200).json("Timeplan modifié avec succès !")
   )
   .catch(
     error => res.status(500).json(" Impossible de mettre à jour le timeplan <= ")
-  )
-}
-
-exports.getSound = (req, res) => {
-  action.getSound()
-  .then(
-    sounds => res.status(200).json(sounds)
-  )
-  .catch(
-    error => res.status(500).json("Impossible de récupérer les sons <= " + error)
   )
 }

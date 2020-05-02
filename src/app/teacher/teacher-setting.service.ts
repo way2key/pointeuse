@@ -34,7 +34,7 @@ export class TeacherSettingService {
   }
 
   getSound() {
-    const url = this.teacherUrl + "/sound";
+    const url = "http://localhost:3000/api/server/sound";
     return this.http.get<any>(url, this.httpOptions);
   }
 
@@ -48,9 +48,13 @@ export class TeacherSettingService {
     return this.http.post<any>(url, payload, this.httpOptions);
   }
 
+  updateClockMachineTimeplan(payload) {
+    const url = this.teacherUrl + "/timeplan";
+    return this.http.post<any>(url, payload, this.httpOptions);
+  }
 
-  updateTimeplan(payload){
-    const url = this.teacherUrl + "/dayplan";
+  updateClockMachineSound(payload) {
+    const url = this.teacherUrl + "/sound";
     return this.http.post<any>(url, payload, this.httpOptions);
   }
 }

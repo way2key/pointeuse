@@ -59,7 +59,7 @@ exports.updateClockMachineNotification = (clockMachine) => {
   })
 }
 
-exports.updateTimeplan = (payload) => {
+exports.updateClockMachineTimeplan = (payload) => {
   return new Promise( (resolve, reject) => {
     ClockMachine.findOneAndUpdate({_id:payload.id},{$set: {timeplan:payload.timeplan}})
     .then(
@@ -67,6 +67,18 @@ exports.updateTimeplan = (payload) => {
     )
     .catch(
       error => reject("Impossible de modifier le timeplan <= " + error)
+    )
+  });
+}
+
+exports.updateClockMachineSound = (payload) => {
+  return new Promise( (resolve, reject) => {
+    ClockMachine.findOneAndUpdate({_id: payload.clockMachineId},{$set: {sound: payload.sound}})
+    .then(
+      () => resolve("Succes")
+    )
+    .catch(
+      error => reject("Impossible de modifier les sons <= " + error)
     )
   });
 }

@@ -111,7 +111,7 @@ export class TeacherSettingComponent implements OnInit {
       id:this.clockMachineId
     }
 
-    this.teacherSettingService.updateTimeplan(payload)
+    this.teacherSettingService.updateClockMachineTimeplan(payload)
     .subscribe(
       succes => console.log(succes),
       error => console.log(error)
@@ -128,6 +128,10 @@ export class TeacherSettingComponent implements OnInit {
         error:this.clockMachine.sound.error,
       }
     }
-    console.log(this.clockMachine.sound.clockIn);
+    this.teacherSettingService.updateClockMachineSound(payload)
+    .subscribe(
+      succes => console.log(succes),
+      error => console.log(error)
+    )
   }
 }

@@ -10,3 +10,13 @@ exports.createClockmachine = (req, res) => {
   )
 
 }
+
+exports.getSound = (req, res) => {
+  action.getSound()
+  .then(
+    sounds => res.status(200).json(sounds)
+  )
+  .catch(
+    error => res.status(500).json("Impossible de récupérer les sons <= " + error)
+  )
+}
