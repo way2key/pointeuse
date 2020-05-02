@@ -25,12 +25,14 @@ export class TeacherStudentComponent implements OnInit {
   filteredOptions: Observable<string[]>;
   searchField = '';
   timeplan = [];
+  teacher;
 
   constructor(private teacherStudentService: TeacherStudentService,
               private snackBar: MatSnackBar,
               public dialog: MatDialog) { }
 
   ngOnInit(): void {
+    this.getATeacher();
     this.getStudents();
     this.getTimeplan();
   }
@@ -152,22 +154,37 @@ export class TeacherStudentComponent implements OnInit {
   modifyPresence() {
     this.students.forEach(student => {
       if(student.isSelected) {
-        let payload = { hash: student.hash }
+        let payload = { hash: student.hash };
+        let payload2 = {
+          "teacher": this.teacher.firstname + " " + this.teacher.lastname,
+          "message": "",
+          "studentId": student._id,
+          "operation": "Presence modifiée"
+        };
         this.teacherStudentService.modifyPresence(payload)
         .subscribe(
           result => {
             this.getStudents();
             this.openSnackBar('Présence modifiée avec succès');
             this.onAll();
+            this.createLog(payload2);
           }
         );
       }
     });
   }
 
+  createLog(payload) {
+    this.teacherStudentService.createLog(payload)
+    .subscribe(
+      result => console.log(result)
+    )
+  }
+
   assignTimeplan() {
     let selectedStudent = this.students.filter(s => s.isSelected);
     let dialogRef = this.dialog.open(TeacherStudentTimeplanComponent, {data:{students:selectedStudent, timeplan:this.timeplan}});
+    
     dialogRef.afterClosed().subscribe(result => {
       this.openSnackBar('mamateka');
       this.getStudents();
@@ -271,6 +288,15 @@ export class TeacherStudentComponent implements OnInit {
     }
 
     return time;
+  }
+
+  getATeacher(){
+    this.teacherStudentService.getATeacher()
+    .subscribe(
+      teacher => {
+        this.teacher = teacher;
+    }
+    )
   }
 
 }

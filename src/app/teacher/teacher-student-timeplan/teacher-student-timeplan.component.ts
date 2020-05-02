@@ -13,10 +13,12 @@ export class TeacherStudentTimeplanComponent implements OnInit {
   students;
   timeplan;
   selectedTimeplan:string;
+  teacher;
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private teacherStudentService: TeacherStudentService) { }
 
   ngOnInit(): void {
     this.getModalData();
+    this.getATeacher();
   }
 
   getModalData() {
@@ -27,8 +29,31 @@ export class TeacherStudentTimeplanComponent implements OnInit {
   updateTimeplan() {
     this.students.forEach(student => {
       let payload = {timeplan: this.selectedTimeplan, _id:student._id};
+      let payload2 = {
+        "teacher": this.teacher.firstname + " " + this.teacher.lastname,
+        "message": "",
+        "studentId": student._id,
+        "operation": "Horaire selectionné"
+      }
       this.teacherStudentService.updateTimeplan(payload).subscribe();
+      this.createLog(payload2);
     });
+  }
+
+  createLog(payload) {
+    this.teacherStudentService.createLog(payload)
+    .subscribe(
+      result => console.log(result)
+    )
+  }
+
+  getATeacher(){
+    this.teacherStudentService.getATeacher()
+    .subscribe(
+      teacher => {
+        this.teacher = teacher;
+    }
+    )
   }
 
 }
