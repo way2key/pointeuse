@@ -58,7 +58,7 @@ export class StudentInfoComponent implements OnInit {
   getDayTime(hash): void {
     this.studentService.getStudentDayTime(hash).subscribe(
       time => {
-        this.dayTime = moment.duration(time,'h').format('hh:mm:ss');
+        this.dayTime = moment.duration(time,'h').format('HH:mm:ss');
       },
       error => {
         console.log(error.message)

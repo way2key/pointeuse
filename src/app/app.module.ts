@@ -123,7 +123,7 @@ import { TeacherStudentHashComponent } from './teacher/teacher-student-hash/teac
     {provide: MAT_DATE_LOCALE, useValue: 'fr-FR'},
     {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
     {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
-    {provide: MAT_DATE_FORMATS, useValue: {parse: {dateInput:'DD/MM/YYYY'} ,display: {dateInput: 'DD/MM/YYYY',
+    {provide: MAT_DATE_FORMATS, useValue: {parse: {dateInput:'YYYY/MM/DD'} ,display: {dateInput: 'YYYY/MM/DD',
       monthYearLabel: 'MMM YYYY',
       dateA11yLabel: 'LL',
       monthYearA11yLabel: 'MMMM YYYY',}}}

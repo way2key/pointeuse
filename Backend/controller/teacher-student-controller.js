@@ -25,7 +25,7 @@ exports.modifyPerformedTime = (req, res) => {
 
 exports.createLog = (req, res) => {
   const newLog = new Log({
-    date: moment().format("YYYY/MM/DD h:mm:ss"),
+    date: moment().format("YYYY/MM/DD HH:mm:ss"),
     teacher: req.body.teacher,
     message: req.body.message,
     studentId: req.body.studentId,
@@ -67,7 +67,7 @@ exports.modifyPresence = (req, res) => {
     () => res.status(200).json("Présence modifiée avec succès.")
   )
   .catch(
-    (error) => res.status(500).json(error)
+    error => res.status(500).json("Impossible de modifier la présence <= " + error)
   )
 }
 

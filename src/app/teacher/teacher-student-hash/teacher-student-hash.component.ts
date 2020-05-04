@@ -11,6 +11,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 export class TeacherStudentHashComponent implements OnInit {
   hash = new FormControl('');
   students;
+  teacher;
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private teacherStudentService: TeacherStudentService) { }
 
   ngOnInit(): void {
@@ -23,20 +24,33 @@ export class TeacherStudentHashComponent implements OnInit {
         _id: student._id,
         hash: this.hash.value
       };
-      /*
-      let payload2 = {
-        "teacher": this.teacher.firstname + " " + this.teacher.lastname,
-        "message": "",
-        "studentId": student._id,
-        "operation": "Horaire selectionné"
-      }*/
-      this.teacherStudentService.updateStudentHash(payload).subscribe();
-      //this.createLog(payload2);
+      this.teacherStudentService.updateStudentHash(payload)
+      .subscribe(
+        () => {
+          let log = {
+            "teacher": this.teacher.firstname + " " + this.teacher.lastname,
+            "message": "",
+            "studentId": student._id,
+            "operation": "Modification du hash"
+          }
+          this.createLog(log);
+        }
+      );
     });
 
   }
 
   getModalData() {
     this.students = this.data.students;
+    this.teacherStudentService.getATeacher()
+    .subscribe(
+      teacher => {
+        this.teacher = teacher;
+      }
+    )
+  }
+
+  createLog(payload) {
+    this.teacherStudentService.createLog(payload).subscribe();
   }
 }

@@ -70,7 +70,7 @@ export class StudentTimelineComponent implements OnInit, OnDestroy {
         s.noStroke(0);
         s.textSize(0.05*s.height);
         s.textAlign(s.CENTER);
-        s.text(this.time.format('hh:mm:ss'), x_time, 0.3*s.height);
+        s.text(this.time.format('HH:mm:ss'), x_time, 0.3*s.height);
 
         // Graduation
         s.strokeWeight(2);

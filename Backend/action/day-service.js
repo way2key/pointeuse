@@ -45,7 +45,7 @@ exports.createDayForEachUser = () => {
     students => {
       for(let student of students){
         const newDay = new Day({
-          date: moment().format("YYYY MM DD"),
+          date: moment().format("YYYY/MM/DD"),
           present: false
         });
         newDay.save();
@@ -65,7 +65,7 @@ exports.createDay = (studentHash) => {
   .then(
     student => {
       const newDay = new Day({
-        date: moment().format("YYYY MM DD"),
+        date: moment().format("YYYY/MM/DD"),
         present: false
       });
       newDay.save();
@@ -81,7 +81,6 @@ exports.createDay = (studentHash) => {
     error => console.log("Impossible de créer un jour pour l'étudiant <= " + error)
   )
 };
-
 
 exports.getStudentSpecificDayId = (studentHash, date) => {
     const day = moment(date);

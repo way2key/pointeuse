@@ -27,18 +27,19 @@ export class TeacherStudentTimeplanComponent implements OnInit {
   }
 
   updateStudentTimeplan() {
-    console.log("no");
-
     this.students.forEach(student => {
       let payload = {timeplan: this.selectedTimeplan, _id:student._id};
-      let payload2 = {
-        "teacher": this.teacher.firstname + " " + this.teacher.lastname,
-        "message": "",
-        "studentId": student._id,
-        "operation": "Horaire selectionné"
-      }
-      this.teacherStudentService.updateStudentTimeplan(payload).subscribe();
-      this.createLog(payload2);
+      this.teacherStudentService.updateStudentTimeplan(payload).subscribe(
+        () => {
+          let payload2 = {
+            "teacher": this.teacher.firstname + " " + this.teacher.lastname,
+            "message": "",
+            "studentId": student._id,
+            "operation": "Modification d'horaire"
+          };
+          this.createLog(payload2);
+        }
+      );
     });
   }
 
@@ -54,7 +55,7 @@ export class TeacherStudentTimeplanComponent implements OnInit {
     .subscribe(
       teacher => {
         this.teacher = teacher;
-    }
+      }
     )
   }
 

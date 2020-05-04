@@ -33,7 +33,7 @@ exports.quotaTimeIncident = () => {
 
 exports.clockOversightIncident = (studentHash, studentId) => {
   return new Promise( (resolve,reject) => {
-    let date = moment().format('YYYY-MM-DD');
+    let date = moment().format('YYYY/MM/DD');
     dayService.getStudentSpecificDayId(studentHash, date)
     .then(
       (day) => {
@@ -67,7 +67,7 @@ exports.unallowedPresenceIncident = (studentHash, studentId) => {
     const timeplanStart = '06:00:00' //récupérer heure de début du jour
     const timeplanEnd = '22:00:00' //récupérer heure de fin du jour
     const currentTime = moment().format('HH:mm:ss');
-    const currentDay = moment().format('YYYY MM DD');
+    const currentDay = moment().format('YYYY/MM/DD');
     if(currentTime < timeplanStart || currentTime >= timeplanEnd) {
       module.exports.saveNewIncident(studentId, "En dehors des heures de travail")
       .then(

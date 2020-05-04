@@ -146,15 +146,17 @@ export class TeacherStudentComponent implements OnInit {
   modifyTime() {
     let dialogRef = this.dialog.open(TeacherStudentTimeComponent, {data: {students: this.students, closed: false}});
 
-    dialogRef.afterClosed().subscribe(result => {
-      if(result){
-        this.openSnackBar('Temps modifié avec succès');
-      } else {
-        this.openSnackBar('Temps pas changé');
+    dialogRef.afterClosed()
+    .subscribe(
+      result => {
+        this.openSnackBar('le temps a été modifié avec succès');
+        this.getStudents();
+        this.onAll();
+      },
+      error => {
+        this.openSnackBar(error.error);
       }
-      this.getStudents();
-      this.onAll();
-    })
+    )
   }
 
   modifyPresence() {
@@ -169,11 +171,14 @@ export class TeacherStudentComponent implements OnInit {
         };
         this.teacherStudentService.modifyPresence(payload)
         .subscribe(
-          result => {
+          success => {
             this.getStudents();
             this.openSnackBar('Présence modifiée avec succès');
             this.onAll();
             this.createLog(payload2);
+          },
+          error => {
+            this.openSnackBar(error.error);
           }
         );
       }

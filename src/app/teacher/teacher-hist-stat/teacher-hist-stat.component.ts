@@ -165,7 +165,7 @@ export class TeacherHistStatComponent implements OnInit {
     this.stopTimeline();
     const payload = {
       hash: hash,
-      date:  this.date.value.format('YYYY-MM-DD'),
+      date:  this.date.value.format('YYYY/MM/DD'),
     }
 
     this.teacherHistoryService.getStudentClocksSpecificDay(payload).subscribe(
@@ -237,7 +237,7 @@ export class TeacherHistStatComponent implements OnInit {
         let baseline = s.line(x_start, y, x_end, y);
 
         // Timeline
-        if(this.date.value.format('YYYY-MM-DD') === moment().format('YYYY-MM-DD')) {
+        if(this.date.value.format('YYYY/MM/DD') === moment().format('YYYY/MM/DD')) {
           upperBound = upperBound = this.time.asHours()+margin;
 
           s.fill(0,255,0);
@@ -252,7 +252,7 @@ export class TeacherHistStatComponent implements OnInit {
           s.noStroke(0);
           s.textSize(0.05*s.height);
           s.textAlign(s.CENTER);
-          s.text(this.time.format('hh:mm:ss'), x_time, 0.3*s.height);
+          s.text(this.time.format('HH:mm:ss'), x_time, 0.3*s.height);
         }
 
         // Graduation

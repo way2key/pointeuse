@@ -40,7 +40,6 @@ export class TeacherStudentTimeComponent implements OnInit {
     this.initForm();
 
     this.data.students.forEach(student => {
-
       if(student.isSelected) {
         this.students.push(student)
       }
@@ -92,14 +91,12 @@ export class TeacherStudentTimeComponent implements OnInit {
     const payload = {time: hours, hash:student.hash};
     return this.teacherStudentService.modifyPerformedTime(payload)
     .subscribe(
-      (result) => {
+      result => {
         console.log(result)
-      },
-      (error) => {
-        console.log(error);
-      },
-      () => {
         this.createLog(student);
+      },
+      error => {
+        console.log(error);
       }
     );
   }

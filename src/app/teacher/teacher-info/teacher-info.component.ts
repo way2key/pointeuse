@@ -8,11 +8,11 @@ import * as moment from 'moment';
 })
 export class TeacherInfoComponent implements OnInit {
 
-  dateUpdate = moment().format("DD.MM.YYYY");
+  dateUpdate = moment().format("DD/MM/YYYY");
 
   typeSchedule = 'Fixe'; //'Libre'
 
-  dateBackup = moment().format("DD.MM.YYYY");
+  dateBackup = moment().format("DD/MM/YYYY");
 
   constructor() { }
 
