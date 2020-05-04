@@ -66,8 +66,8 @@
       <p class="title">Notifications📫</p>
       <div class="incidentNotification" *ngIf="!loading">
         <p>Choissisez les notifications que vous voulez recevoir</p>
-        <mat-slide-toggle [(ngModel)]="clockMachine.insufficientWeekTimeQuotaNotification" (change)="updateClockMachineNotification()">Quota inssuffisant</mat-slide-toggle><br>
-        <mat-slide-toggle [(ngModel)]="clockMachine.insufficientDayTimeQuotaNotification" (change)="updateClockMachineNotification()">Temps quotidien inssuffisant</mat-slide-toggle><br>
+        <mat-slide-toggle [(ngModel)]="clockMachine.insufficientWeekTimeQuotaNotification" (change)="updateClockMachineNotification()">Quota insuffisant</mat-slide-toggle><br>
+        <mat-slide-toggle [(ngModel)]="clockMachine.insufficientDayTimeQuotaNotification" (change)="updateClockMachineNotification()">Temps quotidien insuffisant</mat-slide-toggle><br>
         <mat-slide-toggle [(ngModel)]="clockMachine.clockingOversightNotification" (change)="updateClockMachineNotification()">Oubli de pointage</mat-slide-toggle><br>
         <mat-slide-toggle [(ngModel)]="clockMachine.lateArrivalNotification" (change)="updateClockMachineNotification()">Retard</mat-slide-toggle><br>
         <mat-slide-toggle [(ngModel)]="clockMachine.earlyDepartureNotification" (change)="updateClockMachineNotification()">Départ anticipé</mat-slide-toggle><br>

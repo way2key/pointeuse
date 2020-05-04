@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { StudentService } from '../student.service';
-import * as moment from 'moment/moment';
-//import '/moment-duration-format';
+import * as moment from 'moment';
+import 'moment-duration-format';
 
 @Component({
   selector: 'app-student-info',

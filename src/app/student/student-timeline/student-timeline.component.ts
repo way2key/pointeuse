@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { StudentService } from '../student.service';
 import * as p5 from 'p5';
 import * as moment from 'moment/moment';
-//import '/moment-duration-format';
+import 'moment-duration-format';
 
 
 @Component({
