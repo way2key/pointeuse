@@ -26,6 +26,7 @@ const action = {
   checkStudentPresence: presenceService.checkStudentPresence,
   getStudentFromHash: studentService.getStudentFromHash,
   getStudentMeal: studentService.getStudentMeal,
+  updateStudentTimeplan: studentService.updateStudentTimeplan,
   getStudentBreather: studentService.getStudentBreather,
   updatePerformedTime: performedTimeService.updatePerformedTime,
   modifyPerformedTime: performedTimeService.modifyPerformedTime,

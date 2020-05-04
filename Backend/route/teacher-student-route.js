@@ -11,7 +11,7 @@ router.get('/:id', auth, teacherStudentController.getAStudent);
 router.get('/', auth, teacherStudentController.getAllStudents);
 router.post('/time', auth, teacherStudentController.modifyPerformedTime);
 router.post('/log', auth, teacherStudentController.createLog);
-router.post('/timeplan', auth, teacherStudentController.updateTimeplan);
+router.post('/timeplan', auth, teacherStudentController.updateStudentTimeplan);
 router.put('/presence', auth, teacherStudentController.modifyPresence);
 
 module.exports = router;

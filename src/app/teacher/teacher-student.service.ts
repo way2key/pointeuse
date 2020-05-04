@@ -62,7 +62,7 @@ export class TeacherStudentService {
     return this.http.post<any>(url, payload, this.httpOptions);
   }
 
-  updateTimeplan(payload) {
+  updateStudentTimeplan(payload) {
     const url = this.apiUrl + '/timeplan';
     return this.http.post<any>(url, payload, this.httpOptions);
   }

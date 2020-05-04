@@ -87,6 +87,19 @@ exports.getStudentBreather = (studentHash) => {
   });
 }
 
+exports.updateStudentTimeplan = (payload) => {
+  return new Promise( (resolve, reject) => {
+    User.findOneAndUpdate({_id:payload._id},{$set:{timeplanId:payload.timeplan}})
+    .then(
+      () => resolve("Succes")
+    )
+    .catch(
+      error => reject("Impossible de modifier le timeplan <= " + error)
+    )
+  });
+}
+
+
 let breakPerformedInInterval = (shifts,min,max,interval) => {
   let time = 0;
   console.log("function!");

@@ -74,17 +74,15 @@ exports.modifyPresence = (req, res) => {
 exports.getStudentPresence = (req, res) => {
   action.checkStudentPresence(req.params.hash)
   .then(
-    presence => {
-      res.status(200).json(presence);
-    }
+    presence => res.status(200).json(presence)
   )
   .catch(
     error => res.status(200).json(false)
   )
 }
 
-exports.updateTimeplan = (req, res) => {
-   action.updateTimeplan(req.body)
+exports.updateStudentTimeplan = (req, res) => {
+   action.updateStudentTimeplan(req.body)
    .then(
      () => res.status(200).json("Horaire modifié avec succès")
    )

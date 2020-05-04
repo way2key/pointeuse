@@ -26,7 +26,7 @@ export class TeacherStudentTimeplanComponent implements OnInit {
     this.students = this.data.students;
   }
 
-  updateTimeplan() {
+  updateStudentTimeplan() {
     this.students.forEach(student => {
       let payload = {timeplan: this.selectedTimeplan, _id:student._id};
       let payload2 = {
@@ -35,7 +35,7 @@ export class TeacherStudentTimeplanComponent implements OnInit {
         "studentId": student._id,
         "operation": "Horaire selectionné"
       }
-      this.teacherStudentService.updateTimeplan(payload).subscribe();
+      this.teacherStudentService.updateStudentTimeplan(payload).subscribe();
       this.createLog(payload2);
     });
   }
