@@ -38,7 +38,9 @@ export class TeacherStudentTimeComponent implements OnInit {
   ngOnInit(): void {
     this.getATeacher();
     this.initForm();
-    this.data.forEach(student => {
+
+    this.data.students.forEach(student => {
+
       if(student.isSelected) {
         this.students.push(student)
       }
@@ -59,17 +61,11 @@ export class TeacherStudentTimeComponent implements OnInit {
     if (this.choice === 1) {
       hours = -hours;
     }
-    this.students.forEach(student => {
-      let payload = {time: hours, hash:student.hash}
-      this.modifyTime(payload);
-      let payload2 = {
-        "teacher": this.teacher.firstname + " " + this.teacher.lastname,
-        "message": this.timeForm.value.message,
-        "studentId": student._id,
-        "operation": "Temps modifié"
-      };
-      this.createLog(payload2);
+    this.students.forEach(
+      (student) => {
+        this.modifyTime(hours,student);
     });
+
   }
 
   alphabeticalSort(lastname: string) {
@@ -92,17 +88,34 @@ export class TeacherStudentTimeComponent implements OnInit {
     this.choice = 1;
   }
 
-  modifyTime(payload) {
-    this.teacherStudentService.modifyPerformedTime(payload)
+  modifyTime(hours, student) {
+    const payload = {time: hours, hash:student.hash};
+    return this.teacherStudentService.modifyPerformedTime(payload)
     .subscribe(
-      result => console.log(result)
+      (result) => {
+        console.log(result)
+      },
+      (error) => {
+        console.log(error);
+      },
+      () => {
+        this.createLog(student);
+      }
     );
   }
 
-  createLog(payload) {
+  createLog(student) {
+    const payload = {
+      "teacher": this.teacher.firstname + " " + this.teacher.lastname,
+      "message": this.timeForm.value.message,
+      "studentId": student._id,
+      "operation": "Temps modifié"
+    }
     this.teacherStudentService.createLog(payload)
     .subscribe(
-      result => console.log(result)
+      (result) => {
+        console.log(result)
+      }
     )
   }
 
@@ -115,4 +128,9 @@ export class TeacherStudentTimeComponent implements OnInit {
     )
   }
 
+  async asyncForEach(array, callback) {
+    for (let index = 0; index < array.length; index++) {
+      await callback(array[index], index, array);
+    }
+  }
 }

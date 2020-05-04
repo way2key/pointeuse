@@ -8,8 +8,8 @@
   </div>
   <br>
   <div class="buttons has-addons">
-    <button mat-button mat-dialog-close class="button is-success" type="submit" (click)="addTime()" >Ajouter du temps</button>
-    <button mat-button mat-dialog-close class="button is-danger"  type="submit" (click)="removeTime()">Retirer du temps</button>
+    <button mat-button [mat-dialog-close]="true" class="button is-success" type="submit" (click)="addTime()" >Ajouter du temps</button>
+    <button mat-button [mat-dialog-close]="true" class="button is-danger"  type="submit" (click)="removeTime()">Retirer du temps</button>
   </div>
   <h4>Elèves concernés : </h4>
   <ul>
