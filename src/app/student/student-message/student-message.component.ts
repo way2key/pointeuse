@@ -36,10 +36,10 @@ export class StudentMessageComponent implements OnInit {
       status => {
         this.status = status
         if(status){
-          this.status = 0;
+          this.status = true;
           this.sound.clockIn.play();
         } else {
-          this.status = 1;
+          this.status = false;
           this.sound.clockOff.play();
         }
       }

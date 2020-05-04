@@ -17,6 +17,7 @@
    </form>
     <div class="buttons has-addons">
       <button class="button is-link" (click)="modifyTime()" [disabled]="onCheckBox()">Modifier le temps</button>
+      <button class="button is-info" (click)="modifyHash()" [disabled]="onCheckBox()">Modifier le hash</button>
       <button class="button is-success"(click)="modifyPresence()" [disabled]="onCheckBox()">Modifier la présence</button>
       <button class="button is-warning" (click)="assignTimeplan()" [disabled]="onCheckBox()">Attribuer un horaire</button>
       <button class="button" id="allButton" (click)="onAll()">Tout sélectionner</button>
@@ -47,6 +48,9 @@
           </div>
           <div class="timeplan">
             <p> {{getTimeplanName(s.timeplanId)}}</p>
+          </div>
+          <div class="hash">
+            <p>{{s.hash}}</p>
           </div>
         </div>
         <mat-checkbox class="checkbox" [checked]="s.isSelected" [id]="s.hash"></mat-checkbox>

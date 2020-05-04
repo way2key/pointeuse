@@ -7,6 +7,8 @@ import { map, startWith } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { TeacherStudentTimeComponent } from '../teacher-student-time/teacher-student-time.component';
 import { TeacherStudentTimeplanComponent }from '../teacher-student-timeplan/teacher-student-timeplan.component';
+import { TeacherStudentHashComponent }from '../teacher-student-hash/teacher-student-hash.component';
+
 import * as moment from 'moment';
 
 
@@ -178,6 +180,22 @@ export class TeacherStudentComponent implements OnInit {
     });
   }
 
+  modifyHash() {
+    let selectedStudent = this.students.filter(s => s.isSelected);
+    let dialogRef = this.dialog.open(TeacherStudentHashComponent, {data:{students:selectedStudent}});
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this.openSnackBar('Le hash a été mis à jour');
+      } else {
+        this.openSnackBar("Le hash n'a été mis à jour");
+      }
+
+      this.getStudents();
+      this.onAll();
+    })
+  }
+
   createLog(payload) {
     this.teacherStudentService.createLog(payload)
     .subscribe(
@@ -195,7 +213,6 @@ export class TeacherStudentComponent implements OnInit {
       } else {
         this.openSnackBar('Horaire pas changé');
       }
-
       this.getStudents();
       this.onAll();
     })

@@ -27,6 +27,8 @@ export class TeacherStudentTimeplanComponent implements OnInit {
   }
 
   updateStudentTimeplan() {
+    console.log("no");
+
     this.students.forEach(student => {
       let payload = {timeplan: this.selectedTimeplan, _id:student._id};
       let payload2 = {

@@ -19,8 +19,8 @@ exports.getAStudent = (req, res)=>{
 
 exports.modifyPerformedTime = (req, res) => {
   performedTimeService.modifyPerformedTime(req.body.time,req.body.hash)
-  .then( response => res.status(200).json({response}))
-  .catch( error => res.status(500).json(error));
+  .then(response => res.status(200).json({response}))
+  .catch(error => res.status(500).json(error));
 }
 
 exports.createLog = (req, res) => {
@@ -89,4 +89,14 @@ exports.updateStudentTimeplan = (req, res) => {
    .catch(
      error => res.status(500).json("Impossible de modifier l'horaire <= "+error)
    )
+}
+
+exports.updateStudentHash = (req, res) => {
+  action.updateStudentHash(req.body)
+  .then(
+    () => res.status(200).json("Hash modifié")
+  )
+  .catch(
+    error => res.status(500).json("Impossible de modifier le hash <= " + error)
+  )
 }

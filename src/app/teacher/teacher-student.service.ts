@@ -67,4 +67,11 @@ export class TeacherStudentService {
     return this.http.post<any>(url, payload, this.httpOptions);
   }
 
+  updateStudentHash(payload) {
+    const url = this.apiUrl + '/hash';
+    console.log(payload);
+
+    return this.http.post<any>(url, payload, this.httpOptions);
+  }
+
 }

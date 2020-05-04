@@ -99,7 +99,17 @@ exports.updateStudentTimeplan = (payload) => {
   });
 }
 
-
+exports.updateStudentHash = (payload) => {
+  return new Promise( (resolve, reject) => {
+    User.findOneAndUpdate({_id:payload._id},{$set:{hash:payload.hash}})
+    .then(
+      () => resolve("Succes")
+    )
+    .catch(
+      error => reject("Impossible de modifier le hash <= " + error)
+    )
+  })
+}
 let breakPerformedInInterval = (shifts,min,max,interval) => {
   let time = 0;
   console.log("function!");

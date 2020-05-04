@@ -57,6 +57,7 @@ import { StudentTimelineComponent } from './student/student-timeline/student-tim
 //Guards
 import { TeacherAuthGuard } from './teacher/teacher-auth.guard';
 import { TeacherStudentTimeplanComponent } from './teacher/teacher-student-timeplan/teacher-student-timeplan.component';
+import { TeacherStudentHashComponent } from './teacher/teacher-student-hash/teacher-student-hash.component';
 
 
 
@@ -83,6 +84,7 @@ import { TeacherStudentTimeplanComponent } from './teacher/teacher-student-timep
     StudentMessageComponent,
     StudentTimelineComponent,
     TeacherStudentTimeplanComponent,
+    TeacherStudentHashComponent,
   ],
   entryComponents:[StudentInfoComponent],
   imports: [
