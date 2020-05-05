@@ -11,12 +11,7 @@ exports.getStudentCurrentDay = (studentHash) => {
     .then(
       student => {
         let dateId = [];
-        const now = new Date();
-        let year = now.getFullYear();
-        let month = now.getMonth();
-        let day = now.getDate();
-        let today = ((new Date(year, month, day)).getTime()/1000);
-        let todayId = today.toString(16) +'0000000000000000';
+        let todayId = (moment().unix() - moment.duration(moment().format('HH:mm:ss')).asSeconds()).toString(16) +'0000000000000000';
 
         for(day of student.data) {
           if(day >= todayId) {
@@ -44,24 +39,23 @@ exports.createDayForEachUser = () => {
   .then(
     students => {
       for(let student of students){
-        const newDay = new Day({
-          date: moment().format("YYYY/MM/DD"),
-          present: false
-        });
-        newDay.save();
-        User.findOneAndUpdate({_id: student.id},{'$push':{data: newDay.id}})
-        .then(
-          () => {
-            console.log(" Jours créés avec succès !");
-          }
-        );
+        this.createDay(student.hash);
       }
     }
   )
 }
 
 exports.createDay = (studentHash) => {
-  studentService.getStudentFromHash(studentHash)
+  this.isTodayDayExistingForStudent(studentHash)
+  .then(
+    answer => {
+      if(!answer){
+        return studentService.getStudentFromHash(studentHash);
+      }else{
+        throw 'Le jour existe déjà';
+      }
+    }
+  )
   .then(
     student => {
       const newDay = new Day({
@@ -95,15 +89,12 @@ exports.getStudentSpecificDayId = (studentHash, date) => {
         (student) => {
           for(let d of student.data) {
             if(d >= dayIdMin && d < dayIdMax){
-
-              //resolve(d);
               possibleDays.push(d);
             };
           };
           if(possibleDays.length === 1) {
             resolve(possibleDays[0]);
           } else {
-
             throw error;
           }
         }
@@ -115,3 +106,28 @@ exports.getStudentSpecificDayId = (studentHash, date) => {
       )
   });
 };
+
+exports.isTodayDayExistingForStudent = (studentHash) => {
+  return new Promise( (resolve, reject) => {
+    User.findOne({hash: studentHash})
+    .then(
+      student => {
+        let todayId = (moment().unix() - moment.duration(moment().format('HH:mm:ss')).asSeconds()).toString(16)+'0000000000000000';
+        let a = 0;
+        student.data.map(day => {
+          if(day >= todayId){
+            a++;
+          }
+        })
+        if(a===1){
+          resolve(true);
+        }else{
+          resolve(false);
+        }
+      }
+    )
+    .catch(
+      error => reject("Le stagiaire n'existe pas. <= " + error)
+    )
+  })
+}

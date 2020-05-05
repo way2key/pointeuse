@@ -43,10 +43,7 @@ exports.getStudentClocksSpecificDay = (req, res) => {
     }
   )
   .catch(
-    (error) => {
-      console.log(error);
-      res.status(500).json({error});
-    }
+    error => res.status(500).json("Impossible de récupérer les clocks pour ce jour <= " + error)
   )
 }
 
@@ -63,6 +60,6 @@ exports.getStudentDayTime = (req, res) => {
     }
   )
   .catch(
-    error => res.status(400).json(error)
+    error => res.status(400).json(" Impossible de récupérer le temps <= " + error)
   )
 }

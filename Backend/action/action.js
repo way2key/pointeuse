@@ -17,6 +17,7 @@ const action = {
   createDayForEachUser: dayService.createDayForEachUser,
   getStudentCurrentDay: dayService.getStudentCurrentDay,
   getStudentSpecificDayId: dayService.getStudentSpecificDayId,
+  isTodayDayExistingForStudent: dayService.isTodayDayExistingForStudent,
   getTeacherFromToken: tokenService.getTeacherFromToken,
   checkClockStatus: statusService.checkClockStatus,
   checkStudentStatus: statusService.checkStudentStatus,

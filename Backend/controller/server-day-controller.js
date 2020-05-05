@@ -20,3 +20,13 @@ exports.unallowedPresenceIncident = (req, res) => {
     }
   )
 }
+
+exports.isTodayDayExistingForStudent = (req, res) => {
+  action.isTodayDayExistingForStudent(req.params.hash)
+  .then(
+    answer => res.status(200).json(answer)
+  )
+  .catch(
+    error => res.status(500).json("Impossible de vérifier si le jour présent existe <= "+ error)
+  )
+}
