@@ -2,6 +2,7 @@ const User = require('../data-schematic/user-schematic');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const secret = require('../secret.js');
+const dayService = require('../action/day-service.js');
 
 exports.login = (req, res, next) => {
     User.findOne({firstname: req.body.username})
@@ -52,14 +53,18 @@ exports.signupUser = (req, res, next) => {
     ...req.body
   });
   usr.save()
-  .then(() => res.status(201).json({ message: 'Utilisateur enregistré'}))
-  .catch(error => res.status(400).json({error}));
+  .then(
+    () => {return dayService.createDay(usr.hash);}
+  )
+  .then(
+    () => res.status(201).json({ message: 'Utilisateur enregistré'})
+  )
+  .catch(error => res.status(400).json(error));
 }
 
 exports.verifyToken = (req, res, next) => {
   try{
     verifiedJwt = jwt.verify(req.params.token, secret);
-
     let userId = verifiedJwt.userId;
     User.findOne({_id: userId})
     .then((user) => {

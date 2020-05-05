@@ -46,34 +46,38 @@ exports.createDayForEachUser = () => {
 }
 
 exports.createDay = (studentHash) => {
-  this.isTodayDayExistingForStudent(studentHash)
-  .then(
-    answer => {
-      if(!answer){
-        return studentService.getStudentFromHash(studentHash);
-      }else{
-        throw 'Le jour existe déjà';
-      }
-    }
-  )
-  .then(
-    student => {
-      const newDay = new Day({
-        date: moment().format("YYYY/MM/DD"),
-        present: false
-      });
-      newDay.save();
-      User.findOneAndUpdate({_id: student.id},{'$push':{data: newDay.id}})
-      .then(
-        () => {
-          console.log(" Jour ajouté à l'utilisateur");
+  return new Promise( (resolve, reject) => {
+    this.isTodayDayExistingForStudent(studentHash)
+    .then(
+      answer => {
+        if(!answer){
+          return studentService.getStudentFromHash(studentHash);
+        }else{
+          throw 'Le jour existe déjà';
         }
-      );
-    }
-  )
-  .catch(
-    error => console.log("Impossible de créer un jour pour l'étudiant <= " + error)
-  )
+      }
+    )
+    .then(
+      student => {
+        const newDay = new Day({
+          date: moment().format("YYYY/MM/DD"),
+          present: false
+        });
+        newDay.save()
+        .then(
+          () => {
+            return User.findOneAndUpdate({_id: student.id},{'$push':{data: newDay.id}});
+          }
+        )
+      }
+    )
+    .then(
+      () => resolve("Jour ajouté à l'utilisateur")
+    )
+    .catch(
+      error => reject("Impossible de créer un jour pour l'étudiant <= " + error)
+    )
+  })
 };
 
 exports.getStudentSpecificDayId = (studentHash, date) => {
