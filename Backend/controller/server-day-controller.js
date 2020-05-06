@@ -10,14 +10,10 @@ exports.createDay = (req, res) => {
 exports.unallowedPresenceIncident = (req, res) => {
   action.unallowedPresenceIncident()
   .then(
-    (message) => {
-      res.status(200).json(message)
-    }
+    message => res.status(200).json(message)
   )
   .catch(
-    (error) => {
-      res.status(400).json(error)
-    }
+    error => res.status(500).json("Impossible de créer l'incident présence non autorisée <= " + error)
   )
 }
 

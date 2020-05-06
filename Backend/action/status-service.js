@@ -30,7 +30,7 @@ exports.checkClockStatus = (clockId) => {
     )
     .catch(
       error => {
-        resolve(true);
+        resolve(false);
       }
     )
   });
@@ -51,12 +51,10 @@ exports.checkStudentStatus = (studentHash) => {
       }
     )
     .then(
-      status => {
-        resolve(status);
-      }
+      status => resolve(status)
     )
     .catch(
-      error => reject(" Impossible de voir le status <= " + error)
+      error => resolve(false)
     )
   });
 }

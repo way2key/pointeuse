@@ -38,10 +38,15 @@ exports.createDayForEachUser = () => {
   User.find({type:0})
   .then(
     students => {
-      for(let student of students){
-        this.createDay(student.hash);
-      }
+      const promises = students.map(s => { return this.createDay(s.hash);})
+      return Promise.all(promises)
     }
+  )
+  .then(
+    () => console.log("Ajout des jours terminé")
+  )
+  .catch(
+    error => console.log(error)
   )
 }
 

@@ -21,7 +21,7 @@
       <button class="button is-success"(click)="modifyPresence()" [disabled]="onCheckBox()">Modifier la présence</button>
       <button class="button is-warning" (click)="assignTimeplan()" [disabled]="onCheckBox()">Attribuer un horaire</button>
       <button class="button" id="allButton" (click)="onAll()">Tout sélectionner</button>
-      <button class="button is-info " id="allButton" (click)="getStudents()">
+      <button class="button is-info " id="allButton" (click)="ngOnInit()">
         <i class="fas fa-sync"></i>
       </button>
     </div>
@@ -35,10 +35,10 @@
       <div class="student" (click)="s.isSelected=!s.isSelected">
         <div class="student-info">
           <div class="icons">
-            <i *ngIf="s.status"    class="fas fa-coffee fa-2x np"></i>
-            <i *ngIf="!s.status"     class="fas fa-check fa-2x p"></i>
-            <i *ngIf="!s.presence"  class="fas fa-calendar-times fa-2x np"></i>
+            <i *ngIf="s.status"     class="fas fa-check fa-2x p"></i>
+            <i *ngIf="!s.status"    class="fas fa-coffee fa-2x np"></i>
             <i *ngIf="s.presence"   class="fas fa-calendar-check fa-2x p"></i>
+            <i *ngIf="!s.presence"  class="fas fa-calendar-times fa-2x np"></i>
           </div>
           <div class="name">
             <h1>{{s.firstname}} {{s.lastname}}</h1>

@@ -71,10 +71,10 @@ exports.unallowedPresenceIncident = (studentHash, studentId) => {
     if(currentTime < timeplanStart || currentTime >= timeplanEnd) {
       module.exports.saveNewIncident(studentId, "En dehors des heures de travail")
       .then(
-        resolve('Pas dans les horaires')
+        () => resolve('Pas dans les horaires')
       )
       .catch(
-        reject()
+        error => reject('Impossible de créer l\'incident de présence non autorisée <= ' + error)
       )
     } else if (0 === moment().days()) {
       module.exports.saveNewIncident(studentId, "En dehors des heures de travail")

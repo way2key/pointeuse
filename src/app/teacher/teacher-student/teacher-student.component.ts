@@ -3,7 +3,8 @@ import { TeacherStudentService } from '../teacher-student.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { forkJoin, of, throwError } from 'rxjs';
+import { map, startWith, catchError } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { TeacherStudentTimeComponent } from '../teacher-student-time/teacher-student-time.component';
 import { TeacherStudentTimeplanComponent }from '../teacher-student-timeplan/teacher-student-timeplan.component';
@@ -160,29 +161,36 @@ export class TeacherStudentComponent implements OnInit {
   }
 
   modifyPresence() {
-    this.students.forEach(student => {
-      if(student.isSelected) {
-        let payload = { hash: student.hash };
-        let payload2 = {
-          "teacher": this.teacher.firstname + " " + this.teacher.lastname,
-          "message": "",
-          "studentId": student._id,
-          "operation": "Presence modifiée"
-        };
-        this.teacherStudentService.modifyPresence(payload)
-        .subscribe(
-          success => {
-            this.getStudents();
-            this.openSnackBar('Présence modifiée avec succès');
-            this.onAll();
-            this.createLog(payload2);
-          },
-          error => {
-            this.openSnackBar(error.error);
-          }
-        );
-      }
+    let source$ = this.students.filter(s => s.isSelected).map(s => {
+      let log = {
+        "teacher": this.teacher.firstname + " " + this.teacher.lastname,
+        "message": "",
+        "studentId": s._id,
+        "operation": "Presence modifiée"
+      };
+      this.createLog(log);
+      let payload = {hash: s.hash};
+      return this.teacherStudentService.modifyPresence(payload);
     });
+
+    forkJoin(source$)
+    .pipe(
+      catchError(
+        error => {throw error;}
+      )
+    )
+    .subscribe(
+      () => {
+        this.openSnackBar('Présence modifiée avec succès');
+        this.onAll();
+        this.getStudents();
+      },
+      (error) => {
+        this.openSnackBar(error.error);
+        this.onAll();
+        this.getStudents();
+      }
+    )
   }
 
   modifyHash() {
