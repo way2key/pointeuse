@@ -69,9 +69,12 @@ export class TeacherStudentService {
 
   updateStudentHash(payload) {
     const url = this.apiUrl + '/hash';
-    console.log(payload);
-
     return this.http.post<any>(url, payload, this.httpOptions);
+  }
+
+  deleteStudent(studentId) {
+    const url = this.apiUrl + '/' + studentId;
+    return this.http.delete<any>(url, this.httpOptions);
   }
 
 }

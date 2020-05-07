@@ -30,6 +30,7 @@ const action = {
   updateStudentWeek: studentService.updateStudentWeek,
   getStudentBreather: studentService.getStudentBreather,
   updateStudentHash: studentService.updateStudentHash,
+  deleteStudent: studentService.deleteStudent,
   updatePerformedTime: performedTimeService.updatePerformedTime,
   modifyPerformedTime: performedTimeService.modifyPerformedTime,
   checkIncident: incidentService.checkIncident,

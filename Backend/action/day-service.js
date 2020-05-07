@@ -1,9 +1,11 @@
 const moment = require('moment');
 const teacherDB = require('../database/teacherDB');
 const studentService = require('./student-service.js');
+const clockService = require('./clock-service.js');
 
 const Day = require('../data-schematic/day-schematic');
 const User = require('../data-schematic/user-schematic');
+const Clock = require('../data-schematic/clock-schematic');
 
 exports.getStudentCurrentDay = (studentHash) => {
   return new Promise( (resolve, reject) => {
@@ -137,6 +139,27 @@ exports.isTodayDayExistingForStudent = (studentHash) => {
     )
     .catch(
       error => reject("Le stagiaire n'existe pas. <= " + error)
+    )
+  })
+}
+
+exports.deleteDay = (dayId) => {
+  return new Promise( (resolve, reject) => {
+    Clock.find({dayId:dayId})
+    .then(
+      clocks => {
+        const promises = clocks.map(clock => { return clockService.deleteClock(clock._id); });
+        return Promise.all(promises);
+      }
+    )
+    .then(
+      () => { return Day.findByIdAndRemove(dayId); }
+    )
+    .then(
+      () => resolve("Jour supprimé")
+    )
+    .catch(
+      error => reject("Impossible de supprimer le jour " + dayId + " <= " + error)
     )
   })
 }

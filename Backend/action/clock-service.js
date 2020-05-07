@@ -83,17 +83,14 @@ exports.clockAStudent = (studentHash) => {
   })
 }
 
-exports.createLastClock = (studentHash, dayId, time) => {
-    return new Promise( (resolve, reject) => {
-      const newClock = new Clock({
-        dayId: dayId,
-        time: time
-      });
-      return newClock.save().
-      then(
-        () => {
-          resolve('last clock created');
-        }
-      )
-    })
+exports.deleteClock = (clockId) => {
+  return new Promise( (resolve, reject) => {
+    Clock.findByIdAndRemove(clockId)
+    .then(
+      () => resolve("Clock supprimé")
+    )
+    .catch(
+      error => reject("Impossible de supprimer le Clock " + clockId + " <= " + error)
+    )
+  })
 }

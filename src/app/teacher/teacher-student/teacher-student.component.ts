@@ -7,8 +7,8 @@ import { forkJoin, of, throwError } from 'rxjs';
 import { map, startWith, catchError } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { TeacherStudentTimeComponent } from '../teacher-student-time/teacher-student-time.component';
-import { TeacherStudentWeekComponent }from '../teacher-student-week/teacher-student-week.component';
-import { TeacherStudentHashComponent }from '../teacher-student-hash/teacher-student-hash.component';
+import { TeacherStudentHashComponent } from '../teacher-student-hash/teacher-student-hash.component';
+import { TeacherStudentWeekComponent } from '../teacher-student-week/teacher-student-week.component';
 
 import * as moment from 'moment';
 
@@ -40,6 +40,47 @@ export class TeacherStudentComponent implements OnInit {
     this.getWeek();
   }
 
+  onAll() {
+    if (this.students.every(student =>student.isSelected)){
+      this.deselectAll();
+      document.getElementById("allButton").innerHTML = "Tout sélectionner";
+    } else {
+      this.selectAll();
+      document.getElementById("allButton").innerHTML = "Tout désélectionner";
+    }
+  }
+
+  selectAll() {
+    this.students.forEach(student => {
+      student.isSelected = true;
+    });
+    this.disabled = false;
+  }
+
+  deselectAll() {
+    this.students.forEach(student => {
+      student.isSelected = false;
+    });
+    this.disabled = true;
+  }
+
+  onCheckBox() {
+    if (this.students.every(student => student.isSelected)){
+        document.getElementById("allButton").innerHTML = "Tout déselectionner";
+    } else {
+        document.getElementById("allButton").innerHTML = "Tout sélectionner";
+    }
+
+    if(this.students.some((student) => student.isSelected)) {
+      this.disabled = false;
+
+      return false;
+    } else {
+      this.disabled = true;
+      return true;
+    }
+    this.clearSearchField();
+  }
 
   getStudents(): void {
     this.students = [];
@@ -84,6 +125,19 @@ export class TeacherStudentComponent implements OnInit {
     });
   }
 
+  getWeek(): void {
+    this.teacherStudentService.getWeek()
+    .subscribe(
+      weeks => {
+        this.week=[];
+        for (let t of weeks) {
+          this.week.push({name:t.name,id:t._id})
+        }
+      },
+      error => console.log(error)
+    )
+  }
+
   getStudentStatus(studentHash) {
     return new Promise(( resolve, reject) => {
       this.teacherStudentService.getStudentStatus(studentHash)
@@ -102,46 +156,23 @@ export class TeacherStudentComponent implements OnInit {
     })
   }
 
-  onAll() {
-    if (this.students.every(student =>student.isSelected)){
-      this.deselectAll();
-      document.getElementById("allButton").innerHTML = "Tout sélectionner";
-    } else {
-      this.selectAll();
-      document.getElementById("allButton").innerHTML = "Tout désélectionner";
-    }
+  getWeekName(id) {
+    let out = "";
+    this.week.map(t => {
+      if(t.id == id){
+        out = t.name;
+      }
+    })
+    return out;
   }
 
-  selectAll() {
-    this.students.forEach(student => {
-      student.isSelected = true;
-    });
-    this.disabled = false;
-  }
-
-  deselectAll() {
-    this.students.forEach(student => {
-      student.isSelected = false;
-    });
-    this.disabled = true;
-  }
-
-  onCheckBox() {
-    if (this.students.every(student => student.isSelected)){
-        document.getElementById("allButton").innerHTML = "Tout déselectionner";
-    } else {
-        document.getElementById("allButton").innerHTML = "Tout sélectionner";
+  getATeacher(){
+    this.teacherStudentService.getATeacher()
+    .subscribe(
+      teacher => {
+        this.teacher = teacher;
     }
-
-    if(this.students.some((student) => student.isSelected)) {
-      this.disabled = false;
-
-      return false;
-    } else {
-      this.disabled = true;
-      return true;
-    }
-    this.clearSearchField();
+    )
   }
 
   modifyTime() {
@@ -228,6 +259,28 @@ export class TeacherStudentComponent implements OnInit {
     })
   }
 
+  deleteStudent() {
+    let source$ = this.students.filter(s => s.isSelected).map(s => {return this.teacherStudentService.deleteStudent(s._id);});
+    forkJoin(source$)
+    .pipe(
+      catchError(
+        error => {throw error;}
+      )
+    )
+    .subscribe(
+      () => {
+        this.openSnackBar('Stagiaires supprimé avec succès');
+        this.onAll();
+        this.getStudents();
+      },
+      (error) => {
+        this.openSnackBar(error.error);
+        this.onAll();
+        this.getStudents();
+      }
+    )
+  }
+
   openSnackBar(message: string) {
     this.snackBar.open(message, 'FERMER', {
       duration: 2000,
@@ -245,29 +298,6 @@ export class TeacherStudentComponent implements OnInit {
       let name = student.firstname + ' ' + student.lastname;
       this.options.push(name);
     }
-  }
-
-  getWeek(): void {
-    this.teacherStudentService.getWeek()
-    .subscribe(
-      weeks => {
-        this.week=[];
-        for (let t of weeks) {
-          this.week.push({name:t.name,id:t._id})
-        }
-      },
-      error => console.log(error)
-    )
-  }
-
-  getWeekName(id) {
-    let out = "";
-    this.week.map(t => {
-      if(t.id == id){
-        out = t.name;
-      }
-    })
-    return out;
   }
 
   alphabeticalSort(lastname: string) {
@@ -324,15 +354,6 @@ export class TeacherStudentComponent implements OnInit {
     }
 
     return time;
-  }
-
-  getATeacher(){
-    this.teacherStudentService.getATeacher()
-    .subscribe(
-      teacher => {
-        this.teacher = teacher;
-    }
-    )
   }
 
 }

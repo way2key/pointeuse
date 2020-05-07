@@ -110,6 +110,28 @@ exports.updateStudentHash = (payload) => {
     )
   })
 }
+
+exports.deleteStudent = (studentId) => {
+  return new Promise( (resolve, reject) => {
+    User.findOne({_id:studentId})
+    .then(
+      user => {
+        const promises = user.data.map(dayId => {return dayService.deleteDay(dayId)});
+        return Promise.all(promises);
+      }
+    )
+    .then(
+      () => {return User.findByIdAndRemove(studentId)}
+    )
+    .then(
+      () => resolve("stagiaire supprimé")
+    )
+    .catch(
+      error => reject("Impossible de supprimer le Stagiaire " + studentId + " <= " + error)
+    )
+  })
+}
+
 let breakPerformedInInterval = (shifts,min,max,interval) => {
   let time = 0;
   console.log("function!");

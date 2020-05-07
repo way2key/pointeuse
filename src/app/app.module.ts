@@ -40,6 +40,8 @@ import { TeacherDashboardComponent } from './teacher/teacher-dashboard/teacher-d
 import { TeacherClockComponent } from './teacher/teacher-clock/teacher-clock.component';
 import { TeacherStudentComponent } from './teacher/teacher-student/teacher-student.component';
 import { TeacherStudentTimeComponent } from './teacher/teacher-student-time/teacher-student-time.component';
+import { TeacherStudentWeekComponent } from './teacher/teacher-student-week/teacher-student-week.component';
+import { TeacherStudentHashComponent } from './teacher/teacher-student-hash/teacher-student-hash.component';
 import { TeacherHistComponent } from './teacher/teacher-hist/teacher-hist.component';
 import { TeacherHistStatComponent } from './teacher/teacher-hist-stat/teacher-hist-stat.component';
 import { TeacherHistLogComponent } from './teacher/teacher-hist-log/teacher-hist-log.component';
@@ -47,8 +49,6 @@ import { TeacherHistIncidentComponent } from './teacher/teacher-hist-incident/te
 import { TeacherHistMoreComponent } from './teacher/teacher-hist-more/teacher-hist-more.component';
 import { TeacherSettingComponent } from './teacher/teacher-setting/teacher-setting.component';
 import { TeacherInfoComponent } from './teacher/teacher-info/teacher-info.component';
-import { TeacherStudentWeekComponent } from './teacher/teacher-student-week/teacher-student-week.component';
-import { TeacherStudentHashComponent } from './teacher/teacher-student-hash/teacher-student-hash.component';
 
 //Components students
 import { StudentMainComponent } from './student/student-main/student-main.component';
@@ -72,6 +72,8 @@ import { TeacherAuthGuard } from './teacher/teacher-auth.guard';
     TeacherClockComponent,
     TeacherStudentComponent,
     TeacherStudentTimeComponent,
+    TeacherStudentWeekComponent,
+    TeacherStudentHashComponent,
     TeacherHistComponent,
     TeacherHistStatComponent,
     TeacherHistLogComponent,
@@ -83,8 +85,6 @@ import { TeacherAuthGuard } from './teacher/teacher-auth.guard';
     StudentInfoComponent,
     StudentMessageComponent,
     StudentTimelineComponent,
-    TeacherStudentWeekComponent,
-    TeacherStudentHashComponent,
   ],
   entryComponents:[StudentInfoComponent],
   imports: [

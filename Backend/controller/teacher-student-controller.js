@@ -100,3 +100,13 @@ exports.updateStudentHash = (req, res) => {
     error => res.status(500).json("Impossible de modifier le hash <= " + error)
   )
 }
+
+exports.deleteStudent = (req, res) => {
+  action.deleteStudent(req.params.id)
+  .then(
+    shift => res.status(200).json("Stagiaire supprimé")
+  )
+  .catch(
+    error => res.status(500).json("Impossible to delete student <= " + error)
+  )
+}
