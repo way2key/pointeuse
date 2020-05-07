@@ -47,6 +47,8 @@ import { TeacherHistIncidentComponent } from './teacher/teacher-hist-incident/te
 import { TeacherHistMoreComponent } from './teacher/teacher-hist-more/teacher-hist-more.component';
 import { TeacherSettingComponent } from './teacher/teacher-setting/teacher-setting.component';
 import { TeacherInfoComponent } from './teacher/teacher-info/teacher-info.component';
+import { TeacherStudentWeekComponent } from './teacher/teacher-student-week/teacher-student-week.component';
+import { TeacherStudentHashComponent } from './teacher/teacher-student-hash/teacher-student-hash.component';
 
 //Components students
 import { StudentMainComponent } from './student/student-main/student-main.component';
@@ -56,8 +58,6 @@ import { StudentTimelineComponent } from './student/student-timeline/student-tim
 
 //Guards
 import { TeacherAuthGuard } from './teacher/teacher-auth.guard';
-import { TeacherStudentTimeplanComponent } from './teacher/teacher-student-timeplan/teacher-student-timeplan.component';
-import { TeacherStudentHashComponent } from './teacher/teacher-student-hash/teacher-student-hash.component';
 
 
 
@@ -83,7 +83,7 @@ import { TeacherStudentHashComponent } from './teacher/teacher-student-hash/teac
     StudentInfoComponent,
     StudentMessageComponent,
     StudentTimelineComponent,
-    TeacherStudentTimeplanComponent,
+    TeacherStudentWeekComponent,
     TeacherStudentHashComponent,
   ],
   entryComponents:[StudentInfoComponent],

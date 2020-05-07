@@ -7,7 +7,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class TeacherStudentService {
   private apiUrl = 'http://localhost:3000/api/teacher-student';
-  private adminUrl = 'http://localhost:4000/api/admin-data-timeplan';
+  private adminUrl = 'http://localhost:4000/api/admin-data-week';
   private studentStatusUrl = 'http://localhost:3000/api/student';
   private auth = 'Bearer '+ localStorage.getItem("token");
   private httpOptions = {
@@ -47,8 +47,8 @@ export class TeacherStudentService {
     return this.http.post<any>(url, payload, this.httpOptions);
   }
 
-  getTimeplan() {
-    const url = this.adminUrl + "/timeplan";
+  getWeek() {
+    const url = this.adminUrl;
     return this.http.get<any>(url, this.httpOptions);
   }
 
@@ -62,8 +62,8 @@ export class TeacherStudentService {
     return this.http.post<any>(url, payload, this.httpOptions);
   }
 
-  updateStudentTimeplan(payload) {
-    const url = this.apiUrl + '/timeplan';
+  updateStudentWeek(payload) {
+    const url = this.apiUrl + '/week';
     return this.http.post<any>(url, payload, this.httpOptions);
   }
 

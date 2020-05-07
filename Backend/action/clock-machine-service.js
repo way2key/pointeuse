@@ -3,10 +3,10 @@ const User = require('../data-schematic/user-schematic');
 
 exports.createClockMachine = (machine) => {
   return new Promise( (resolve, reject) => {
-    let defaultTimeplan = "default"
+    let defaultWeek = "default"
     let newClockMachine = new ClockMachine({
       title: machine.title,
-      timeplan: defaultTimeplan
+      defaultWeek: defaultWeek
     });
 
     newClockMachine.save()
@@ -24,18 +24,6 @@ exports.getClockMachine = (clockMachineId) => {
     ClockMachine.findOne({_id:clockMachineId})
     .then((machine) => resolve(machine))
     .catch(error => reject("Unable to fetch ClockMachine from db <= "+error));
-  })
-}
-
-exports.setClockMachineTimeplan = (machineID, timeplanID) => {
-  return new Promise( (resolve, reject) => {
-    ClockMachine.findOneAndUpdate({_id:machineID},{$set: {timeplan:timeplanID}})
-    .then(
-      () => resolve("Timeplan Modifié")
-    )
-    .catch(
-      (error) => reject("Impossible de mettre à jour l'horaire <= "+error)
-    )
   })
 }
 
@@ -59,14 +47,14 @@ exports.updateClockMachineNotification = (clockMachine) => {
   })
 }
 
-exports.updateClockMachineTimeplan = (payload) => {
+exports.updateClockMachineDefaultWeek = (payload) => {
   return new Promise( (resolve, reject) => {
-    ClockMachine.findOneAndUpdate({_id:payload.id},{$set: {timeplan:payload.timeplan}})
+    ClockMachine.findOneAndUpdate({_id:payload.id},{$set: {defaultWeek:payload.defaultWeek}})
     .then(
       () => resolve("Succes")
     )
     .catch(
-      error => reject("Impossible de modifier le timeplan <= " + error)
+      error => reject("Impossible de modifier la semaine par défaut <= " + error)
     )
   });
 }

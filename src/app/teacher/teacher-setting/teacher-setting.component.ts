@@ -14,8 +14,8 @@ export class TeacherSettingComponent implements OnInit {
     newPassword: new FormControl(''),
     confirmPassword: new FormControl(''),
   });
-  timeplan;
-  selectedTimeplan:string;
+  defaultWeek;
+  selectedWeek:string;
   sounds;
   soundSetting;
   soundToPlay;
@@ -32,17 +32,17 @@ export class TeacherSettingComponent implements OnInit {
   ngOnInit(): void {
     this.loading = true;
     this.getClockMachine(this.clockMachineId);
-    this.getTimeplan();
+    this.getDefaultWeek();
     this.getSound();
   }
 
-  getTimeplan(): void {
-    this.teacherSettingService.getTimeplan()
+  getDefaultWeek(): void {
+    this.teacherSettingService.getDefaultWeek()
     .subscribe(
-      timeplans => {
-        this.timeplan=[];
-        for (let t of timeplans) {
-          this.timeplan.push({name:t.name,id:t._id})
+      defaultWeeks => {
+        this.defaultWeek = [];
+        for (let week of defaultWeeks) {
+          this.defaultWeek.push({name:week.name,id:week._id})
         }
       },
       error => console.log(error)
@@ -79,8 +79,8 @@ export class TeacherSettingComponent implements OnInit {
       machine => {
         this.clockMachine = machine;
 
-        if(machine.timeplan) {
-          this.selectedTimeplan = machine.timeplan;
+        if(machine.defaultWeek) {
+          this.selectedWeek = machine.defaultWeek;
         }
 
         if(machine.sound) {
@@ -107,13 +107,13 @@ export class TeacherSettingComponent implements OnInit {
     )
   }
 
-  updateTimeplan(): void {
+  updateDefaultWeek(): void {
     let payload = {
-      timeplan:this.selectedTimeplan,
+      defaultWeek: this.selectedWeek,
       id:this.clockMachineId
     }
 
-    this.teacherSettingService.updateClockMachineTimeplan(payload)
+    this.teacherSettingService.updateClockMachineDefaultWeek(payload)
     .subscribe(
       succes => console.log(succes),
       error => console.log(error)

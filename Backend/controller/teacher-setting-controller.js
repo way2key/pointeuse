@@ -63,12 +63,12 @@ exports.updateClockMachineSound = (req, res) => {
   )
 }
 
-exports.updateClockMachineTimeplan = (req, res) => {
-  action.updateClockMachineTimeplan(req.body)
+exports.updateClockMachineDefaultWeek = (req, res) => {
+  action.updateClockMachineDefaultWeek(req.body)
   .then(
-    () => res.status(200).json("Timeplan modifié avec succès !")
+    () => res.status(200).json("Semaine par défaut modifiée avec succès !")
   )
   .catch(
-    error => res.status(500).json(" Impossible de mettre à jour le timeplan <= ")
+    error => res.status(500).json(" Impossible de mettre à jour la semaine par défaut <= ")
   )
 }

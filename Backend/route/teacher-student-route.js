@@ -11,7 +11,7 @@ router.get('/:id', auth, teacherStudentController.getAStudent);
 router.get('/', auth, teacherStudentController.getAllStudents);
 router.post('/time', auth, teacherStudentController.modifyPerformedTime);
 router.post('/log', auth, teacherStudentController.createLog);
-router.post('/timeplan', auth, teacherStudentController.updateStudentTimeplan);
+router.post('/week', auth, teacherStudentController.updateStudentWeek);
 router.post('/hash', auth, teacherStudentController.updateStudentHash);
 router.put('/presence', auth, teacherStudentController.modifyPresence);
 

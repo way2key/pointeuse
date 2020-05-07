@@ -19,7 +19,7 @@
       <button class="button is-link" (click)="modifyTime()" [disabled]="onCheckBox()">Modifier le temps</button>
       <button class="button is-info" (click)="modifyHash()" [disabled]="onCheckBox()">Modifier le hash</button>
       <button class="button is-success"(click)="modifyPresence()" [disabled]="onCheckBox()">Modifier la présence</button>
-      <button class="button is-warning" (click)="assignTimeplan()" [disabled]="onCheckBox()">Attribuer un horaire</button>
+      <button class="button is-warning" (click)="assignWeek()" [disabled]="onCheckBox()">Attribuer une semaine</button>
       <button class="button" id="allButton" (click)="onAll()">Tout sélectionner</button>
       <button class="button is-info " id="allButton" (click)="ngOnInit()">
         <i class="fas fa-sync"></i>
@@ -46,8 +46,8 @@
           <div class="time">
             <p [ngClass]="{'performedTime': true, 'negativeTime': s.performedTime < -(0.1/12), 'positiveTime': s.performedTime >= -(0.1/12) }"> {{convertTime(s.performedTime)}} </p>
           </div>
-          <div class="timeplan">
-            <p> {{getTimeplanName(s.timeplanId)}}</p>
+          <div class="week">
+            <p> {{getWeekName(s.weekId)}}</p>
           </div>
           <div class="hash">
             <p>{{s.hash}}</p>

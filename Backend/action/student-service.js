@@ -87,9 +87,9 @@ exports.getStudentBreather = (studentHash) => {
   });
 }
 
-exports.updateStudentTimeplan = (payload) => {
+exports.updateStudentWeek = (payload) => {
   return new Promise( (resolve, reject) => {
-    User.findOneAndUpdate({_id:payload._id},{$set:{timeplanId:payload.timeplan}})
+    User.findOneAndUpdate({_id:payload._id},{$set:{weekId:payload.weekId}})
     .then(
       () => resolve("Succes")
     )

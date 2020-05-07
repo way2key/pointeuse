@@ -41,9 +41,9 @@
         <p class="title">Horaire par défaut📅</p>
         <p>Définissez l'horaire par défaut</p>
         <mat-form-field appearance='outline'>
-          <mat-select [(ngModel)]="selectedTimeplan"  (selectionChange)="updateTimeplan()">
-            <mat-option *ngFor="let tp of timeplan" [value]="tp.id">
-              {{tp.name}}
+          <mat-select [(ngModel)]="selectedWeek"  (selectionChange)="updateDefaultWeek()">
+            <mat-option *ngFor="let week of defaultWeek" [value]="week.id">
+              {{week.name}}
             </mat-option>
           </mat-select>
         </mat-form-field>

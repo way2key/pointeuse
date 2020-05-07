@@ -9,7 +9,7 @@ const userSchema = mongoose.Schema({
   type: {type: Number, required:true, default:0},
   data: {type: [String], required:false},
   performedTime:  {type: Number, required:false, default:0},
-  timeplanId: {type: String, required:false}
+  weekId: {type: String, required:false}
 });
 
 userSchema.plugin(uniqueValidator);

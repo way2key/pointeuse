@@ -81,13 +81,13 @@ exports.getStudentPresence = (req, res) => {
   )
 }
 
-exports.updateStudentTimeplan = (req, res) => {
-   action.updateStudentTimeplan(req.body)
+exports.updateStudentWeek = (req, res) => {
+   action.updateStudentWeek(req.body)
    .then(
-     () => res.status(200).json("Horaire modifié avec succès")
+     () => res.status(200).json("Semaine modifiée avec succès")
    )
    .catch(
-     error => res.status(500).json("Impossible de modifier l'horaire <= "+error)
+     error => res.status(500).json("Impossible de modifier la semaine <= "+error)
    )
 }
 

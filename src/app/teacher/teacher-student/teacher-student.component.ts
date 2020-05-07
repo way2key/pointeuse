@@ -7,7 +7,7 @@ import { forkJoin, of, throwError } from 'rxjs';
 import { map, startWith, catchError } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { TeacherStudentTimeComponent } from '../teacher-student-time/teacher-student-time.component';
-import { TeacherStudentTimeplanComponent }from '../teacher-student-timeplan/teacher-student-timeplan.component';
+import { TeacherStudentWeekComponent }from '../teacher-student-week/teacher-student-week.component';
 import { TeacherStudentHashComponent }from '../teacher-student-hash/teacher-student-hash.component';
 
 import * as moment from 'moment';
@@ -27,7 +27,7 @@ export class TeacherStudentComponent implements OnInit {
   options = [];
   filteredOptions: Observable<string[]>;
   searchField = '';
-  timeplan = [];
+  week = [];
   teacher;
 
   constructor(private teacherStudentService: TeacherStudentService,
@@ -37,7 +37,7 @@ export class TeacherStudentComponent implements OnInit {
   ngOnInit(): void {
     this.getATeacher();
     this.getStudents();
-    this.getTimeplan();
+    this.getWeek();
   }
 
 
@@ -216,16 +216,13 @@ export class TeacherStudentComponent implements OnInit {
     )
   }
 
-  assignTimeplan() {
+  assignWeek() {
     let selectedStudent = this.students.filter(s => s.isSelected);
-    let dialogRef = this.dialog.open(TeacherStudentTimeplanComponent, {data:{students:selectedStudent, timeplan:this.timeplan}});
+    let dialogRef = this.dialog.open(TeacherStudentWeekComponent, {data:{students:selectedStudent, week:this.week}});
 
-    dialogRef.afterClosed().subscribe(result => {
-      if(result) {
-        this.openSnackBar('Horaire mis à jour');
-      } else {
-        this.openSnackBar('Horaire pas changé');
-      }
+    dialogRef.afterClosed().subscribe(
+      () => {
+      this.openSnackBar('Horaire mis à jour');
       this.getStudents();
       this.onAll();
     })
@@ -250,22 +247,22 @@ export class TeacherStudentComponent implements OnInit {
     }
   }
 
-  getTimeplan(): void {
-    this.teacherStudentService.getTimeplan()
+  getWeek(): void {
+    this.teacherStudentService.getWeek()
     .subscribe(
-      timeplans => {
-        this.timeplan=[];
-        for (let t of timeplans) {
-          this.timeplan.push({name:t.name,id:t._id})
+      weeks => {
+        this.week=[];
+        for (let t of weeks) {
+          this.week.push({name:t.name,id:t._id})
         }
       },
       error => console.log(error)
     )
   }
 
-  getTimeplanName(id) {
+  getWeekName(id) {
     let out = "";
-    this.timeplan.map(t => {
+    this.week.map(t => {
       if(t.id == id){
         out = t.name;
       }

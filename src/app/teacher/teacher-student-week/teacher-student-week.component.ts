@@ -5,14 +5,14 @@ import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 
 
 @Component({
-  selector: 'app-teacher-student-timeplan',
-  templateUrl: './teacher-student-timeplan.component.html',
-  styleUrls: ['./teacher-student-timeplan.component.scss']
+  selector: 'app-teacher-student-week',
+  templateUrl: './teacher-student-week.component.html',
+  styleUrls: ['./teacher-student-week.component.scss']
 })
-export class TeacherStudentTimeplanComponent implements OnInit {
+export class TeacherStudentWeekComponent implements OnInit {
   students;
-  timeplan;
-  selectedTimeplan:string;
+  weeks;
+  selectedWeek:string;
   teacher;
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private teacherStudentService: TeacherStudentService) { }
 
@@ -22,14 +22,15 @@ export class TeacherStudentTimeplanComponent implements OnInit {
   }
 
   getModalData() {
-    this.timeplan = this.data.timeplan;
+    this.weeks = this.data.week;
     this.students = this.data.students;
   }
 
-  updateStudentTimeplan() {
+  updateStudentWeek() {
     this.students.forEach(student => {
-      let payload = {timeplan: this.selectedTimeplan, _id:student._id};
-      this.teacherStudentService.updateStudentTimeplan(payload).subscribe(
+      let payload = {weekId: this.selectedWeek, _id:student._id};
+      this.teacherStudentService.updateStudentWeek(payload)
+      .subscribe(
         () => {
           let payload2 = {
             "teacher": this.teacher.firstname + " " + this.teacher.lastname,

@@ -10,7 +10,7 @@ const clockMachineSchema = mongoose.Schema({
   lateArrivalNotification: {type: Boolean, required:false, default:true},
   earlyDepartureNotification: {type: Boolean, required:false, default:true},
   unallowedPresenceNotification: {type: Boolean, required:false, default:true},
-  timeplan: {type: String, required:false},
+  defaultWeek: {type: String, required:false},
   sound: {type: Object, required:false, default:{clockIn:"in_PauseMenu_Open.wav",clockOff:"out_PauseMenu_Close.wav",info:"info_connection_lost.wav",error:"in_Fanfare_Item_Small.wav"}},
 });
 

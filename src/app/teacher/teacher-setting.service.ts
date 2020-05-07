@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class TeacherSettingService {
   private teacherUrl = 'http://localhost:3000/api/teacher-setting';
-  private adminUrl = 'http://localhost:4000/api/admin-data-timeplan';
+  private adminUrl = 'http://localhost:4000/api/admin-data-week';
   private auth = 'Bearer '+ localStorage.getItem("token");
   private httpOptions = {
     headers: new HttpHeaders({
@@ -28,8 +28,8 @@ export class TeacherSettingService {
     return this.http.get<any>(url, this.httpOptions);
   }
 
-  getTimeplan() {
-    const url = this.adminUrl + "/timeplan";
+  getDefaultWeek() {
+    const url = this.adminUrl;
     return this.http.get<any>(url, this.httpOptions);
   }
 
@@ -48,8 +48,8 @@ export class TeacherSettingService {
     return this.http.post<any>(url, payload, this.httpOptions);
   }
 
-  updateClockMachineTimeplan(payload) {
-    const url = this.teacherUrl + "/timeplan";
+  updateClockMachineDefaultWeek(payload) {
+    const url = this.teacherUrl + "/week";
     return this.http.post<any>(url, payload, this.httpOptions);
   }
 
