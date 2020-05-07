@@ -1,5 +1,7 @@
 const ClockMachine = require('../data-schematic/clock-machine-schematic');
 const User = require('../data-schematic/user-schematic');
+const Log = require('../data-schematic/log-schematic');
+const Incident = require('../data-schematic/incident-schematic');
 
 exports.createClockMachine = (machine) => {
   return new Promise( (resolve, reject) => {
@@ -81,6 +83,30 @@ exports.updateClockMachineVolume = (payload) => {
     )
     .catch(
       (error) => reject("Impossible de mettre à jour le volume <= "+error)
+    )
+  })
+}
+
+exports.deleteLog = () => {
+  return new Promise( (resolve, reject) => {
+    Log.remove()
+    .then(
+      () => resolve("Tous les logs sont supprimés")
+    )
+    .catch(
+      error => reject("Impossible de supprimer les logs <= " + error)
+    )
+  })
+}
+
+exports.deleteIncident = () => {
+  return new Promise( (resolve, reject) => {
+    Incident.remove()
+    .then(
+      () => resolve("Tous les incidents sont supprimés")
+    )
+    .catch(
+      error => reject("Impossible de supprimer les incidents <= " + error)
     )
   })
 }

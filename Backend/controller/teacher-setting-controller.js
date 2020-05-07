@@ -72,3 +72,23 @@ exports.updateClockMachineDefaultWeek = (req, res) => {
     error => res.status(500).json(" Impossible de mettre à jour la semaine par défaut <= ")
   )
 }
+
+exports.deleteLog = (req, res) => {
+  action.deleteLog()
+  .then(
+    () => res.status(200).json("Logs supprimé")
+  )
+  .catch(
+    error => res.status(500).json("Impossible to delete logs <= " + error)
+  )
+}
+
+exports.deleteIncident = (req, res) => {
+  action.deleteIncident()
+  .then(
+    () => res.status(200).json("Logs supprimé")
+  )
+  .catch(
+    error => res.status(500).json("Impossible to delete logs <= " + error)
+  )
+}

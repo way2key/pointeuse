@@ -137,6 +137,14 @@ export class TeacherSettingComponent implements OnInit {
     )
   }
 
+  deleteLog(): void {
+    this.teacherSettingService.deleteLog().subscribe();
+  }
+
+  deleteIncident(): void {
+    this.teacherSettingService.deleteIncident().subscribe();
+  }
+
   playSound(): void {
     let path = "../../../assets/sound/"+this.soundToPlay;
     const sound = new Howl({

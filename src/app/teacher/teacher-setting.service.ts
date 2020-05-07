@@ -57,4 +57,14 @@ export class TeacherSettingService {
     const url = this.teacherUrl + "/sound";
     return this.http.post<any>(url, payload, this.httpOptions);
   }
+
+  deleteLog() {
+    const url = this.teacherUrl + "/log";
+    return this.http.delete<any>(url, this.httpOptions);
+  }
+
+  deleteIncident() {
+    const url = this.teacherUrl + "/log";
+    return this.http.delete<any>(url, this.httpOptions);
+  }
 }

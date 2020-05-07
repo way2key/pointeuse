@@ -216,7 +216,7 @@ export class TeacherStudentComponent implements OnInit {
         this.onAll();
         this.getStudents();
       },
-      (error) => {
+      error => {
         this.openSnackBar(error.error);
         this.onAll();
         this.getStudents();
@@ -273,7 +273,7 @@ export class TeacherStudentComponent implements OnInit {
         this.onAll();
         this.getStudents();
       },
-      (error) => {
+      error => {
         this.openSnackBar(error.error);
         this.onAll();
         this.getStudents();
@@ -283,7 +283,7 @@ export class TeacherStudentComponent implements OnInit {
 
   openSnackBar(message: string) {
     this.snackBar.open(message, 'FERMER', {
-      duration: 2000,
+      duration: 4000,
     })
   }
 

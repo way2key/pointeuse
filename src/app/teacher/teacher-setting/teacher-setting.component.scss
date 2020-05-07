@@ -12,3 +12,11 @@
   align-items: baseline;
   justify-content: space-around;
 }
+
+.dangerButton {
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  justify-content: space-around;
+  margin: 1em;
+}

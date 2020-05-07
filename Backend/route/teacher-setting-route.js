@@ -11,5 +11,7 @@ router.post('/volume', auth, teacherSettingController.updateClockMachineVolume);
 router.post('/week', auth, teacherSettingController.updateClockMachineDefaultWeek);
 router.post('/sound', auth, teacherSettingController.updateClockMachineSound);
 router.get('/:clockMachineId', teacherSettingController.getClockMachine);
+router.delete('/log', auth, teacherSettingController.deleteLog);
+router.delete('/incident', auth, teacherSettingController.deleteIncident);
 
 module.exports = router;

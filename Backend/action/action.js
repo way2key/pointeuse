@@ -44,6 +44,8 @@ const action = {
   dailyTimeNotCompletedIncident: incidentService.dailyTimeNotCompletedIncident,
   getStudentDayTimeFromStudentHash: dayTimeService.getStudentDayTimeFromStudentHash,
   getStudentDayTimeFromDayId: dayTimeService.getStudentDayTimeFromDayId,
+  deleteLog: clockMachineService.deleteLog,
+  deleteIncident: clockMachineService.deleteIncident,
   createClockMachine: clockMachineService.createClockMachine,
   getClockMachine: clockMachineService.getClockMachine,
   updateClockMachineSound: clockMachineService.updateClockMachineSound,
