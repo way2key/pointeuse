@@ -89,7 +89,7 @@ exports.updateClockMachineVolume = (payload) => {
 
 exports.deleteLog = () => {
   return new Promise( (resolve, reject) => {
-    Log.remove()
+    Log.deleteMany()
     .then(
       () => resolve("Tous les logs sont supprimés")
     )
@@ -101,7 +101,7 @@ exports.deleteLog = () => {
 
 exports.deleteIncident = () => {
   return new Promise( (resolve, reject) => {
-    Incident.remove()
+    Incident.deleteMany()
     .then(
       () => resolve("Tous les incidents sont supprimés")
     )

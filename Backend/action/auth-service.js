@@ -8,7 +8,7 @@ exports.isAuthenticatedOnServer = (token) => {
      (connected) => resolve(connected)
    )
    .catch(
-     error => reject("requête invalide <=" + error)
+     error => reject("requête invalide <= " + error)
    )
  })
 }

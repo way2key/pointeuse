@@ -53,16 +53,20 @@ exports.getStudentClockFromDayId = (dayId) => {
 exports.clockAStudent = (studentHash) => {
   return new Promise( (resolve, reject) => {
     let dayId;
+    let newClock;
     dayService.getStudentCurrentDay(studentHash)
     .then(
       dayId => {
         this.dayId = dayId;
-        const newClock = new Clock({
+        this.newClock = new Clock({
           dayId: dayId,
           time: moment().format("HH:mm:ss")
         });
-        return newClock.save();
+        return incidentService.controlInstantIncident(studentHash, this.newClock._id);
       }
+    )
+    .then(
+      () => {return this.newClock.save();}
     )
     .then(
       () => {
@@ -70,15 +74,10 @@ exports.clockAStudent = (studentHash) => {
       }
     )
     .then(
-      () => {
-        incidentService.clockIncidentCheck(studentHash);
-      }
-    )
-    .then(
       () => resolve("Clock créé")
     )
     .catch(
-      (error) => reject("Clock non créé <= " + error)
+      error => reject("Clock non créé <= " + error)
     )
   })
 }
