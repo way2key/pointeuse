@@ -218,7 +218,6 @@ exports.latenessArrivalIncident = (student) => {
     return new Promise( (resolve,reject) => {
       let sTimeplan;
       let sClock;
-      let sHoliday;
 
       //getStudentWeek + timeplan
       let getStudentTimeplan = new Promise( (resolve, reject) => {
@@ -275,33 +274,96 @@ exports.latenessArrivalIncident = (student) => {
       .then(
         data => {
           //Control
-          let late = (sClock.filter(c => moment.duration(sClock.time).as('seconds') > moment.duration(sTimeplan.startOfDay).as('seconds')).length === 0)
-          if(late){
-            this.saveNewIncident(student._id, "Retard");
+          if(false){
+            let late = (sClock.filter(c => moment.duration(sClock.time).as('seconds') > moment.duration(sTimeplan.startOfDay).as('seconds')).length === 0)
+            if(late){
+              this.saveNewIncident(student._id, "Retard");
+            }
           }
           resolve();
         }
       )
-      .catch(
-        error => reject(error)
-      )
-
-
-
+      .catch(error => reject(error))
     });
   }
 
 exports.unallowedPresenceIncident = (student, clockId) => {
     return new Promise( (resolve,reject) => {
+      let sTimeplan;
+      let sHoliday;
+
+      //getStudentWeek + timeplan
+      let getStudentTimeplan = new Promise( (resolve, reject) => {
+        let weekUrl = 'http://localhost:4000/api/admin-data-week/' + student.weekId;
+        fetch(weekUrl)
+        .then(res => res.json())
+        .then(
+          week => {
+            switch (moment().day()) {
+              case 0:
+              timeplanId = week.sunday;
+              break;
+              case 1:
+              timeplanId = week.monday;
+              break;
+              case 2:
+              timeplanId = week.tuesday;
+              break;
+              case 3:
+              timeplanId = week.wednesday;
+              break;
+              case 4:
+              timeplanId = week.thursday;
+              break;
+              case 5:
+              timeplanId = week.friday;
+              break;
+              case 6:
+              timeplanId = week.saturday;
+            }
+            let url2 = 'http://localhost:4000/api/admin-data-timeplan/timeplan/' + timeplanId;
+            return fetch(url2);
+          }
+        )
+        .then(res => res.json())
+        .then(timeplan => {
+          sTimeplan = timeplan;
+          resolve();
+        })
+        .catch(error => reject("Impossible de récupérer l'horaire <= " + error))
+      });
+
       //getHoliday
       let getHoliday = new Promise( (resolve, reject) => {
         let holidayUrl = 'http://localhost:4000/api/admin-data-holiday/';
         fetch(holidayUrl)
         .then(res => res.json())
-        .then(holiday => sHoliday = holiday)
+        .then(holiday => {
+          sHoliday = holiday;
+          resolve();
+        })
         .catch(error => reject("Impossible de récupérer les jours fériés <= " + error))
       })
-      resolve();
+
+      Promise.all([getStudentTimeplan, getHoliday])
+      .then(
+        data => {
+          //Control
+          if(true){
+            let now = moment();
+            let time = moment.duration(now.format('HH:mm:ss')).asSeconds();
+            let start = moment.duration(sTimeplan.startOfDay,"HH:mm:ss").asSeconds();
+            let end = moment.duration(sTimeplan.endOfDay,"HH:mm:ss").asSeconds();
+            let outsideSchedule = ( (time < start) || ( time > end) );
+            let forbiddenDay = (sHoliday.filter(holiday => now.isBetween(moment(holiday.startDate,"YYYY/MM/DD").startOf('day'), moment(holiday.endDate,"YYYY/MM/DD").endOf('day'))).length > 0);
+            if(false || forbiddenDay){
+              this.saveNewIncident(student._id, "Présence non Autorisée");
+            }
+          }
+          resolve();
+        }
+      )
+      .catch(error => reject(error))
     });
 }
 
