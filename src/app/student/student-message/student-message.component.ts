@@ -14,6 +14,7 @@ export class StudentMessageComponent implements OnInit {
   student;
   clockMachineId="5eac2b3d197357249cc24249";
   sound;
+  error;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private studentService: StudentService) { }
 
@@ -45,8 +46,9 @@ export class StudentMessageComponent implements OnInit {
       }
     )
     .catch(
-      () => {
+      error => {
         this.message = 0;
+        this.error = error;
         this.sound.error.play();
       }
     )

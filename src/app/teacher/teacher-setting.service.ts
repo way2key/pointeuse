@@ -64,7 +64,7 @@ export class TeacherSettingService {
   }
 
   deleteIncident() {
-    const url = this.teacherUrl + "/log";
+    const url = this.teacherUrl + "/incident";
     return this.http.delete<any>(url, this.httpOptions);
   }
 }

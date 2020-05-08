@@ -56,8 +56,6 @@ exports.saveNewIncident = (studentId, type) => {
 
 }
 
-/*
-//wtf
 exports.checkIncident = (incident) => {
   return new Promise( (resolve,reject) => {
     Incident.updateOne({_id:incident._id},{$set:{treated: true}})
@@ -73,6 +71,8 @@ exports.checkIncident = (incident) => {
     )
   });
 }
+/*
+//wtf
 
 exports.checkStudentBreather = student => {
   return new Promise( (resolve,reject) => {
@@ -214,12 +214,16 @@ exports.controlWeeklyIncident = () => {
 
 // Incident
 //instant
-exports.latenessArrivalIncident = (student, clockId) => {
+exports.latenessArrivalIncident = (student) => {
     return new Promise( (resolve,reject) => {
-      //getStudentWeek
-      let url = 'http://localhost:4000/api/admin-data-week/' + student.weekId;
-      console.log(url);
-      fetch(url)
+      //data
+      let studentTimeplan;
+      let studentClock;
+      let studentHoliday;
+
+      //getStudentWeek + timeplan
+      let weekUrl = 'http://localhost:4000/api/admin-data-week/' + student.weekId;
+      fetch(weekUrl)
       .then(res => res.json())
       .then(
         week => {
@@ -245,21 +249,34 @@ exports.latenessArrivalIncident = (student, clockId) => {
             case 6:
               timeplanId = week.saturday;
           }
-          //getStudentTimeplan
           let url2 = 'http://localhost:4000/api/admin-data-timeplan/timeplan/' + timeplanId;
           return fetch(url2);
         }
       )
       .then(res => res.json())
-      .then(
-        timeplan => {
-          this.timeplan = timeplan
-          resolve()
-        }
-      )
-      .catch(
-        error => reject("requête invalide <= " + error)
-      )
+      .then(timeplan => {
+        studentTimeplan="framboise"
+      })
+      .catch(error => reject("Impossible de récupérer l'horaire <= " + error))
+      console.log(studentTimeplan);
+      //getClock
+      clockService.getStudentClockFromHash(student.hash)
+      .then(clocks => {})
+      .catch(error => reject("Impossible de récupérer le temps de pointage <= " + error))
+
+      //getHoliday
+      let holidayUrl = 'http://localhost:4000/api/admin-data-holiday/';
+      fetch(holidayUrl)
+      .then(res => res.json())
+      .then(holiday => {})
+      .catch(error => reject("Impossible de récupérer les jours fériés <= " + error))
+
+      //Control
+      if(true){
+        this.saveNewIncident(student._id, "Retard");
+      }
+      resolve();
+
     });
   }
 

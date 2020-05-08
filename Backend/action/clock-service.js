@@ -50,6 +50,18 @@ exports.getStudentClockFromDayId = (dayId) => {
   });
 }
 
+exports.getAClockFromId = (clockId) => {
+  return new Promise( (resolve, reject) => {
+    Clock.findOne({_id: clockId})
+    .then(
+      clock => resolve(clock)
+    )
+    .catch(
+      error => reject("Impossible de récupérer la clock <= " + error)
+    )
+  })
+}
+
 exports.clockAStudent = (studentHash) => {
   return new Promise( (resolve, reject) => {
     let dayId;
@@ -62,11 +74,13 @@ exports.clockAStudent = (studentHash) => {
           dayId: dayId,
           time: moment().format("HH:mm:ss")
         });
-        return incidentService.controlInstantIncident(studentHash, this.newClock._id);
+        return this.newClock.save();
       }
     )
     .then(
-      () => {return this.newClock.save();}
+      () => {
+        return incidentService.controlInstantIncident(studentHash, this.newClock._id);
+      }
     )
     .then(
       () => {

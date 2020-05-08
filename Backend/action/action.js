@@ -1,4 +1,3 @@
-const testAction = require('./test.js');
 const statusService = require('./status-service.js');
 const dayService = require('./day-service.js');
 const clockService = require('./clock-service.js');
@@ -11,28 +10,37 @@ const dayTimeService = require('./dayTime-service.js');
 const clockMachineService = require("./clock-machine-service.js");
 const authService = require("./auth-service");
 const soundService = require("./sound-service");
+
 const action = {
-  test: testAction.test,
   createDay: dayService.createDay,
   createDayForEachUser: dayService.createDayForEachUser,
   getStudentCurrentDay: dayService.getStudentCurrentDay,
   getStudentSpecificDayId: dayService.getStudentSpecificDayId,
   isTodayDayExistingForStudent: dayService.isTodayDayExistingForStudent,
+
   getTeacherFromToken: tokenService.getTeacherFromToken,
+
   checkClockStatus: statusService.checkClockStatus,
   checkStudentStatus: statusService.checkStudentStatus,
+
   clockAStudent: clockService.clockAStudent,
   getStudentClockFromHash: clockService.getStudentClockFromHash,
   getStudentClockFromDayId: clockService.getStudentClockFromDayId,
+
   checkStudentPresence: presenceService.checkStudentPresence,
+
   getStudentFromHash: studentService.getStudentFromHash,
   getStudentMeal: studentService.getStudentMeal,
   updateStudentWeek: studentService.updateStudentWeek,
   getStudentBreather: studentService.getStudentBreather,
   updateStudentHash: studentService.updateStudentHash,
   deleteStudent: studentService.deleteStudent,
+
   updatePerformedTime: performedTimeService.updatePerformedTime,
   modifyPerformedTime: performedTimeService.modifyPerformedTime,
+
+  dailyIncidentCheck: incidentService.dailyIncidentCheck,
+  weeklyIncidentCheck: incidentService.weeklyIncidentCheck,
   checkIncident: incidentService.checkIncident,
   quotaTimeIncident: incidentService.quotaTimeIncident,
   getTreatedIncident: incidentService.getTreatedIncident,
@@ -42,18 +50,19 @@ const action = {
   latenessArrivalIncident: incidentService.latenessArrivalIncident,
   unallowedPresenceIncident: incidentService.unallowedPresenceIncident,
   dailyTimeNotCompletedIncident: incidentService.dailyTimeNotCompletedIncident,
-  getStudentDayTimeFromStudentHash: dayTimeService.getStudentDayTimeFromStudentHash,
+
   getStudentDayTimeFromDayId: dayTimeService.getStudentDayTimeFromDayId,
-  deleteLog: clockMachineService.deleteLog,
-  deleteIncident: clockMachineService.deleteIncident,
+  getStudentDayTimeFromStudentHash: dayTimeService.getStudentDayTimeFromStudentHash,
+
   createClockMachine: clockMachineService.createClockMachine,
   getClockMachine: clockMachineService.getClockMachine,
   updateClockMachineSound: clockMachineService.updateClockMachineSound,
   updateClockMachineVolume: clockMachineService.updateClockMachineVolume,
   updateClockMachineDefaultWeek: clockMachineService.updateClockMachineDefaultWeek,
   updateClockMachineNotification: clockMachineService.updateClockMachineNotification,
-  dailyIncidentCheck: incidentService.dailyIncidentCheck,
-  weeklyIncidentCheck: incidentService.weeklyIncidentCheck,
+  deleteLog: clockMachineService.deleteLog,
+  deleteIncident: clockMachineService.deleteIncident,
+
   isAuthenticatedOnServer: authService.isAuthenticatedOnServer,
   getSound: soundService.getSound,
 }
