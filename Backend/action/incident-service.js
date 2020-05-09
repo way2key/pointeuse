@@ -1,10 +1,12 @@
 const teacherDB = require('../database/teacherDB');
 const moment = require('moment');
-const clockService = require('./clock-service.js');
-const dayService = require('./day-service.js')
-const dayTimeService = require('./dayTime-service.js')
-const studentService = require('./student-service.js')
-const presenceService = require('./presence-service.js')
+const clockService = require('./clock-service');
+const dayService = require('./day-service');
+const dayTimeService = require('./dayTime-service');
+const studentService = require('./student-service');
+const presenceService = require('./presence-service');
+const clockMachineService = require('./clock-machine-service');
+const clockMachineId = require('../clockMachineId');
 const fetch = require('node-fetch');
 
 const Day = require('../data-schematic/day-schematic');
@@ -75,15 +77,28 @@ exports.checkIncident = (incident) => {
 // Incident launcher
 exports.controlInstantIncident = (studentHash, clockId) => {
   return new Promise( (resolve, reject) => {
-    //getStudent
-    studentService.getStudentFromHash(studentHash)
+    let setting;
+    clockMachineService.getClockMachine(clockMachineId)
+    .then(
+      clockMachine => {
+        setting = clockMachine;
+        //getStudent
+        return studentService.getStudentFromHash(studentHash);
+      }
+    )
     .then(
       student => {
-        const incidentToControl = [
-          this.latenessArrivalIncident(student, clockId),
-          this.unallowedPresenceIncident(student, clockId),
-        ]
-        return Promise.all(incidentToControl);
+        let incidentToControl = [];
+        if(setting.lateArrivalNotification){
+          incidentToControl.push(this.latenessArrivalIncident(student, clockId));
+        }
+        if(setting.unallowedPresenceNotification){
+          incidentToControl.push(this.unallowedPresenceIncident(student, clockId));
+        }
+        if(incidentToControl){
+          return Promise.all(incidentToControl);
+        }
+        resolve();
       }
     )
     .then(
@@ -97,15 +112,27 @@ exports.controlInstantIncident = (studentHash, clockId) => {
 
 exports.controlDailyIncident = () => {
   return new Promise( (resolve, reject) => {
-    User.find({type:0})
+    let setting;
+    clockMachineService.getClockMachine(clockMachineId)
+    .then(
+      clockMachine => {
+        setting = clockMachine;
+        return User.find({type:0});
+      }
+    )
     .then(
       students => {
         const studentPromises = students.map(student => {
-          const incidentPromises = [
-            this.dailyTimeNotCompletedIncident(student),
-            this.hastyDepartureIncident(student),
-            this.clockOversightIncident(student)
-          ]
+          let incidentPromises = [];
+          if(setting.insufficientDayTimeQuotaNotification){
+            incidentPromises.push(this.dailyTimeNotCompletedIncident(student));
+          }
+          if(setting.earlyDepartureNotification){
+            incidentPromises.push(this.hastyDepartureIncident(student));
+          }
+          if(setting.clockingOversightNotification){
+            incidentPromises.push(this.clockOversightIncident(student));
+          }
           return Promise.all(incidentPromises);
         });
         return Promise.all(studentPromises);
@@ -205,8 +232,6 @@ exports.latenessArrivalIncident = (student) => {
         data => {
           //Control
           if(true){
-            console.log(sClock);
-            console.log(sClock.filter(c => moment.duration(c.time).as('seconds') < moment.duration(sTimeplan.shift[0].start).as('seconds')));
             let late = (sClock.filter(c => moment.duration(c.time).as('seconds') < moment.duration(sTimeplan.shift[0].start).as('seconds')).length === 0)
             if(late){
               this.saveNewIncident(student._id, "Retard");
