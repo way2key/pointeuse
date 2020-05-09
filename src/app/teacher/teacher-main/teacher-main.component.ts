@@ -25,7 +25,8 @@ export class TeacherMainComponent implements OnInit {
   }
 
   getTeacher(): void {
-    this.teacherDashboardService.getTeacher().subscribe(
+    this.teacherDashboardService.getTeacher(localStorage.getItem('token'))
+    .subscribe(
       teacher => this.teacher = teacher
     )
   }

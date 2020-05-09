@@ -29,13 +29,15 @@ export class TeacherDashboardComponent implements OnInit {
   }
 
   getTeacher(): void {
-    this.teacherDashboardService.getTeacher().subscribe(
+    this.teacherDashboardService.getTeacher(localStorage.getItem('token'))
+    .subscribe(
       teacher => this.teacher = teacher
     )
   }
 
   getIncident(): void {
-    this.teacherDashboardService.getIncident().subscribe(
+    this.teacherDashboardService.getIncident()
+    .subscribe(
       incidents => {
         this.dataSource.data = this.getStudentNames(incidents);
       }

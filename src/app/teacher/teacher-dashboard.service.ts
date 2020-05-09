@@ -6,7 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class TeacherDashboardService {
-  private TeacherUrl = 'http://localhost:3000/api/teacher-dashboard/teacher';
+  private TeacherUrl = 'http://localhost:4000/api/server/user/';
   private IncidentUrl = 'http://localhost:3000/api/teacher-dashboard/incident';
   private auth = 'Bearer '+ localStorage.getItem("token");
   private httpOptions = {
@@ -17,8 +17,9 @@ export class TeacherDashboardService {
   };
   constructor(private http: HttpClient) { }
 
-  getTeacher(): Observable<any> {
-    return this.http.get<any>(this.TeacherUrl, this.httpOptions);
+  getTeacher(token): Observable<any> {
+    const url = this.TeacherUrl + token;
+    return this.http.get<any>(url, this.httpOptions);
   }
 
   getIncident(): Observable<any> {
