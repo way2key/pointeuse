@@ -416,32 +416,21 @@ exports.hastyDepartureIncident = student => {
 
 exports.clockOversightIncident = student => {
   return new Promise( (resolve,reject) => {
-    /*let date = moment().format('YYYY/MM/DD');
-    dayService.getStudentSpecificDayId(student.hash, date)
+    clockService.getStudentClockFromHash(student.hash)
     .then(
-      (day) => {
-        return clockService.getStudentClockFromDayId(day);
-      }
-    )
-    .then(
-      (clocks) => {
-        if(clocks.length % 2 === 0) {
-          resolve('Timbrage verifié avec succès');
-        } else {
-          this.saveNewIncident(studentId, "Oubli de timbrage");
+      clocks => {
+        //Control
+        if(clocks.length % 2 != 0) {
+          this.saveNewIncident(student._id, "Oubli de timbrage");
         }
-      }
-    )
-    .then(
-      () => {
-        resolve('Timbrage verifié avec succès')
+        resolve('Timbrage verifié avec succès');
       }
     )
     .catch(
       error => {
-        reject(error);
+        reject("Impossible de vérifier l'oubli de timbrage <= " + error);
       }
-    )*/
+    )
   });
 }
 

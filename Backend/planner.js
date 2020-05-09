@@ -18,19 +18,18 @@ const action = require('./action/action');
 
  https://www.npmjs.com/package/node-cron
 */
-action.controlDailyIncident();
 //action.createDayForEachUser();
 // Crée les days tous les jours à 00:00:01s
 cron.schedule('00 00 00 * * *', () => {
   action.createDayForEachUser();
 });
 
-// Crée les days tous les jours à 00:00:01s
-cron.schedule('00 00 00 * * *', () => {
+// Contrôle les incidents quotidiens
+cron.schedule('00 59 23 * * *', () => {
   action.controlDailyIncident();
 });
 
-// Contrôle chaque semaine à 00:00
+// Contrôle les incidents hebdomadaires
 cron.schedule('00 00 00 * * Sun', () => {
   action.controlWeeklyIncident();
 });
