@@ -302,75 +302,148 @@ exports.unallowedPresenceIncident = (student, clockId) => {
 //daily
 exports.dailyTimeNotCompletedIncident = student => {
     return new Promise( (resolve,reject) => {
-      let requiredDayTime = "8"; //récupérer heures à faire du daypPlan
-      dayTimeService.getStudentDayTimeFromStudentHash(studentHash)
+      let sTimeplan;
+
+      let weekUrl = 'http://localhost:4000/api/admin-data-week/' + student.weekId;
+      fetch(weekUrl)
+      .then(res => res.json())
       .then(
-        time => {
-          if(time < requiredDayTime) {
-            return module.exports.saveNewIncident(studentId, "Quota journalier insuffisant");
+        week => {
+          switch (moment().day()) {
+            case 0:
+            timeplanId = week.sunday;
+            break;
+            case 1:
+            timeplanId = week.monday;
+            break;
+            case 2:
+            timeplanId = week.tuesday;
+            break;
+            case 3:
+            timeplanId = week.wednesday;
+            break;
+            case 4:
+            timeplanId = week.thursday;
+            break;
+            case 5:
+            timeplanId = week.friday;
+            break;
+            case 6:
+            timeplanId = week.saturday;
           }
+          let url2 = 'http://localhost:4000/api/admin-data-timeplan/timeplan/' + timeplanId;
+          return fetch(url2).then(res => res.json());
         }
       )
       .then(
-        resolve()
+        timeplan => {
+          sTimeplan = timeplan;
+          return dayTimeService.getStudentDayTimeFromStudentHash(student.hash)
+        }
+      )
+      .then(
+        time => {
+          //Control
+          if(false){
+            if(time < sTimeplan.requiredTime){
+              this.saveNewIncident(student._id, "Temps quotidien insuffisant");
+            }
+          }
+          resolve();
+        }
       )
       .catch(
-        reject()
+        error => reject("Impossible de vérifier le temps quotidien <= " + error)
       )
     });
   }
 
 exports.hastyDepartureIncident = student => {
     return new Promise( (resolve,reject) => {
-      let timeEnd = "16:00" // rechercher heure de fin dans shift
-      clockService.getStudentClockFromHash(studentHash)
+      let sTimeplan;
+      let weekUrl = 'http://localhost:4000/api/admin-data-week/' + student.weekId;
+      fetch(weekUrl)
+      .then(res => res.json())
       .then(
-        clocks => {
-          if(clocks.length % 2 === 0) {
-            if(clocks[clocks.length - 1].time < timeEnd) {
-              return module.exports.saveNewIncident(studentId, "Départ en avance");
-            }
+        week => {
+          switch (moment().day()) {
+            case 0:
+            timeplanId = week.sunday;
+            break;
+            case 1:
+            timeplanId = week.monday;
+            break;
+            case 2:
+            timeplanId = week.tuesday;
+            break;
+            case 3:
+            timeplanId = week.wednesday;
+            break;
+            case 4:
+            timeplanId = week.thursday;
+            break;
+            case 5:
+            timeplanId = week.friday;
+            break;
+            case 6:
+            timeplanId = week.saturday;
           }
+          let url2 = 'http://localhost:4000/api/admin-data-timeplan/timeplan/' + timeplanId;
+          return fetch(url2).then(res => res.json());
         }
       )
       .then(
-        resolve()
+        timeplan => {
+          sTimeplan = timeplan;
+          return clockService.getStudentClockFromHash(student.hash)
+        }
+      )
+      .then(
+        clocks => {
+          if(clocks.length && sTimeplan.shift){
+            if(moment.duration(clocks[clocks.length - 1].time).as('seconds') < moment.duration(sTimeplan.shift[sTimeplan.shift.length-1].end).as('seconds')) {
+              this.saveNewIncident(studentId, "Départ en avance");
+            }
+          }
+          resolve();
+        }
       )
       .catch(
-        reject()
+        error => reject("Impossible de vérifier les départs en avances <= " + error)
       )
     });
   }
 
 exports.clockOversightIncident = student => {
-      return new Promise( (resolve,reject) => {
-        let date = moment().format('YYYY/MM/DD');
-        dayService.getStudentSpecificDayId(studentHash, date)
-        .then(
-          (day) => {
-            return clockService.getStudentClockFromDayId(day);
-          }
-        )
-        .then(
-          (clocks) => {
-            if(clocks.length % 2 === 0) {
-              resolve('Timbrage verifié avec succès');
-            } else {
-              return module.exports.saveNewIncident(studentId, "Oubli de timbrage");
-            }
-          }
-        )
-        .then(
-          () => {
-            resolve('Timbrage verifié avec succès')
-          })
-          .catch(
-            error => {
-              reject(error);
-            }
-          )
-        });
+  return new Promise( (resolve,reject) => {
+    /*let date = moment().format('YYYY/MM/DD');
+    dayService.getStudentSpecificDayId(student.hash, date)
+    .then(
+      (day) => {
+        return clockService.getStudentClockFromDayId(day);
       }
+    )
+    .then(
+      (clocks) => {
+        if(clocks.length % 2 === 0) {
+          resolve('Timbrage verifié avec succès');
+        } else {
+          this.saveNewIncident(studentId, "Oubli de timbrage");
+        }
+      }
+    )
+    .then(
+      () => {
+        resolve('Timbrage verifié avec succès')
+      }
+    )
+    .catch(
+      error => {
+        reject(error);
+      }
+    )*/
+  });
+}
 
 //weekly
 exports.quotaTimeIncident = (student) => {
