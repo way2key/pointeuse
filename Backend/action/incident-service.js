@@ -71,75 +71,6 @@ exports.checkIncident = (incident) => {
     )
   });
 }
-/*
-//wtf
-
-exports.checkStudentBreather = student => {
-  return new Promise( (resolve,reject) => {
-    studentService.getStudentBreather(studentHash)
-    .then(
-      breather => {
-        if(breather) {
-          resolve();
-        } else {
-          return module.exports.saveNewIncident(studentId, "Pas pris de pause")
-        }
-      }
-    )
-    .then(
-      resolve()
-    )
-    .catch(
-      reject()
-    )
-  });
-}
-
-exports.checkStudentMeal = student => {
-  return new Promise( (resolve,reject) => {
-    studentService.getStudentMeal(studentHash)
-    .then(
-      meal => {
-        if(meal) {
-          resolve();
-        } else {
-          module.exports.saveNewIncident(studentId, "Pas pris la pause de midi")
-        }
-      }
-    )
-    .then(
-      resolve()
-    )
-    .catch(
-      reject()
-    )
-  });
-}
-
-exports.clockIncidentCheck = student => {
-  return new Promise( (resolve,reject) => {
-    let student;
-    User.findOne({hash: studentHash})
-    .then(
-      s => {
-        student = s;
-        return module.exports.unallowedPresenceIncident(studentHash, student._id);
-      }
-    )
-    .then(
-      () => {
-        return module.exports.latenessArrivalIncident(studentHash, student._id);
-      }
-    )
-    .then(
-      resolve()
-    )
-    .catch(
-      reject()
-    )
-  })
-}
-*/
 
 // Incident launcher
 exports.controlInstantIncident = (studentHash, clockId) => {
@@ -249,10 +180,9 @@ exports.latenessArrivalIncident = (student) => {
               timeplanId = week.saturday;
             }
             let url2 = 'http://localhost:4000/api/admin-data-timeplan/timeplan/' + timeplanId;
-            return fetch(url2);
+            return fetch(url2).then(res => res.json());
           }
         )
-        .then(res => res.json())
         .then(timeplan => {
           sTimeplan = timeplan;
           resolve();
@@ -274,8 +204,10 @@ exports.latenessArrivalIncident = (student) => {
       .then(
         data => {
           //Control
-          if(false){
-            let late = (sClock.filter(c => moment.duration(sClock.time).as('seconds') > moment.duration(sTimeplan.startOfDay).as('seconds')).length === 0)
+          if(true){
+            console.log(sClock);
+            console.log(sClock.filter(c => moment.duration(c.time).as('seconds') < moment.duration(sTimeplan.shift[0].start).as('seconds')));
+            let late = (sClock.filter(c => moment.duration(c.time).as('seconds') < moment.duration(sTimeplan.shift[0].start).as('seconds')).length === 0)
             if(late){
               this.saveNewIncident(student._id, "Retard");
             }
@@ -441,22 +373,45 @@ exports.clockOversightIncident = student => {
       }
 
 //weekly
-exports.quotaTimeIncident = () => {
+exports.quotaTimeIncident = (student) => {
   return new Promise( (resolve,reject) => {
-    User.find({type:0})
+    let sTimeplan;
+
+    let weekUrl = 'http://localhost:4000/api/admin-data-week/' + student.weekId;
+    fetch(weekUrl)
+    .then(res => res.json())
     .then(
-      students => {
-        for(let student of students) {
-          if(student.performedTime < 0) {
-            this.saveNewIncident(student._id, "Quota Insuffisant");
-          }
+        week => {
+          let monday = week.monday;
+          let tuesday = week.tuesday;
+          let wednesday = week.wednesday;
+          let thursday = week.thursday;
+          let friday = week.friday;
+          let mondayUrl = 'http://localhost:4000/api/admin-data-timeplan/timeplan/' + monday;
+          let tuesdayUrl = 'http://localhost:4000/api/admin-data-timeplan/timeplan/' + tuesday;
+          let wednesdayUrl = 'http://localhost:4000/api/admin-data-timeplan/timeplan/' + wednesday;
+          let thursdayUrl = 'http://localhost:4000/api/admin-data-timeplan/timeplan/' + thursday;
+          let fridayUrl = 'http://localhost:4000/api/admin-data-timeplan/timeplan/' + friday;
+          let mondayPromise = fetch(mondayUrl).then(res => res.json());
+          let tuesdayUrlPromise = fetch(tuesdayUrl).then(res => res.json());
+          let wednesdayPromise = fetch(wednesdayUrl).then(res => res.json());
+          let thursdayPromise = fetch(thursdayUrl).then(res => res.json());
+          let fridayPromise = fetch(fridayUrl).then(res => res.json());
+          const promises = [mondayPromise, tuesdayUrlPromise, wednesdayPromise, thursdayPromise, fridayPromise];
+          return Promise.all(promises);
         }
-      })
-    .then(
-      resolve()
-    )
-    .catch(
-      reject()
-    )
+      )
+    .then(timeplans => {
+      sTimeplan = timeplans;
+      let totalTime = 0;
+      for(let t of timeplans){
+        totalTime += t.requiredTime;
+      }rs
+      if(student.performedTime < totalTime){
+        this.saveNewIncident(student._id, "Temps hebdomadaire insuffisant");
+      }
+      resolve();
+    })
+    .catch(error => reject("Impossible de compter le temps hebdomadaires <= " + error))
   });
 }

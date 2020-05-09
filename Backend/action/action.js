@@ -39,8 +39,8 @@ const action = {
   updatePerformedTime: performedTimeService.updatePerformedTime,
   modifyPerformedTime: performedTimeService.modifyPerformedTime,
 
-  dailyIncidentCheck: incidentService.dailyIncidentCheck,
-  weeklyIncidentCheck: incidentService.weeklyIncidentCheck,
+  controlDailyIncident: incidentService.controlDailyIncident,
+  controlWeeklyIncident: incidentService.controlWeeklyIncident,
   checkIncident: incidentService.checkIncident,
   quotaTimeIncident: incidentService.quotaTimeIncident,
   getTreatedIncident: incidentService.getTreatedIncident,
