@@ -149,13 +149,21 @@ exports.controlDailyIncident = () => {
 
 exports.controlWeeklyIncident = () => {
   return new Promise( (resolve, reject) => {
-    User.find({type:0})
+    let setting;
+    clockMachineService.getClockMachine(clockMachineId)
+    .then(
+      clockMachine => {
+        setting = clockMachine;
+        return User.find({type:0});
+      }
+    )
     .then(
       students => {
         const studentPromises = students.map(student => {
-          const incidentPromises = [
-            this.quotaTimeIncident(student),
-          ]
+          let incidentPromises = [];
+          if(setting.insufficientWeekTimeQuotaNotification){
+            incidentPromises.push(this.quotaTimeIncident(student));
+          }
           return Promise.all(incidentPromises);
         });
         return Promise.all(studentPromises);
@@ -165,7 +173,7 @@ exports.controlWeeklyIncident = () => {
       () => resolve("Incidents quotidiens vérifié avec succès")
     )
     .catch(
-      error => reject("Impossible de vérifier les incidents quotidiens <= " + error)
+      error => reject("Impossible de vérifier les incidents hebdomadaires <= " + error)
     )
   })
 }
@@ -493,7 +501,7 @@ exports.quotaTimeIncident = (student) => {
       let totalTime = 0;
       for(let t of timeplans){
         totalTime += t.requiredTime;
-      }rs
+      }
       if(student.performedTime < totalTime){
         this.saveNewIncident(student._id, "Temps hebdomadaire insuffisant");
       }
